@@ -27,3 +27,6 @@ api = Api(app)
 # 3
 init_global_func(app)
 
+# 4
+from app.init_route import init_route_func
+init_route_func(api, api_version)
