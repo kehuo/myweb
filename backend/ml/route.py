@@ -2,7 +2,7 @@
 # @Author: Kevin Huo
 # @LastUpdate: 3/10/2020 8:30 PM
 
-from ml.resources import ExamTagging
+from ml.resources import ExamTagging, Page2
 from common.utils import app_url
 
 
@@ -16,3 +16,7 @@ def ml_route_func(api, version, model):
     """
     # 标注模型
     api.add_resource(ExamTagging, app_url(version, model, '/tagging'))
+
+    # 仅供测试
+    api.add_resource(Page2, app_url(version, model, '/page2'))
+

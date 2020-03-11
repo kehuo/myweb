@@ -5,6 +5,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// 引入 UI控件 所需要的包
+import 'semantic-ui-css/semantic.min.css';
+
 // 当你的 app.js 创建完成后， 因为你已经通过 export 将app.js 中的组件发布了出来, 所以这里可以引入这个已经发布的组件
 import TestA from "./components/test_a"
 import MyApp from "./components/app"

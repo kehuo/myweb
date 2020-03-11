@@ -18,3 +18,14 @@ class ExamTagging(Resource):
         res = exam_tagging_func(args, global_var)
 
         return encoding_resp_utf8(res)
+
+
+class Page2(Resource):
+    def get(self, **auth):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=str, required=False, location='args')
+        args = parser.parse_args()
+
+        res = {"code": "SUCCESS", "data": {"input": "some text"}, "output": "Hello Page2!!"}
+
+        return encoding_resp_utf8(res)
