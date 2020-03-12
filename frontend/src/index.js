@@ -9,7 +9,6 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 
 // 当你的 app.js 创建完成后， 因为你已经通过 export 将app.js 中的组件发布了出来, 所以这里可以引入这个已经发布的组件
-import TestA from "./components/test_a"
 import MyApp from "./components/app"
 
 // 其中, ReactDOM 提供渲染函数，也就是下方这一行所用的函数。
