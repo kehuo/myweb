@@ -11,12 +11,10 @@ class Home extends React.Component{
         return(
             <div>
                 <Segment>
-                    <div>
+                    <div id="title_div">
                         This is Home!
                     </div>
                 </Segment>
-                
-                <Image rounded src={require("./mountain.jpg")}/>
 
                 <Menu>
                     <Menu.Item>
@@ -37,6 +35,8 @@ class Home extends React.Component{
                         </Link>
                     </Menu.Item>
                 </Menu>
+
+                <Image rounded src={require("./mountain.jpg")} style={{width: 596, height: 338}}/>
             </div>
         )
     }

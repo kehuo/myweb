@@ -2,7 +2,7 @@
 # @Author: Kevin Huo
 # @LastUpdate: 3/10/2020 8:30 PM
 
-from ml.resources import ExamTagging, Page2
+from api_models.ml.resources import ExamTagging, Page2
 from common.utils import app_url
 
 

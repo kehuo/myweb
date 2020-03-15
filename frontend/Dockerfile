@@ -1,8 +1,12 @@
-FROM kehuo/centos8_conda:v1
+# 1 docker build -t myweb_frontend:v1 .
+# 2 docker run -d- it -p 8000:3000 myweb_frontend:v1
+# 3 Open browser and access to http://localhost:8000/
+
+FROM kehuo/centos8_npm:v1
 
 WORKDIR /data/project
 
-# ADD ./package.json ./
-# RUN npm -g install gulp@3.9.1  && npm install
-# COPY ./resource/nginx.conf /etc/nginx/
-# COPY ./resource/default.conf /etc/nginx/conf.d/
+ADD ./ ./
+RUN npm install
+
+CMD ["npm", "start"]

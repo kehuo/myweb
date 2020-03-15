@@ -3,11 +3,10 @@
 # @LastUpdate: 3/12/2020 11:17 PM
 
 
-from flask import Response
 from flask_restful import Resource, reqparse
 
 from app.init_global import global_var
-from auth.core.login_logic import handle_login
+from api_models.auth.core.login_logic import handle_login
 
 
 class Login(Resource):

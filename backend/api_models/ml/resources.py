@@ -6,7 +6,7 @@ from flask_restful import Resource, reqparse
 
 from app.init_global import global_var
 from common.utils import encoding_resp_utf8
-from ml.core.exam_tagging import exam_tagging_func
+from api_models.ml.core.exam_tagging import exam_tagging_func
 
 
 class ExamTagging(Resource):

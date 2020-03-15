@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import Home from "./Home/home"
 import Page1 from "./Page1/page1"
 import Page2 from "./Page2/page2"
-import Page3 from "./page3"
+import Page3 from "./Page3/page3"
 import LoginPopup from "./Login/login_popup"
 
 
@@ -26,4 +26,3 @@ class MyApp extends React.Component {
     }
 }
 export default MyApp;
-    

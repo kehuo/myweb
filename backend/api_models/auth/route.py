@@ -4,7 +4,7 @@
 
 
 from common.utils import app_url
-from auth.resources import Login
+from api_models.auth.resources import Login
 
 
 def auth_route_func(api, version, model):
