@@ -10,6 +10,9 @@ from views.azure.azure_ad_redirect_uri import azure_ad_redirect_uri_func
 from views.azure.generate_access_token_req import generate_access_token_req_func
 from views.index import index_func
 
+from views.introduction_to_algorithms.all_funcs_map import introduction_to_algorithms_view_func_map
+# from views.introduction_to_algorithms.smart_method import each_algorithm_view_funcs
+
 
 class RouteInitializer(object):
     def __init__(self, app, api, api_version):
@@ -48,12 +51,17 @@ class RouteInitializer(object):
                               methods=["GET"])
 
         # 3 算法导论全部7部分, 35章节
-        for _part in range(1, 8):
-            for _chapter in range(1, 36):
+        for _part in introduction_to_algorithms_view_func_map:
+            _tmp = introduction_to_algorithms_view_func_map[_part]
+            # _tmp = {1: func1, 2: func2}
+            for _chapter in _tmp:
                 _each_url = "/introduction_to_algorithms/part_%s/chapter_%s" % (_part, _chapter)
                 _each_endpoint = "introduction_to_algorithms/part_%s/chapter_%s" % (_part, _chapter)
-
-                self.app.add_url_rule(_each_url)
+                _each_view_func = _tmp[_chapter]
+                self.app.add_url_rule(_each_url,
+                                      endpoint=_each_endpoint,
+                                      view_func=_each_view_func,
+                                      methods=["GET"])
 
         # 定义错误处理页面
         @self.app.errorhandler(404)

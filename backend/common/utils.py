@@ -2,6 +2,7 @@
 # @Author: Kevin Huo
 # @LastUpdate: 3/10/2020 8:32 PM
 
+import json
 from flask import json, Response
 
 
@@ -20,3 +21,9 @@ def encoding_resp_utf8(data):
     json_response = json.dumps(data, ensure_ascii=False)
     response = Response(json_response, content_type="application/json; charset=utf-8")
     return response
+
+
+def load_json_file(path):
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
