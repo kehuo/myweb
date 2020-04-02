@@ -1,54 +1,143 @@
-{%extends "bootstrap/base.html"%}
+<!DOCTYPE html>
+<html>
+    <! -- BootStrap 官网 https://v3.bootcss.com/components/?#nav -->
+    {%extends "bootstrap/base.html"%}
+    <head>
+        <meta charset="utf-8">
+        {%block title%}Kevin Web{%endblock%}
 
-{%block title%}Kevin Web{%endblock%}
-
-{%block head%}
-{{super()}}
-<link rel="shortcut icon"
-      href="{{url_for('static', filename='favicon.ico')}}"
-      type="image/x-icon"
->
-
-<link rel="icon"
-      href="{{url_for('static', filename='favicon.ico')}}"
-      type="image/x-icon"
->
-{%endblock%}
-
-{%block navbar%}
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button"
-                    class="navbar-toggle"
-                    data-toggle="collapse"
-                    data-target=".navbar-collapse"
-            >
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="/user/kevin">Kevin Web</a>
-        </div>
-
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-{%endblock%}
-
-{%block content%}
-<div class="container">
-    <div class="page-header">
-        {%block page_content%}
+        {%block head%}
+            {{super()}}
+            <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
+            <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
         {%endblock%}
-    </div>
-</div>
-{%endblock%}
+    </head>
+
+    <! -- body start -->
+    <body>
+        {%block navbar%}
+        <! -- navbar-default 和 navbar-inverse 只是颜色区别, 一个白色一个黑色, 我用了白色-->
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <! -- 这个button, 仅仅当页面很窄的时候, 才会出现在导航栏的右上角. -- >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <! -- 导航栏最左边logo -->
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="{{ url_for('static', filename='images/navbar_logo.png') }}" width="70" height="40">
+                </a>
+
+                <! -- 导航栏最左边 "Home" -->
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+
+            <! -- navbar-collapse 和 navbar-header 同级, 在这里定义下拉菜单 dropdown -->
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <! -- 一个完整的 Azure dropdown 开始 -->
+                    <li class="dropdown">
+                        <! -- 这个a标签, 只是定义按钮, 真正点击后出现的选项, 在该标签之后的 ul dropdown-menu 中定义 -- >
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <! -- span 标签就是下拉按钮右边朝下的小箭头 -- >
+                            Azure Demo<span class="caret"></span>
+                        </a>
+
+                        <! -- 这个ul中的每一个 li, 就是下拉菜单中的一个选项 -->
+                        <ul class="dropdown-menu">
+                            <li><a href="/generate_authZ_code_req">OAuth</a></li>
+
+                        </ul>
+                    </li>
+                    <! -- Azure dropdown 按钮结束 -->
+
+                    <! -- Machine Learning dropdown start -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+                            Machine Learning <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Text Tagging</a></li>
+                        </ul>
+                    </li>
+                    <! -- Machine Learning dropdown END -->
+
+                    <! -- Introduction to Algorithm dropdown start -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+                            算法导论学习<span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#">第 1 章 - 算法在计算中的作用</a></li>
+                            <li><a href="#">第 2 章 - 算法基础</a></li>
+                            <li><a href="#">第 3 章 - 函数的增长</a></li>
+                            <li><a href="#">第 4 章 - 分治策略</a></li>
+                            <li><a href="#">第 5 章 - 概率分析和随机算法</a></li>
+                            <li role="separator" class="divider"></li>
+
+                            <li><a href="#">第 6 章 - 堆排序</a></li>
+                            <li><a href="#">第 7 章 - 快速排序</a></li>
+                            <li><a href="#">第 8 章 - 线性时间排序</a></li>
+                            <li><a href="#">第 9 章 - 中位数和顺序统计量</a></li>
+                            <li role="separator" class="divider"></li>
+
+                            <li><a href="#">第 10 章 - 基本数据结构</a></li>
+                            <li><a href="#">第 11 章 - 散列表</a></li>
+                            <li><a href="#">第 12 章 - 二叉搜索树</a></li>
+                            <li><a href="#">第 13 章 - 红黑树</a></li>
+                            <li><a href="#">第 14 章 - 数据结构的扩张</a></li>
+                            <li role="separator" class="divider"></li>
+
+                            <li><a href="#">第 15 章 - 动态规划</a></li>
+                            <li><a href="#">第 16 章 - 贪心算法</a></li>
+                            <li><a href="#">第 17 章 - 摊还分析</a></li>
+                            <li role="separator" class="divider"></li>
+
+                            <li><a href="#">第 18 章 - B树</a></li>
+                            <li><a href="#">第 19 章 - 斐波那契堆</a></li>
+                            <li><a href="#">第 20 章 - van Emde Boas树</a></li>
+                            <li><a href="#">第 21 章 - 用于不相交集合的数据结构</a></li>
+                            <li role="separator" class="divider"></li>
+
+                            <li><a href="#">第 22 章 - 基本的图算法</a></li>
+                            <li><a href="#">第 23 章 - 最小生成树</a></li>
+                            <li><a href="#">第 24 章 - 单源最短路径</a></li>
+                            <li><a href="#">第 25 章 - 所有节点对的最短路径问题</a></li>
+                            <li><a href="#">第 26 章 - 最大流</a></li>
+                            <li role="separator" class="divider"></li>
+
+                            <li><a href="#">第 27 章 - 多线程算法</a></li>
+                            <li><a href="#">第 28 章 - 矩阵运算</a></li>
+                            <li><a href="#">第 29 章 - 线性规划</a></li>
+                            <li><a href="#">第 30 章 - 多项式与快速傅里叶变换</a></li>
+                            <li><a href="#">第 31 章 - 数论算法</a></li>
+                            <li><a href="#">第 32 章 - 字符串匹配</a></li>
+                            <li><a href="#">第 33 章 - 计算几何学</a></li>
+                            <li><a href="#">第 34 章 - NP 完全性</a></li>
+                            <li><a href="#">第 35 章 - 近似算法</a></li>
+                            <li role="separator" class="divider"></li>
+                        </ul>
+                    </li>
+                    <! -- Introduction to Algorithm dropdown END -->
+
+                </ul>
+            </div>
+        </div>
+        {%endblock%}
+
+        {%block content%}
+        <div class="container">
+            <div class="page-header">
+                {%block page_content%}
+                {%endblock%}
+            </div>
+        </div>
+        {%endblock%}
+    </body>
+</html>

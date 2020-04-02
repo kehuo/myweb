@@ -1,5 +1,23 @@
 # @File: index
 # @Author: Kevin Huo
+# @LastUpdate: 3/21/2020 6:16 PM
+
+
+# from flask import render_template, make_response
+#
+#
+# def index_func():
+#     """
+#     home page
+#     """
+#     html = render_template("index.html")
+#
+#     res = make_response(html)
+#     res.status_code = 200
+#     return res
+
+# @File: index
+# @Author: Kevin Huo
 # @LastUpdate: 3/15/2020 4:04 PM
 
 from flask import render_template, make_response, session, redirect, url_for
@@ -7,7 +25,7 @@ from flask import render_template, make_response, session, redirect, url_for
 from web_forms.name import NameForm
 
 
-def index():
+def index_func():
     """
     这里使用2个技巧:
     1. POST / 重定向 / GET 模式, 这个技巧保证了用户的在刷新浏览器之后, 请求服务器的最后一个响应是GET，而不是POST.
@@ -30,3 +48,4 @@ def index():
     res = make_response(html)
     res.status_code = 200
     return res
+

@@ -1,0 +1,29 @@
+{%extends "base.html"%}
+{%import "bootstrap/wtf.html" as wtf%}
+
+{%block title%}Redirect Page{%endblock%}
+
+{%block page_content%}
+<div class="container">
+    <div class="page-header">
+        <a href="/generate_authZ_code_req">Back to authZ code request page</a>
+        <br/>
+        <a href="/generate_access_token_req">Request access token now</a>
+    </div>
+
+    <div class="page-header">
+        <h3>response:</h3>
+        {%if authZ_code_endpoint_response%}
+            <ul>
+                {%for key in authZ_code_endpoint_response%}
+                    <h3>{{key}}:</h3>
+                    <li>{{authZ_code_endpoint_response[key]}}</li>
+                {%endfor%}
+            </ul>
+        {%else%}
+            <h3>Empty Response</h3>
+        {%endif%}
+    </div>
+
+</div>
+{%endblock%}base.html

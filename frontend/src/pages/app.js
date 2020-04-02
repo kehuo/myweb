@@ -2,10 +2,6 @@ import React from "react"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 
 import Home from "./Home/home"
-import Page1 from "./Page1/page1"
-import Page2 from "./Page2/page2"
-import Page3 from "./Page3/page3"
-import LoginPopup from "./Login/login_popup"
 
 
 // 1. style={{margin:'10px'}} 是设置外边距为 10px
@@ -14,13 +10,7 @@ class MyApp extends React.Component {
     render(){
         return(
             <Router>
-                <div style={{margin:'10px'}}>
                 <Route exact path="/" component={Home}/>
-                <Route path="/login" component={LoginPopup}/>
-                <Route path="/Page1" component={Page1}/>
-                <Route path="/Page2" component={Page2}/>
-                <Route path="/Page3" component={Page3}/>
-                </div>
             </Router>
         )
     }

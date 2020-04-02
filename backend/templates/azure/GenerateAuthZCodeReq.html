@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+{%import "bootstrap/wtf.html" as wtf%}
+
+{%block title%}ReqAuthZCode{%endblock%}
+
+{%block page_content%}
+<div class="container">
+    <div class="page-header">
+        <a href={{generate_authZ_code_complete_url}}>
+            Request Azure AD authZ code
+        </a>
+    </div>
+
+    <div class="page-header">
+        <p>Url:</p>
+        <p>
+            {%if generate_authZ_code_complete_url%} {{generate_authZ_code_complete_url}} {%else%}Empty Url{%endif%}
+        </p>
+</div>
+</div>
+{{wtf.quick_form(form)}}
+{%endblock%}

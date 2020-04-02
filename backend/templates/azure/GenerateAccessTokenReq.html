@@ -1,0 +1,41 @@
+{%extends "base.html"%}
+{%import "bootstrap/wtf.html" as wtf%}
+
+{%block title%}AccessToken{%endblock%}
+
+{%block page_content%}
+<div class="container">
+    <div class="page-header">
+        <h3>Post request url:</h3>
+        <p>{%if post_req_url%} {{post_req_url}} {%else%}Empty post req url{%endif%}</p>
+    </div>
+
+    <div class="page-header">
+        <h3>request body:</h3>
+        {%if post_req_body%}
+            <ul>
+                {%for key in post_req_body%}
+                    <h3>{{key}}:</h3>
+                    <li>{{post_req_body[key]}}</li>
+                {%endfor%}
+            </ul>
+        {%else%}
+            <h3>Empty Request Body</h3>
+        {%endif%}
+    </div>
+
+    <div class="page-header">
+        <h3>Access Token:</h3>
+        {%if response_dict%}
+            <ul>
+                {%for key in response_dict%}
+                    <h3>{{key}}:</h3>
+                    <li>{{response_dict[key]}}</li>
+                {%endfor%}
+            </ul>
+        {%else%}
+            <h3>Empty Response</h3>
+        {%endif%}
+    </div>
+</div>
+{%endblock%}

@@ -1,6 +1,7 @@
 # @File: app
 # @Author: Kevin Huo
-# @LastUpdate: 3/9/2020 3:34 PM
+# @LastUpdate: 3/21/2020 12:33 AM
+
 
 import os
 
@@ -42,4 +43,4 @@ init_global_func(app)
 # 5 这里做2个事情 --- 4.1 初始化api的url // 4.2 初始化视图函数的url
 from app.init_route import RouteInitializer
 route_initializer = RouteInitializer(app=app, api=api, api_version=api_version)
-route_initializer.run(init_api=True, init_views=True)
+route_initializer.run(init_views=True)
