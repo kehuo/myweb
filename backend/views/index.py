@@ -44,7 +44,7 @@ def index_func():
         return redirect(url_for(endpoint="index"))
 
     # index.html 中预定义了2个变量, 一个叫 form, 一个叫 username
-    html = render_template("index.html", form=form, username=session.get("username"))
+    html = render_template("default/index.html", form=form, username=session.get("username"))
     res = make_response(html)
     res.status_code = 200
     return res
