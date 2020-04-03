@@ -5,13 +5,14 @@
 
 from flask import render_template, make_response
 
+from app.init_global import global_var
+
 from views.azure.generate_authZ_code_req import generate_authZ_code_req_func
 from views.azure.azure_ad_redirect_uri import azure_ad_redirect_uri_func
 from views.azure.generate_access_token_req import generate_access_token_req_func
 from views.index import index_func
 
-from views.introduction_to_algorithms.all_funcs_map import introduction_to_algorithms_view_func_map
-# from views.introduction_to_algorithms.smart_method import each_algorithm_view_funcs
+# from views.introduction_to_algorithms.all_funcs_map import introduction_to_algorithms_view_func_map
 
 
 class RouteInitializer(object):
@@ -51,13 +52,17 @@ class RouteInitializer(object):
                               methods=["GET"])
 
         # 3 算法导论全部7部分, 35章节
-        for _part in introduction_to_algorithms_view_func_map:
-            _tmp = introduction_to_algorithms_view_func_map[_part]
+        # todo bug - need to fix
+        introduction_to_algorithms_view_func_builder = global_var["introduction_to_algorithms_view_func_builder"]
+        algorithm_catalog = global_var["introduction_to_algorithms_catalog"]
+        for _part in algorithm_catalog:
+            _chapters = algorithm_catalog[_part]
             # _tmp = {1: func1, 2: func2}
-            for _chapter in _tmp:
-                _each_url = "/introduction_to_algorithms/part_%s/chapter_%s" % (_part, _chapter)
-                _each_endpoint = "introduction_to_algorithms/part_%s/chapter_%s" % (_part, _chapter)
-                _each_view_func = _tmp[_chapter]
+            for _c in _chapters:
+                _each_url = "/introduction_to_algorithms/part_%s/chapter_%s" % (_part, _c)
+                _each_endpoint = "introduction_to_algorithms/part_%s/chapter_%s" % (_part, _c)
+                _title = _chapters[_c]
+                _each_view_func = introduction_to_algorithms_view_func_builder.build_one(_part, _c, _title)
                 self.app.add_url_rule(_each_url,
                                       endpoint=_each_endpoint,
                                       view_func=_each_view_func,

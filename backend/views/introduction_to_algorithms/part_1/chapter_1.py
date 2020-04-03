@@ -13,7 +13,8 @@ def part_1_chapter_1_func():
     """
     p = 1
     c = 1
-    param = {"part": p, "chapter": c, "title": "算法在计算中的作用"}
+    title = "算法在计算中的作用"
+    param = {"part": p, "chapter": c, "title": title}
 
     html = render_template("introduction_to_algorithms/part_%s/chapter_%s.html" % (p, c), param=param)
     res = make_response(html)

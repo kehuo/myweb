@@ -20,6 +20,7 @@ def init_global_func(app):
     """
     # 1
     global global_var
+    global_var["device_type"] = app.config["DEVICE_TYPE"]
     global_var['version'] = app.config['VERSION']
     global_var['description'] = app.config['SERVICE_DESC']
     global_var['service'] = app.config['SERVICE_NAME']
@@ -41,6 +42,9 @@ def init_global_func(app):
     global_var["grant_type"] = app.config["GRANT_TYPE"]
     global_var["client_secret"] = app.config["CLIENT_SECRET"]
     global_var["access_token_post_request_content_type"] = app.config["ACCESS_TOKEN_POST_REQUEST_CONTENT_TYPE"]
+
+    # Introduction to Algorithms catalog json path (windows 和 linux 不一样)
+    global_var["algorithm_catalog_json_path"] = app.config["ALGORITHM_CATALOG_JSON_PATH"]
 
     # 2
     init_func_list = list()
