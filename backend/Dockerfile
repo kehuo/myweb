@@ -18,7 +18,7 @@ RUN source ~/.bashrc \
 
 COPY ./resource/default.conf /etc/nginx/conf.d/default.conf
 COPY ./resource/nginx.conf /etc/nginx/nginx.conf
-COPY ./ssl_files/3691190_kevinhuo.cool.pem /etc/nginx/cert/kevinhuo_cool.pem
-COPY ./ssl_files/3691190_kevinhuo.cool.key /etc/nginx/cert/kevinhuo_cool.key
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
 
 CMD ["/project/start.sh"]
