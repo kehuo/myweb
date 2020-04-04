@@ -18,7 +18,7 @@
     <header>
         {%block navbar%}
         <! -- navbar-default 和 navbar-inverse 只是颜色区别, 一个白色一个黑色, 我用了白色-->
-        <div class="navbar navbar-inverse" role="navigation" >
+        <div class="navbar navbar-inverse" role="navigation">
             <div class="navbar-header">
                 <! -- 这个button, 仅仅当页面很窄的时候, 才会出现在导航栏的右上角. -- >
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,7 +30,8 @@
 
                 <! -- 导航栏最左边logo -->
                 <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="{{ url_for('static', filename='images/navbar_logo.png') }}" width="70" height="40">
+                    <! -- 重要！！！ margin: -10px 可以让图片向上移动. 我的导航栏终于正常了. -->
+                    <img alt="Brand" src="{{ url_for('static', filename='images/navbar_logo.png') }}" width="60" height="40" style="margin:-10px">
                 </a>
 
                 <! -- 导航栏最左边 "Home" -->
@@ -152,8 +153,7 @@
     <footer>
         <div class="container nav-foot-container">
             <div class="row border-bottom">
-                 <div class="d-flex"><img class="mb-3 mr-3"
-                                             src="{{ url_for('static', filename='images/icons/mail.svg') }}" alt="">
+                 <div class="d-flex">
                         <! -- &copy 是最左边的小圆圈+c标志 -->
                         <p class="text-muted">&copy; hkhuoke@hotmail.com</p>
                  </div>
