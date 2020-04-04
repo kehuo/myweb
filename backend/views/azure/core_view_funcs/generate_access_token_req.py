@@ -44,7 +44,7 @@ def generate_access_token_req_func():
     post_req_body = {"client_id": global_var["client_id"],
                      "scope": session["scope"],
                      "code": authZ_code,
-                     "redirect_uri": url_for(endpoint="azure/azure_ad_redirect_uri", _external=True),
+                     "redirect_uri": "https://kevinhuo.cool/" + url_for(endpoint="azure/azure_ad_redirect_uri"),
                      "grant_type": global_var["grant_type"],
                      "client_secret": global_var["client_secret"]
                      }

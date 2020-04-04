@@ -40,10 +40,7 @@ def azure_ad_redirect_uri_func():
     query_string = dict(request.args)
     session["authZ_code"] = "" if "error" is query_string else query_string["code"]
 
-    # 根据以下3种情况, 来确定按下 button 后会跳转到哪个页面.
-    #   1 如果报错 >> 跳转到 generate_authZ_code_req, 重新生成 authZ_code 的请求链接
-    #   2 如果成功返回 authZ_code >> 跳转到 generate_access_token_req 页面, 使用当前 authZ_code 去请求 access_token
-    #   3 todo 其他再说.
+    # todo 在直接向 access_token 发请求之前, 可以考虑在这个函数中构造一个 表单, 展示默认 req body, 且可以更改后发起请求.
     redirect_url_endpoint = {"authZ_code": url_for(endpoint="azure/generate_authZ_code_req"),
                              "access_token": url_for(endpoint="azure/generate_access_token_req")}
 
