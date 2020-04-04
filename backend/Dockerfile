@@ -1,4 +1,4 @@
-FROM kehuo/centos8_conda:v1 as builder
+FROM kehuo/centos8_conda:nginx as builder
 
 ENV PYTHONIOENCODING utf-8
 ENV LANG en_US.UTF-8
@@ -14,7 +14,7 @@ RUN source ~/.bashrc \
     && pip install --upgrade pip && pip install Cython && pip install path.py \
 	&& pip install -r ./requirements.txt
 
-RUN yum install -y nginx
+# RUN yum install -y nginx
 
 COPY ./resource/default.conf /etc/nginx/conf.d/default.conf
 COPY ./resource/nginx.conf /etc/nginx/nginx.conf
