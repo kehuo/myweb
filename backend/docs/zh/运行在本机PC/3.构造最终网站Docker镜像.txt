@@ -1,0 +1,65 @@
+这部分, 会根据已经构造好的 kehuo/centos8_conda:nginx 基础镜像, 来打包出一个可以运行 nginx + Gunicorn + Flask 的网站镜像.
+
+1 以 kevin 账号登陆 macbook
+
+2 cd /users/kevin/dev/myweb
+
+3 如果一切正常, 那么在 /users/kevin/dev/myweb 目录下, 可以看到网站的 Dockerfile 文件.
+
+4 因为是本地运行, 所以不需要 SSL 证书文件, 所以, 需要把 Dockerfile 中的以下2行注释掉:
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
+
+5 同时, nginx 不需要监听 443 端口, 只需要监听 80 端口, 所以, 对 resource/default.conf 做一下修改:
+<1> 解开第二行的注释 -- "listen 80;", 目的是让 nginx 可以监听 80 端口.
+<2> 注释掉第 4 / 6 / 7 / 9 / 10 行, 目的是取消nginx 对 ssl 的一切配置:
+listen       443 ssl;
+server_name  localhost;
+
+ssl_certificate /etc/nginx/cert/kevinhuo_cool.pem;
+ssl_certificate_key /etc/nginx/cert/kevinhuo_cool.key;
+
+ssl_session_timeout 10m;
+ssl_prefer_server_ciphers on;
+
+6 最后, 还是在 resource/default.conf 中, 再注释掉最后面的第 32-38 行的全部. 目的是取消 80 到 443 的重定向配置.
+server {
+    listen 80;
+    server_name localhost;
+    #return 301 https://$server_name$request_uri;
+    #rewrite ^(.*) https://$host
+    rewrite ^(.*) https://$host$1 permanent;
+}
+
+7 至此, 所有文件都已经修改完成. 我们运行以下命令, 开始构造网站的镜像:
+(请确保在运行以下命令时, 你在 /users/kevin/dev/myweb 路径下)
+docker build -t myweb_image:localhost .
+
+8 如果你到了这一步, 说明镜像已经打好了, 可以运行该命令查看:
+docker images
+
+如果结果中有 myweb_image:localhost, 则说明成功了.
+
+9 运行以下命令, 启动该网站镜像中的 nginx + gunicorn + flask:
+docker run -it -d -p 80:80 --name myweb_http myweb_image:localhost bash ./start.sh
+
+(
+以上命令做几件事：
+A. -p <macbook port>:<docker port>, 左边是macbook的端口, 右边是docker 容器内部的端口
+B. 运行的容器名称用 --name 指定, 我让他叫做 myweb_http
+C. 最后的 bash ./start.sh, 是给这个容器指定要运行的脚本文件, 在 start.sh 中, 会启动 nginx(docker 80端口) 和 gunicorn 服务(docker 5000端口)
+)
+
+10 运行之后, 如果没有报错, 则可以运行 docker ps 查看这个容器的状态. 如果Status显示是 Up xxx seconds, 则说明已经启动成功, 并且正在运行中.
+
+11 此时, 打开浏览器访问 localhost:80, 则可以成功访问网站.
+而且, 如果打开浏览器开发者模式, 查看 "network", 可以看到 response header 中, server 字段是 "nginx 1.14.1", 说明:
+A. 当请求 macbook 80 端口时, 这个请求被映射到了 docker 容器的 80 端口.
+B. 由于 容器内的 nginx 在监听 容器内的 80 端口, 所以由于 default.conf 的配置, nginx 会将映射到容器内80 端口的请求, 转发到容器内的 5000 端口.
+C. 由于容器内还有个 Gunicorn 服务, 在容器内的 5000 端口上运行着 Flask 后台服务, 所以, nginx 转发来的 5000 端口, 会被gunicorn 接受.
+D. Gunicorn 作为 WSGI 服务器, 会将 5000 端口的请求, 转发给 flask, flask 会真正的处理该请求, 在后台处理请求 并生成响应.
+E. flask将响应返回给 容器内5000端口的 Gunicorn WSGI.
+F. 容器内 5000 端口的 WSGI 将响应返回给 容器内 80端口的 nginx.
+G. 容器内 80 端口的 nginx 将响应映射回 macbook 的 80 端口.
+H. macbook 的浏览器显示最终响应, 看到后台返回的页面响应, 并且看到响应的服务器是 nginx, 而不是 Gunicorn 或者 flask.
+

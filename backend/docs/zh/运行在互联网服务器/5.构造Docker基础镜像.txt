@@ -1,0 +1,47 @@
+第五部分 -- 构造一个安装了 Nginx 和 miniconda3 的基础镜像
+
+1 还是假设 kevin 登陆了 阿里云服务器, 并且网站的源码已经拉到了 /home/kevin/dev/myweb 下.
+
+2 Centos 阿里云主机 安装 docker 软件. (自行解决)
+
+3 docker 安装完成后, 有2个办法构造基础镜像.
+(注意: 从这里往下, 如果有任何权限问题, 2个方案, 一是用 kevin 账号 sudo 运行, 二是用 root 账号, 自己看情况选择.)
+方法一 (推荐的方法) 运行以下命令, 直接拉取我打包好的 基础镜像.
+docker pull kehuo/centos8_conda:nginx
+
+方法二 (从头开始构造)
+<1> 拉一个 Dockerhub 官方的 centos 8 基础镜像
+docker pull centos:latest
+
+<2> 后台模式运行该镜像 (运行的容器名为 i_will_build_by_myself)
+docker run -it -d --name i_will_build_by_myself centos:latest /bin/bash
+
+<3> 进入该容器
+docker exec -it i_will_build_by_myself /bin/bash
+
+<4> 安装 wget
+yum install -y wget
+
+<5> 用 wget 下载 miniconda3
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+<6> 在容器中安装 miniconda3
+bash Miniconda3-latest-Linux-x86_64.sh
+
+(注意, 在安装过程中, 如果问到 "是否要 conda init", 请选择 yes)
+
+<7> 安装完成后, 运行 source ~/.bashrc, 确保 conda 已经初始化并可以运行.
+
+<8> 创建一个 python 3.7.5 的虚拟环境, 名称是 myenv
+conda create --name myenv python=3.7.5
+
+<9> 所有软件安装完毕, 退出当前容器
+exit
+
+<10> 运行以下命令, 将刚才的 i_will_build_by_myself 容器, 持久化成一个 docker 镜像:
+docker commit i_will_build_by_myself kevin/my_web_image:v1
+
+(该命令会把 i_will_build_by_myself 容器持久化成 一个叫 kehuo/centos8_conda:nginx 的docker 镜像, 可以运行 docker images 查看)
+
+###################
+至此, 基础镜像的构造就结束. 下部分介绍如何用 Dockerfile 和这个基础镜像, 构造出可以直接运行 nginx + Flask + Gunicorn 的网站镜像.

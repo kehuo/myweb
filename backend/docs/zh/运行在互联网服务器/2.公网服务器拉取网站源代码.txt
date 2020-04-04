@@ -1,0 +1,13 @@
+第二步 - 拉取 Github 的网站源码
+
+1 以 kevin 账号登陆 服务器 (以 aliyun 的 Centos 操作系统的 ECS 云主机为例).
+2 cd /home/kevin
+3 mkdir dev
+4 cd dev
+5 git clone git@github.com:kehuo/myweb.git
+6 cd myweb
+7 到此, 网站源码已经被克隆到了服务器的 /home/kevin/dev 目录下.
+我们现在需要做的, 是用项目根路径下的 Dockerfile, 打包一个 "可以直接运行 Nginx + Flask + Gunicorn" 的 docker 镜像.
+
+#####################
+下一部分 -- 设置服务器安全组规则

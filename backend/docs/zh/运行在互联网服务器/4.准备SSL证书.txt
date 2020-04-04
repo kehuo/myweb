@@ -1,0 +1,19 @@
+第四部分 - 准备服务器所需的 SSL 证书
+
+1. 保证你的域名已经备案完成 (我的步骤中会以 kevinhuo.cool 为例)
+2. 保证 SSL 证书已经成功签发给这个域名.
+3. 在阿里云的控制台, 以 nginx 的格式下载这个 SSL 证书.
+4. 解压 SSL 证书文件, 里面会有2个文件, 一个 .pem 文件, 一个 .key 文件.
+(我会以 kevinhuo_cool.pem 和 kevinhuo_cool.key 为例)
+
+5. 将这2个 SSL 文件, 上传到你的阿里云服务器 (自己想办法, 比如先放到 github, 用服务器拉取, 再删掉; 或者用对象存储, 用服务器wget下载)
+6. 在服务器上创建目录:
+mkdir -p /home/kevin/dev/myweb/ssl_file
+6. 确保这2个文件在服务器的 /home/kevin/dev/myweb/ssl_file 目录下.
+
+7. 确保以下2条命令可以看到2个证书文件的内容:
+cat /home/kevin/dev/myweb/ssl_file/kevinhuo_cool.pem
+cat /home/kevin/dev/myweb/ssl_file/kevinhuo_cool.key
+
+#####################
+至此, SSL 证书准备工作结束, 可以开始下一部分, 构造Docker基础镜像.

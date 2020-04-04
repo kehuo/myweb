@@ -1,0 +1,87 @@
+第六部分 - 构造最终的网站Docker镜像 (最后一个部分)
+
+
+这部分, 会根据已构造好的 kehuo/centos8_conda:nginx 基础镜像, 和 SSL 证书, 打造一个可以运行 nginx + Gunicorn + Flask 的网站镜像.
+
+1 以 kevin 账号登陆 阿里云服务器.
+
+2 cd /home/kevin/dev/myweb
+
+3 如果一切正常, 那么在 /home/kevin/dev/myweb 目录下, 可以看到网站的 Dockerfile 文件.
+
+4 确保 Dockerfile 中包含以下 2 行:
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
+
+5 因为 nginx 需要同时监听 443 和 80 端口 所以, 确保 resource/default.conf 有以下部分:
+<1> 第 4 / 6 / 7 / 9 / 10 行, nginx 对 ssl 的一切配置
+listen       443 ssl;
+server_name  localhost;
+
+ssl_certificate /etc/nginx/cert/kevinhuo_cool.pem;
+ssl_certificate_key /etc/nginx/cert/kevinhuo_cool.key;
+
+ssl_session_timeout 10m;
+ssl_prefer_server_ciphers on;
+
+<2> 在 resource/default.conf 最后面的第 32-38 行的全部 (这个小 server 配置目的是将 http 请求重定向到 https).
+server {
+    listen 80;
+    server_name localhost;
+    #return 301 https://$server_name$request_uri;
+    #rewrite ^(.*) https://$host
+    rewrite ^(.*) https://$host$1 permanent;
+}
+
+6 至此, 以下4个文件都已满足需求:
+Dockerfile
+resource/default.conf
+/home/kevin/dev/myweb/ssl_files/kevinhuo_cool.pem
+/home/kevin/dev/myweb/ssl_files/kevinhuo_cool.key
+
+7 运行以下命令, 开始构造网站的镜像:
+(请确保在运行以下命令时, 你在 /users/kevin/dev/myweb 路径下)
+docker build -t myweb_image:server .
+
+(注意: 这里很有可能出现很多无法预测的问题, 请根据报错内容, 自行解决. 若实在有疑问, 可以用以下方式联系我帮忙解决:
+<1> hkhuoke@hotmail.com
+<2> https://kevinhuo.cool 网站留言, 并附上报错内容 (网站暂时无法上传图片, 只支持文字.)
+<3> https://github.com/kehuo/myweb.git 项目下留言
+)
+
+8 如果你到了这一步并且没报错, 说明镜像已经打好了, 可以运行该命令查看:
+docker images
+
+(如果结果中有 myweb_image:server, 则说明成功了.)
+
+9 运行以下命令, 启动该网站镜像中的 nginx + gunicorn + flask:
+docker run -it -d -p 80:80 -p 443:443 --name myweb_https myweb_image:localhost bash ./start.sh
+
+(
+以上命令做几件事：
+A. 将服务器的 80 和 443 端口, 分别映射到docker容器内的 80 和 443 端口. (-p 的冒号左边是服务器端口, 冒号右边是docker容器内的端口)
+B. 运行的容器名称用 --name 指定, 我让他叫做 myweb_https
+C. 最后的 bash ./start.sh, 是给这个容器指定要运行的脚本文件, 在 start.sh 中, 会启动 nginx 和 gunicorn 服务
+)
+
+10 运行之后, 如果没有报错, 则可以运行 docker ps 查看这个容器的状态. 若Status显示 "Up xxx seconds", 则说明已经启动成功, 并在运行中.
+
+11 此时, 打开浏览器访问 http://kevinhuo.cool 或者 https://kevinhuo.cool, 都可以成功访问网站.
+而且, 如果打开浏览器开发者模式, 查看 "network", 可以看到 response header 中, server 字段是 "nginx 1.14.1", 说明:
+A. 当请求 服务器 80/443 端口时, 这个请求被映射到了 docker 容器的 80/443 端口.
+B. nginx 会将映射到容器内 80 端口的请求, 重定向到 容器内 443 端口; 将 容器内 443 端口的请求转发到容器内的 5000 端口.
+C. 由于容器内还有个 Gunicorn 服务, 在容器内 5000 端口上运行 Flask 后台服务, 所以, nginx 转发来的 5000 端口, 会被 gunicorn 接受.
+D. Gunicorn 作为 WSGI 服务器, 会将 5000 端口的请求, 转发给 flask, flask 会真正的处理该请求, 在后台处理请求 并生成响应.
+E. flask将响应返回给 容器内5000端口的 Gunicorn WSGI.
+F. 容器内 5000 端口的 WSGI 将响应返回给 容器内 443 端口的 nginx.
+G. 容器内 443 端口的 nginx 将响应映射回 服务器 的 443 端口.
+H. 客户端的浏览器接受并显示最终响应, 看到后台返回的页面响应. 并且看到响应的服务器是 nginx, 而不是 Gunicorn 或者 flask.
+
+#################
+所有步骤 END, 有任何问题请联系:
+<1> hkhuoke@hotmail.com
+<2> https://kevinhuo.cool 网站留言
+
+感谢阅读!
+
+HUO Ke

@@ -1,0 +1,124 @@
+该文档将详细介绍:
+如何将 Github 中的项目部署在个人服务器, 并可以让其在互联网被访问.
+
+该文档主要涉及:
+1 网站部署所需的技术栈
+2 准备工作
+3 第一次部署的步骤
+4 之后持续集成 (CI/CD, Continuous Integration & Continuous Development) 的步骤.
+
+#############
+第一部分 技术栈
+#############
+
+该网站部署使用 Aliyun ECS + Docker + Nginx + Gunicorn + Flask + Centos 8 + Miniconda 3 + Python 3.7.5 + Flask
+
+其中:
+云主机: 阿里云ECS / Centos 8
+WEB 服务器: Nginx
+WSGI 服务器: Gunicorn
+App 服务器: Flask
+
+部署方式:
+Docker: 使用 centos8 基础镜像, 再自己安装nginx. 最后只需要1个容器, 将 Nginx, Gunicorn 和 Flask服务全部运行在这1个容器中即可.
+Gunicorn: 这个WSGI服务器比 uWSGI 的优势在于, 不需要安装其他工具, 比如 Supervisor. 所以我选择了这个, 一切为了更方便.
+Flask: 自己最熟悉, 且使用最熟练的框架, 所以不再考虑其他框架如 Django 等.
+
+其他:
+python -- 3.7.5. 但是原则上只要可以正常使用requirements.txt 中所有包的版本, 都可以. 3.7.5是个人习惯.
+miniconda3 -- 其他可选方案还有pyenv等等. 也属于个人偏好, 而且个人感觉在构建Docker镜像, 以及自定义创建虚拟环境时, conda较好用.
+Flask -- 本站不考虑使用其他方案, 只用Flask.
+
+###############
+第二部分 准备工作
+###############
+
+1. 阿里ECS云主机一台. Centos 操作系统. 最低配即够用. 理论上任何操作系统均可, 我用Centos多一些, 之后的Docker镜像也偏向于使用Centos.
+2. 阿里云购买的 域名 一个, 并且已经备案. 任何备案问题, 一可以看阿里云文档, 二可以直接开工单问.
+3. SSL 证书一个. 这个可以在阿里云免费申请一个 时长1年的免费证书. 但是, 需要域名备案完成后, 才可以签发.
+
+################
+第三部分 第一次部署
+################
+
+---------------------------------
+简述:
+1. 在阿里云主机安装 wget / git / Docker 一共3个必备软件.
+2. Docker 拉取一个必须的镜像. 在详述中, 我会讲另一个方法, 可以从一个基础镜像从头开始构造自定义的Docker 镜像.
+3. 如何启动 docker 中的 nginx 服务和 Gunicorn 服务.
+----------------------------------
+
+如果你知道如何安装以上3个软件, 则以下详述可以忽略不看.
+
+-------------------------
+详述 (以下是我实际成功安装的方法, 若你实际安装失败, 则以实际报错为准, 并自行根据情况排查):
+1. 安装 wget / git / Docker 软件
+<1> yum install -y wget
+<2> yum install -y git
+<3> um install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm
+如果网络问题, 导致下载缓慢甚至失败, 则需要自行学习如何安装.
+
+2. Docker 自己构造一个部署网站所需的镜像.
+<1> 拉取一个官方提供的 Centos 8 操作系统的镜像. (我挑了自己熟悉的系统, 而且可以保证可以成功, 当然你也可以按你的偏好取测试其他系统.)
+Docker pull centos:latest
+
+<2> 以后台模式启动该基础镜像, 这样就会实例化出一个Docker 容器, 以一个进程的形式运行在你的 aliyun 服务器中.
+docker run -it -d --name base centos:latest /bin/bash
+
+<3> 上面的命令中, 我指定了运行的容器的名字, 叫做base, 所以我可以用以下命令, 直接进入这个叫 "base" 的docker 容器中.
+docker exec -it base /bin/bash
+
+<4> 目前, 你可以在这个 docker 容器中, 安装所有你需要, 但是目前没有的软件. 必须:
+wget / miniconda3 / nginx (这3个就够了. 而且， 如果官方镜像自带 wget 的话, 就只需要安装 2 个软件: miniconda3 / nginx)
+
+<5> (可选, 如果官方版本有wget, 则忽略这步) 安装 wget:
+yum install -y wget
+
+<6> 首先, 用 wget 下载 miniconda3 的安装包, 并安装. (我用了国内清华下载点, 会快一点):
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+其次, 下载完成后, 在 Aliyun 云主机上运行命令安装:
+bash Miniconda3-latest-Linux-x86_64.sh
+**注意: 在安装过程中, 会问你 "是否需要 conda init", 建议输入yes, 这样当安装完成后, 运行 source ~/.bashrc 即可使用conda
+
+接着, 安装完成后, 运行 conda env list 测试是否安装成功. 如果提示 command not found, 则以下2个解决方案选其一:
+## 先运行 bash, 再运行 conda env list
+## 运行 source ~/.bashrc, 再运行 conda env list
+
+最后, 运行以下命令安装一个 python 3.7.5 的虚拟环境, 环境名我定为 "myenv". (安装过程中, 遇到所有选项全部选 yes)
+conda create --name myenv python=3.7.5
+
+<7> 至此, wget 和 miniconda3 已完成. 只剩 nginx. 很简单, centos 8不需要安装其他依赖项, 直接运行以下命令安装 nginx 即可:
+yum install -y nginx
+
+<8> 现在我们要做的是将这个安装了 nginx 和 minconda3 的docker 容器持久化, 把它做成一个镜像. 先在当前容器中运行 exit, 退出当前容器.
+
+<9> 然后, 运行以下命令, 将刚才这个docker 容器, 持久化成一个 docker 镜像:
+docker commit base kehuo/centos8_conda:nginx
+其中, base 是 "刚才我们安装了很多软件的 docker 容器的名称"
+kehuo/centos8_conda:nginx 是我准备持久化的镜像的名称, 你当然可以用你自己喜欢的名称, 比如 mike/my_new_image:1.0.0 等等.
+
+这样就可以了. 一切完成
+
+3. 到此, 我们有了以下:
+一台阿里云主机
+一个安装了 Nginx / miniconda3 (python 3.7.5) 的 centos 8 操作系统的 docker 镜像.
+一对 SSL 证书文件, 请保证 .pem 和 .key 2个文件都已放在服务器的 /kevin/dev/myweb/ssl_files 目录下. (ssl_file 目录要你自己手动创建)
+
+接下来, 我们要做的是:
+如何将 Github 的源代码, 克隆到 aliyun 服务器, 然后通过项目根目录下的 Dockerfile 文件, 构造一个可以直接运行的 "网站镜像".
+具体步骤如下:
+<1> 以 kevin 账号登陆 aliyun 服务器.
+<2> cd /kevin
+<3> mkdir dev
+<4> cd dev
+<5> git clone git@github.com:kehuo/myweb.git
+<6> cd myweb
+<6> 到此, 网站源码已经被克隆到了服务器的 /kevin/dev 目录下. 同时, 我们也已经在网站项目的绝对路径下了: /kevin/dev/myweb.
+<7> 我们现在需要做的, 是用项目更路径下的 Dockerfile, 打包一个 "可以直接运行 Nginx + Flask + Gunicorn" 的 docker 镜像.
+<8> 我的 Dockerfile 第一行, 是基于一个叫做 kehuo/centos8_conda:nginx 的基础镜像的. 所以:
+A. 如果你直接 docker pull 了 kehuo/centos8_conda:nginx, 那这一行不用改.
+B. 如果你自己从 centos:latest 从头构建了你自己的 docker 镜像, 那么你可以把这一行改成你刚才构造好的 docker 镜像的镜像名.
+
+
+
