@@ -13,11 +13,12 @@
         {%endblock%}
     </head>
 
-    <! -- body start -->
+    <! -- body start, include: header(=nav bar)/main/footer -->
     <body>
+    <header>
         {%block navbar%}
         <! -- navbar-default 和 navbar-inverse 只是颜色区别, 一个白色一个黑色, 我用了白色-->
-        <div class="navbar navbar-inverse" role="navigation">
+        <div class="navbar navbar-inverse" role="navigation" >
             <div class="navbar-header">
                 <! -- 这个button, 仅仅当页面很窄的时候, 才会出现在导航栏的右上角. -- >
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -130,14 +131,43 @@
             </div>
         </div>
         {%endblock%}
+    </header>
+    <! -- body.header NED -->
 
-        {%block content%}
+    <! -- body.main START-->
+    {%block content%}
+    <! -- 注意, 由于BootStrap的默认block content, 必须把 main 和footer都放在 content 块中, 如果footer放到 block content之外, 则页面不会加载footer容器-->
+
+    <main>
         <div class="container">
             <div class="page-header">
                 {%block page_content%}
                 {%endblock%}
             </div>
         </div>
-        {%endblock%}
+    </main>
+    <! -- body.main END-->
+
+    <! -- body.footer START-->
+    <footer>
+        <div class="container nav-foot-container">
+            <div class="row border-bottom">
+                 <div class="d-flex"><img class="mb-3 mr-3"
+                                             src="{{ url_for('static', filename='images/icons/mail.svg') }}" alt="">
+                        <! -- &copy 是最左边的小圆圈+c标志 -->
+                        <p class="text-muted">&copy; hkhuoke@hotmail.com</p>
+                 </div>
+
+                <div class="d-flex justify-content-center align-items-center justify-content-md-between flex-column flex-md-row mx-3 mt-3">
+                    <div class="d-flex mt-3 mt-md-0">
+                        <p class="mb-0 small text-muted">&copy; 2020-2021 HUO Ke 版权所有. 陇ICP备20000864号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <! -- body.footer END-->
+
+    {%endblock%}
     </body>
 </html>
