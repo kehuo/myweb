@@ -39,12 +39,13 @@ def generate_access_token_req_func():
     authZ_code = session.get("authZ_code") if ("authZ_code" in session and session["authZ_code"] is not None) else "123code"
 
     # 2 url / headers / body
+    # 注意 url_for(endpoint="azure/generate_access_token_req") = "/azure/generate_access_token_req", 最前面会多个斜杠 /
     post_req_url = global_var["azure_ad_token_endpoint"]
     post_req_header = {"Content-Type": global_var["access_token_post_request_content_type"]}
     post_req_body = {"client_id": global_var["client_id"],
                      "scope": session["scope"],
                      "code": authZ_code,
-                     "redirect_uri": "https://kevinhuo.cool/" + url_for(endpoint="azure/azure_ad_redirect_uri"),
+                     "redirect_uri": "https://kevinhuo.cool" + url_for(endpoint="azure/azure_ad_redirect_uri"),
                      "grant_type": global_var["grant_type"],
                      "client_secret": global_var["client_secret"]
                      }
