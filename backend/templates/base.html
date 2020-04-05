@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
     <! -- BootStrap 官网 https://v3.bootcss.com/components/?#nav -->
     {%extends "bootstrap/base.html"%}
     <head>
@@ -14,7 +14,7 @@
     </head>
 
     <! -- body start, include: header(=nav bar)/main/footer -->
-    <body>
+    <body class="h-100">
     <header>
         {%block navbar%}
         <! -- navbar-default 和 navbar-inverse 只是颜色区别, 一个白色一个黑色, 我用了白色-->
@@ -150,7 +150,7 @@
     <! -- body.main END-->
 
     <! -- body.footer START-->
-    <footer>
+    <footer class="footer mt-auto">
         <div class="container nav-foot-container">
             <div class="row border-bottom">
                  <div class="d-flex">

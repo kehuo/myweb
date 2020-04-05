@@ -39,7 +39,7 @@ conda create --name myenv python=3.7.5
 exit
 
 <10> 运行以下命令, 将刚才的 i_will_build_by_myself 容器, 持久化成一个 docker 镜像:
-docker commit i_will_build_by_myself kevin/my_web_image:v1
+docker commit i_will_build_by_myself kehuo/centos8_conda:nginx
 
 (该命令会把 i_will_build_by_myself 容器持久化成 一个叫 kehuo/centos8_conda:nginx 的docker 镜像, 可以运行 docker images 查看)
 

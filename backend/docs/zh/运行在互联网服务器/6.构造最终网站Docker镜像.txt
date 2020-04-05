@@ -14,7 +14,7 @@ COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
 COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
 
 5 因为 nginx 需要同时监听 443 和 80 端口 所以, 确保 resource/default.conf 有以下部分:
-<1> 第 4 / 6 / 7 / 9 / 10 行, nginx 对 ssl 的一切配置
+<1> 第 3 / 4 / 6 / 7 / 9 / 10 行, nginx 对 ssl 的一切配置
 listen       443 ssl;
 server_name  localhost;
 
@@ -55,7 +55,7 @@ docker images
 (如果结果中有 myweb_image:server, 则说明成功了.)
 
 9 运行以下命令, 启动该网站镜像中的 nginx + gunicorn + flask:
-docker run -it -d -p 80:80 -p 443:443 --name myweb_https myweb_image:localhost bash ./start.sh
+docker run -it -d -p 80:80 -p 443:443 --name myweb_https myweb_image:server bash ./start.sh
 
 (
 以上命令做几件事：
