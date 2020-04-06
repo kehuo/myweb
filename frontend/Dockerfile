@@ -4,7 +4,8 @@ WORKDIR /data/project
 # https://registry.npm.taobao.org
 # https://registry.npmjs.org
 ADD ./package.json ./
-RUN npm config set registry https://registry.npm.taobao.org && npm install --update-binary && npm cache clean -f && npm -g install gulp@3.9.1  && npm install
+# 运行 npm install 会报错, 暂时就先服务器上 npm install , 然后 ADD ./ ./ 的方式, 直接把 node_modules 文件夹复制到docker 镜像中.
+# RUN npm config set registry https://registry.npm.taobao.org && npm install --update-binary && npm cache clean -f && npm -g install gulp@3.9.1  && npm install
 COPY ./resource/nginx.conf /etc/nginx/
 COPY ./resource/default.conf /etc/nginx/conf.d/
 
@@ -16,6 +17,16 @@ RUN npm run build && \
     
 WORKDIR /usr/share/nginx/data/project
 
+# 需要把 start.sh 复制到 docker 的 /usr/share/nginx/data/project 下. 用来启动nginx服务.
+# 具体启动的方法: (在docker run 的最后, 加上 bash ./start.sh 即可)
+# docker run -it -d -p 80:80 -p 443:443 --name web_front web_front:v1 bash ./start.sh
+COPY ./start.sh ./start.sh
+
+# 复制 ssl 证书文件到 docker容器中.
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
+
+# 再做收尾工作
 RUN mkdir -p /data/config; \
     mkdir -p /data/logs; \
     rm -rf /var/log/nginx; \
