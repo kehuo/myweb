@@ -1,8 +1,11 @@
 @import "~antd/lib/style/themes/default.less";
 //@import "~@/utils/utils.less";
-//@import "../../utils/utils.less";
 
-@import "/users/hk/dev/myweb/frontend/src/utils/utils.less";
+// 在docker或者 linux 部署时, 需要将以下 import 路径改成 /data/xxx 或者 /root/xxx
+@import "/data/project/src/utils/utils.less";
+
+// Macbook 开发使用的import
+//@import "/users/hk/dev/myweb/frontend/src/utils/utils.less";
 
 .activitiesList {
   padding: 0 24px 8px 24px;
