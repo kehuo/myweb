@@ -1,9 +1,10 @@
 FROM kehuo/centos8_conda_npm_nginx:v1
 
 WORKDIR /data/project
-
+# https://registry.npm.taobao.org
+# https://registry.npmjs.org
 ADD ./package.json ./
-RUN npm config set registry https://registry.npmjs.org && npm install --update-binary && npm cache clean -f && npm -g install gulp@3.9.1  && npm install
+RUN npm config set registry https://registry.npm.taobao.org && npm install --update-binary && npm cache clean -f && npm -g install gulp@3.9.1  && npm install
 COPY ./resource/nginx.conf /etc/nginx/
 COPY ./resource/default.conf /etc/nginx/conf.d/
 
