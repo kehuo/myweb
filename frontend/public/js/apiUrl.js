@@ -1,17 +1,17 @@
 window.OpApi = "http://localhost:5000/api/v1";
-//window.OpApi = 'http://172.18.0.41:6313/api/v1';
-//123
-window.modulesSupport = ["welcome", "exam-standard"];
-// 'template', 'third-party', 'tagging-normal', 'train-model',
-// 'system-operation', 'statistics', 'dashboarder-builder',
+//window.OpApi = 'http://1.1.1.1:1111/api/v1';
+
+// if you want to create new route, first of all, need to add parent route name to the below array.
+window.modulesSupport = ["welcome", "introduction-to-algorithms", "ml"];
+
 window.hideL2Path = {
-  "doctor-community": ["emr-case"],
-  "exam-standard": ["emr-case"],
-  "system-operation": ["track-log-debug", "visit-info-debug"],
-  statistics: [
-    "overview",
-    "org-stats-detail",
-    "referral-statistics",
-    "referral-accept-statistics"
-  ]
+  // "doctor-community": ["emr-case"],
+  // "exam-standard": ["emr-case"],
+  // "system-operation": ["track-log-debug", "visit-info-debug"],
+  // statistics: [
+  //   "overview",
+  //   "org-stats-detail",
+  //   "referral-statistics",
+  //   "referral-accept-statistics"
+  // ]
 };

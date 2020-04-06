@@ -102,7 +102,8 @@ export default {
     start_url: "/index.html",
     icons: [
       {
-        src: "/logo.ico", //favicon.png
+        //src: "/logo.ico",
+        src: "/favicon.ico",
         sizes: "48x48",
         type: "image/png"
       }

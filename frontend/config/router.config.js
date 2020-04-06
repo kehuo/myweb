@@ -1,120 +1,59 @@
-// 在这个文件中添加的 路由, 如果 pages/models/services 等文件都正确, 则会显示在dashboard中
-export default [
-  //user
-  // {
-  //   path: "/user",
-  //   component: "../layouts/UserLayout",
-  //   routes: [
-  //     { path: "/user", redirect: "/user/login" },
-  //     { path: "/user/userInfo", component: "./setting/UserInfo" },
-  //     { path: "/user/login", component: "./setting/Login" },
-  //     { path: "/user/register", component: "./User/Register" },
-  //     { path: "/user/register-result", component: "./User/RegisterResult" }
-  //   ]
-  // },
+// 2020 年 4 月 6日 HUO Ke 注释.
+// 该文件和 public/js/apiUrl.js, 以及 src/layouts/BasicLayout 的关系:
+// 首先, 在这个 router.config.js 文件中, 定义你想添加的路由. 指定好 name / path / componenet 等信息.
+// 然后 (很关键), 去 public/js/apiUrl.js, 把刚添加的路由的 parent 路由, 加到 window.moduleSupport 数组中.
+// 至此. 你所做的事情就结束了.
 
-  // app
+// 接下来, BasicLayout.js 会调用 buildRoutes 方法, 遍历 apiUrl.js 中的 moduleSupport 数组.
+// 并且会将 moduleSupport 中存在的 module 名, 和 src/locales/ch-ZH.js 中的中文名匹配上.
+// 最后, 把这个 module 以及其下所有的子路由, 全部渲染到前端页面左边的 Dashboard 中.
+// 这样, 你就可以在菜单栏中看到所有的路由了.
+
+export default [
   {
     path: "/",
     component: "../layouts/BasicLayout",
     //Routes: ['src/pages/Authorized'],
     routes: [
-      { path: "/", redirect: "/welcome" },
+      // 根路径重定向到 welcome 页面
+      {
+        path: "/",
+        redirect: "/welcome"
+      },
+
+      // 首页
       {
         path: "/welcome",
         name: "welcome",
         icon: "home",
         component: "./Welcome/Welcome"
-        //authority: ['admin', 'virtualdept','support'],
       },
-      //   {
-      //     path: "/notification",
-      //     name: "notification",
-      //     // icon: 'home',
-      //     component: "./Notification/NotificationList",
-      //     authority: ["admin", "support"],
-      //     hideInMenu: true
-      //   },
 
-      //   //机器学习
+      // 机器学习
       {
-        path: "/machine-learning",
-        //path: "/exam-standard",
-        name: "machine-learning",
-        //name: "exam-standard",
+        path: "/ml",
+        name: "ml",
         icon: "team",
-        //authority: ["admin", "virtualdept", "dataengineer"],
         routes: [
           {
-            path: "/machine-learning/show-exam-report-list",
-            //path: "/exam-standard/show-exam-report-list",
-            name: "show-exam-report-list",
-            //component: "./ExamStandard/ShowExamReportList"
-            component: "./MachineLearning/ShowExamReportList"
+            path: "/ml/tagging",
+            name: "tagging",
+            component: "./MachineLearning/Tagging"
           }
-          //       {
-          //         path: "/exam-standard/show-exam-report-result-one",
-          //         name: "show-exam-report-result-one",
-          //         component: "./ExamStandard/ShowExamReportResultOne",
-          //         hideInMenu: true
-          //       },
-          //       {
-          //         path: "/exam-standard/prototype-list",
-          //         name: "prototype-list",
-          //         component: "./ExamStandard/PrototypeList"
-          //       },
-          //       {
-          //         path: "/exam-standard/prototype-one",
-          //         name: "prototype-one",
-          //         component: "./ExamStandard/PrototypeOne",
-          //         hideInMenu: true
-          //       },
-          //       {
-          //         path: "/exam-standard/ramdis-list",
-          //         name: "ramdis-list",
-          //         component: "./ExamStandard/RamdisList"
-          //       },
-          //       {
-          //         path: "/exam-standard/ramdis-one",
-          //         name: "ramdis-one",
-          //         component: "./ExamStandard/RamdisOnePanel",
-          //         hideInMenu: true
-          //       },
-          //       {
-          //         path: "/exam-standard/loinc-list",
-          //         name: "loinc-list",
-          //         component: "./ExamStandard/LoincList"
-          //       },
-          //       {
-          //         path: "/exam-standard/radlex-list",
-          //         name: "radlex-list",
-          //         component: "./ExamStandard/RadlexList"
-          //       },
-          //       {
-          //         path: "/exam-standard/radlex-mapping-list",
-          //         name: "radlex-mapping-list",
-          //         component: "./ExamStandard/RadlexMappingList"
-          //       },
-          //       {
-          //         path: "/exam-standard/loincObj-mapping-list",
-          //         name: "loincObj-mapping-list",
-          //         component: "./ExamStandard/LonicObjMappingList"
-          //       },
-          //       {
-          //         path: "/exam-standard/loincStep0-mapping-list",
-          //         name: "loincStep0-mapping-list",
-          //         component: "./ExamStandard/LoincStep0MappingList"
-          //       },
-          //       {
-          //         path: "/exam-standard/fma-list",
-          //         name: "fma-list",
-          //         component: "./ExamStandard/FMAList"
-          //       },
-          //       {
-          //         path: "/exam-standard/snomed-ct-list",
-          //         name: "snomed-ct-list",
-          //         component: "./ExamStandard/SnomedCTList"
-          //       }
+        ]
+      },
+
+      // 算法导论
+      {
+        path: "/introduction-to-algorithms",
+        name: "introduction-to-algorithms",
+        icon: "team",
+        routes: [
+          {
+            path: "/introduction-to-algorithms/part-1",
+            name: "introduction-to-algorithms-part-1",
+            component: "./Welcome/Welcome"
+          }
         ]
       }
     ]

@@ -187,6 +187,10 @@ export function _onCreate() {
     ...require("/Users/hk/dev/myweb/frontend/src/models/mixPanel.js").default
   });
   app.model({
+    namespace: "mlTagging",
+    ...require("/Users/hk/dev/myweb/frontend/src/models/mlTagging.js").default
+  });
+  app.model({
     namespace: "model",
     ...require("/Users/hk/dev/myweb/frontend/src/models/model.js").default
   });

@@ -38,21 +38,47 @@ const routes = [
         exact: true
       },
       {
-        path: "/machine-learning",
-        name: "machine-learning",
+        path: "/ml",
+        name: "ml",
         icon: "team",
         routes: [
           {
-            path: "/machine-learning/show-exam-report-list",
-            name: "show-exam-report-list",
+            path: "/ml/tagging",
+            name: "tagging",
             component: __IS_BROWSER
               ? _dvaDynamic({
-                  component: () =>
-                    import("../MachineLearning/ShowExamReportList"),
+                  component: () => import("../MachineLearning/Tagging"),
                   LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
                     .default
                 })
-              : require("../MachineLearning/ShowExamReportList").default,
+              : require("../MachineLearning/Tagging").default,
+            exact: true
+          },
+          {
+            component: () =>
+              React.createElement(
+                require("/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js")
+                  .default,
+                { pagesPath: "src/pages", hasRoutesInConfig: true }
+              )
+          }
+        ]
+      },
+      {
+        path: "/introduction-to-algorithms",
+        name: "introduction-to-algorithms",
+        icon: "team",
+        routes: [
+          {
+            path: "/introduction-to-algorithms/part-1",
+            name: "introduction-to-algorithms-part-1",
+            component: __IS_BROWSER
+              ? _dvaDynamic({
+                  component: () => import("../Welcome/Welcome"),
+                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
+                    .default
+                })
+              : require("../Welcome/Welcome").default,
             exact: true
           },
           {

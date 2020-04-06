@@ -359,6 +359,7 @@ export default class Welcome extends React.Component {
   // buildTitle: 显示 Welcome to HUO Ke Website!
   // buildNumbers: 显示 Azure Demo / Machine Learning / Introductin to Algorithms
   render() {
+    console.log("进入welcome 页面!!!!");
     return (
       <div
         style={{

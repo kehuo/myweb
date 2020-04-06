@@ -5,7 +5,8 @@ import { Icon } from "antd";
 import GlobalFooter from "@/components/GlobalFooter";
 import SelectLang from "@/components/SelectLang";
 import styles from "./UserLayout.less";
-import logo from "../assets/logoDark.svg";
+//import logo from "../assets/logoDark.svg";
+import fire_logo from "../assets/fire_logo.png";
 
 const links = [
   // {
@@ -24,15 +25,15 @@ const links = [
   //   href: '',
   // },
   {
-    key: "Basebit",
-    title: "Basebit",
-    href: "http://www.basebit.me"
+    key: "HUO Ke",
+    title: "HUO Ke",
+    href: "https://kevinhuo.cool"
   }
 ];
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2019 Basebit
+    Copyright <Icon type="copyright" /> 2020 - 2021 HUO Ke
   </Fragment>
 );
 
@@ -62,7 +63,8 @@ class UserLayout extends React.PureComponent {
                   height={30}
                   alt="logo"
                   className={styles.logo}
-                  src={logo}
+                  //src={logo}
+                  src={fire_logo}
                 />
                 {/*<span className={styles.title}>Ant Design</span>*/}
               </Link>

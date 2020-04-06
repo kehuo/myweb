@@ -22,6 +22,7 @@ import Exception403 from "../pages/Exception/403";
 const { modulesSupport, hideL2Path } = global;
 const { Content } = Layout;
 
+// 函数的参数 routes, 就是 frontend/public/router.config.js 里定义的所有.
 function buildRoutes(routes) {
   let realRoutes = [];
   for (let i = 0; i < routes.length; i++) {
@@ -215,7 +216,7 @@ class BasicLayout extends React.PureComponent {
     if (!currRouterData) {
       // return 'Ant Design Pro';
       // 这个暂时不知道哪里显示
-      return "HUO Ke";
+      return "Kevin Huo";
     }
     const message = formatMessage({
       id: currRouterData.locale || currRouterData.name,
