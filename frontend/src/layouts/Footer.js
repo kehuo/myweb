@@ -26,15 +26,16 @@ const FooterView = () => (
         //   blankTarget: true,
         // },
         {
-          key: "Basebit",
-          title: "Basebit",
-          href: "http://www.basebit.me",
+          // key 不会显示, title 才是显示在页面底部的文字
+          key: "HUO Ke",
+          title: "hkhuoke@hotmail.com",
+          //href: "http://www.basebit.me",
           blankTarget: true
         }
       ]}
       copyright={
         <Fragment>
-          Copyright <Icon type="copyright" /> 2019 Basebit
+          Copyright <Icon type="copyright" /> 2020 - 2021 HUO Ke
         </Fragment>
       }
     />

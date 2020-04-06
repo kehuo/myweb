@@ -214,14 +214,16 @@ class BasicLayout extends React.PureComponent {
 
     if (!currRouterData) {
       // return 'Ant Design Pro';
-      return "探路者";
+      // 这个暂时不知道哪里显示
+      return "HUO Ke";
     }
     const message = formatMessage({
       id: currRouterData.locale || currRouterData.name,
       defaultMessage: currRouterData.name
     });
     // return `${message} - Ant Design Pro`;
-    return `${message} - 探路者`;
+    // 这个是浏览器标签页显示的内容
+    return `${message} - HUO Ke`;
   };
 
   getLayoutStyle = () => {

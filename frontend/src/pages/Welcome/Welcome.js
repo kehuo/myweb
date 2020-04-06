@@ -124,7 +124,7 @@ export default class Welcome extends React.Component {
           fontWeight: "bold"
         }}
       >
-        数据汇总
+        Welcome to HUO Ke Website!
       </Row>
     );
   }
@@ -140,22 +140,43 @@ export default class Welcome extends React.Component {
         <Row gutter={24} style={{ width: "100%", margin: 0, padding: 0 }}>
           <Col span={8}>
             <Card className={styles.numberCard}>
-              <Row className={styles.numberCardTitle}>医疗机构</Row>
-              <Row className={styles.numberCardNumber}>
-                {numberOrganization}
+              <Row className={styles.numberCardTitle}>Azure Demo</Row>
+              <Row className={styles.numberCardChildTitle}>
+                OAuth2 Auhtorization Code
               </Row>
+              <Row className={styles.numberCardChildTitle}>
+                OAuth2 Access Token
+              </Row>
+
+              {/* <Row className={styles.numberCardNumber}>
+                {numberOrganization}
+              </Row> */}
             </Card>
           </Col>
           <Col span={8}>
             <Card className={styles.numberCard}>
-              <Row className={styles.numberCardTitle}>科室</Row>
-              <Row className={styles.numberCardNumber}>{numberDepartment}</Row>
+              <Row className={styles.numberCardTitle}>Machine Learning</Row>
+              <Row className={styles.numberCardChildTitle}>NLP Tagging</Row>
+              {/* <Row className={styles.numberCardNumber}>{numberDepartment}</Row> */}
             </Card>
           </Col>
           <Col span={8}>
             <Card className={styles.numberCard}>
-              <Row className={styles.numberCardTitle}>医生</Row>
-              <Row className={styles.numberCardNumber}>{numberOperator}</Row>
+              <Row className={styles.numberCardTitle}>
+                Introduction to Algorithms
+              </Row>
+              <Row className={styles.numberCardChildTitle}>基础知识</Row>
+              <Row className={styles.numberCardChildTitle}>
+                排序和顺序统计量
+              </Row>
+              <Row className={styles.numberCardChildTitle}>数据结构</Row>
+              <Row className={styles.numberCardChildTitle}>
+                高级设计和分析技术
+              </Row>
+              <Row className={styles.numberCardChildTitle}>高级数据结构</Row>
+              <Row className={styles.numberCardChildTitle}>图算法</Row>
+              <Row className={styles.numberCardChildTitle}>算法问题选编</Row>
+              {/* <Row className={styles.numberCardNumber}>{numberOperator}</Row> */}
             </Card>
           </Col>
         </Row>
@@ -335,6 +356,8 @@ export default class Welcome extends React.Component {
     );
   }
 
+  // buildTitle: 显示 Welcome to HUO Ke Website!
+  // buildNumbers: 显示 Azure Demo / Machine Learning / Introductin to Algorithms
   render() {
     return (
       <div
@@ -347,7 +370,7 @@ export default class Welcome extends React.Component {
       >
         {this.buildTitle()}
         {this.buildNumbers()}
-        {this.buildOperationStatistics()}
+        {/* {this.buildOperationStatistics()} */}
       </div>
     );
   }

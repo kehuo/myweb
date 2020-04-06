@@ -1,104 +1,14 @@
 import React from "react";
-import {
-  Router as DefaultRouter,
-  Route,
-  Switch,
-  StaticRouter
-} from "react-router-dom";
+import { Router as DefaultRouter, Route, Switch } from "react-router-dom";
 import dynamic from "umi/dynamic";
 import renderRoutes from "umi/lib/renderRoutes";
-import history from "@@/history";
+import history from "@tmp/history";
 import RendererWrapper0 from "/Users/hk/dev/myweb/frontend/src/pages/.umi/LocaleWrapper.jsx";
 import _dvaDynamic from "dva/dynamic";
 
 const Router = require("dva/router").routerRedux.ConnectedRouter;
 
 const routes = [
-  {
-    path: "/user",
-    component: __IS_BROWSER
-      ? _dvaDynamic({
-          component: () => import("../../layouts/UserLayout"),
-          LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-            .default
-        })
-      : require("../../layouts/UserLayout").default,
-    routes: [
-      {
-        path: "/user",
-        redirect: "/user/login",
-        exact: true
-      },
-      {
-        path: "/user/userInfo",
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              component: () => import("../setting/UserInfo"),
-              LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                .default
-            })
-          : require("../setting/UserInfo").default,
-        exact: true
-      },
-      {
-        path: "/user/login",
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              component: () => import("../setting/Login"),
-              LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                .default
-            })
-          : require("../setting/Login").default,
-        exact: true
-      },
-      {
-        path: "/user/register",
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              app: require("@tmp/dva").getApp(),
-              models: () => [
-                import("/Users/hk/dev/myweb/frontend/src/pages/User/models/register.js").then(
-                  m => {
-                    return { namespace: "register", ...m.default };
-                  }
-                )
-              ],
-              component: () => import("../User/Register"),
-              LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                .default
-            })
-          : require("../User/Register").default,
-        exact: true
-      },
-      {
-        path: "/user/register-result",
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              app: require("@tmp/dva").getApp(),
-              models: () => [
-                import("/Users/hk/dev/myweb/frontend/src/pages/User/models/register.js").then(
-                  m => {
-                    return { namespace: "register", ...m.default };
-                  }
-                )
-              ],
-              component: () => import("../User/RegisterResult"),
-              LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                .default
-            })
-          : require("../User/RegisterResult").default,
-        exact: true
-      },
-      {
-        component: () =>
-          React.createElement(
-            require("/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js")
-              .default,
-            { pagesPath: "src/pages", hasRoutesInConfig: true }
-          )
-      }
-    ]
-  },
   {
     path: "/",
     component: __IS_BROWSER
@@ -128,185 +38,21 @@ const routes = [
         exact: true
       },
       {
-        path: "/notification",
-        name: "notification",
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              component: () => import("../Notification/NotificationList"),
-              LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                .default
-            })
-          : require("../Notification/NotificationList").default,
-        authority: ["admin", "support"],
-        hideInMenu: true,
-        exact: true
-      },
-      {
-        path: "/exam-standard",
-        name: "exam-standard",
+        path: "/machine-learning",
+        name: "machine-learning",
         icon: "team",
-        authority: ["admin", "virtualdept", "dataengineer"],
         routes: [
           {
-            path: "/exam-standard/show-exam-report-list",
+            path: "/machine-learning/show-exam-report-list",
             name: "show-exam-report-list",
             component: __IS_BROWSER
               ? _dvaDynamic({
-                  component: () => import("../ExamStandard/ShowExamReportList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/ShowExamReportList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/show-exam-report-result-one",
-            name: "show-exam-report-result-one",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
                   component: () =>
-                    import("../ExamStandard/ShowExamReportResultOne"),
+                    import("../MachineLearning/ShowExamReportList"),
                   LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
                     .default
                 })
-              : require("../ExamStandard/ShowExamReportResultOne").default,
-            hideInMenu: true,
-            exact: true
-          },
-          {
-            path: "/exam-standard/prototype-list",
-            name: "prototype-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/PrototypeList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/PrototypeList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/prototype-one",
-            name: "prototype-one",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/PrototypeOne"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/PrototypeOne").default,
-            hideInMenu: true,
-            exact: true
-          },
-          {
-            path: "/exam-standard/ramdis-list",
-            name: "ramdis-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/RamdisList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/RamdisList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/ramdis-one",
-            name: "ramdis-one",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/RamdisOnePanel"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/RamdisOnePanel").default,
-            hideInMenu: true,
-            exact: true
-          },
-          {
-            path: "/exam-standard/loinc-list",
-            name: "loinc-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/LoincList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/LoincList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/radlex-list",
-            name: "radlex-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/RadlexList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/RadlexList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/radlex-mapping-list",
-            name: "radlex-mapping-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/RadlexMappingList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/RadlexMappingList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/loincObj-mapping-list",
-            name: "loincObj-mapping-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () =>
-                    import("../ExamStandard/LonicObjMappingList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/LonicObjMappingList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/loincStep0-mapping-list",
-            name: "loincStep0-mapping-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () =>
-                    import("../ExamStandard/LoincStep0MappingList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/LoincStep0MappingList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/fma-list",
-            name: "fma-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/FMAList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/FMAList").default,
-            exact: true
-          },
-          {
-            path: "/exam-standard/snomed-ct-list",
-            name: "snomed-ct-list",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../ExamStandard/SnomedCTList"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../ExamStandard/SnomedCTList").default,
+              : require("../MachineLearning/ShowExamReportList").default,
             exact: true
           },
           {

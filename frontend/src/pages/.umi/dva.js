@@ -12,9 +12,7 @@ export function _onCreate() {
     history,
 
     ...(runtimeDva.config || {}),
-    ...(window.g_useSSR
-      ? { initialState: window.g_initialData[location.pathname] }
-      : {})
+    ...(window.g_useSSR ? { initialState: window.g_initialData } : {})
   });
 
   app.use(createLoading());
