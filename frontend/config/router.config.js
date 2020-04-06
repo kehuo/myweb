@@ -78,15 +78,15 @@ export default [
             routes: [
               // 第1章
               {
-                path: "/introduction-to-algorithms/part-2/chapter-1",
-                name: "introduction-to-algorithms-part-2-chapter-1",
+                path: "/introduction-to-algorithms/part-2/chapter-6",
+                name: "introduction-to-algorithms-part-2-chapter-6",
                 component: "./Welcome/Welcome"
               },
 
               // 第2章
               {
-                path: "/introduction-to-algorithms/part-2/chapter-2",
-                name: "introduction-to-algorithms-part-2-chapter-2",
+                path: "/introduction-to-algorithms/part-2/chapter-7",
+                name: "introduction-to-algorithms-part-2-chapter-7",
                 component: "./Welcome/Welcome"
               }
             ]
