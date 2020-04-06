@@ -17,10 +17,6 @@ RUN npm run build && \
     
 WORKDIR /usr/share/nginx/data/project
 
-# 需要把 start.sh 复制到 docker 的 /usr/share/nginx/data/project 下. 用来启动nginx服务.
-# 具体启动的方法: (在docker run 的最后, 加上 bash ./start.sh 即可)
-# docker run -it -d -p 80:80 -p 443:443 --name web_front web_front:v1 bash ./start.sh
-COPY ./start.sh ./start.sh
 
 # 复制 ssl 证书文件到 docker容器中.
 COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
@@ -35,3 +31,15 @@ RUN mkdir -p /data/config; \
     ln -s /data/logs /var/log/nginx; 
     
 RUN rm -rf /data/project
+
+# 最后手动启动前端和nginx:
+# 1 先 docker run:
+# docker run -it -d -p 80:80 -p 443:443 --name web_front web_front:v1
+# 2 在进入:
+# docker exec -it web_front /bin/bash
+
+# 3 启动 nginx, 不需要 npm run start, 因为docker里是已经打包好的 dist 文件.
+# /usr/sbin/nginx
+
+# 4 退出 docker 即可
+# exit
