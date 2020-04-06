@@ -82,8 +82,15 @@ export default {
   "menu.ml.tagging": "标注模型",
 
   "menu.introduction-to-algorithms": "算法导论",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1":
-    "第一部分 基础知识",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1": "第一部分 基础知识",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-1": "第1章 算法在计算中的作用",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-2": "第2章 算法基础",
+
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2": "第二部分 排序和顺序统计量",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-6": "第6章 堆排序",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-7": "第7章 快速排序",
+
+
   // -------- op data -------- end
   "app.login.tab-login-credentials": "账户密码登录",
   "app.login.tab-login-mobile": "手机号登录",

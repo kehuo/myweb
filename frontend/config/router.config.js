@@ -49,10 +49,47 @@ export default [
         name: "introduction-to-algorithms",
         icon: "team",
         routes: [
+          // 第一部分
           {
             path: "/introduction-to-algorithms/part-1",
             name: "introduction-to-algorithms-part-1",
-            component: "./Welcome/Welcome"
+            routes: [
+              // 第1章
+              {
+                path: "/introduction-to-algorithms/part-1/chapter-1",
+                name: "introduction-to-algorithms-part-1-chapter-1",
+                component: "./Welcome/Welcome"
+              },
+
+              // 第2章
+              {
+                path: "/introduction-to-algorithms/part-1/chapter-2",
+                name: "introduction-to-algorithms-part-1-chapter-2",
+                component: "./Welcome/Welcome"
+              }
+            ]
+          },
+
+          // 第二部分
+          {
+            
+            path: "/introduction-to-algorithms/part-2",
+            name: "introduction-to-algorithms-part-2",
+            routes: [
+              // 第1章
+              {
+                path: "/introduction-to-algorithms/part-2/chapter-1",
+                name: "introduction-to-algorithms-part-2-chapter-1",
+                component: "./Welcome/Welcome"
+              },
+
+              // 第2章
+              {
+                path: "/introduction-to-algorithms/part-2/chapter-2",
+                name: "introduction-to-algorithms-part-2-chapter-2",
+                component: "./Welcome/Welcome"
+              }
+            ]
           }
         ]
       }

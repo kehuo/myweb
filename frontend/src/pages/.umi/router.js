@@ -1,118 +1,182 @@
-import React from "react";
-import { Router as DefaultRouter, Route, Switch } from "react-router-dom";
-import dynamic from "umi/dynamic";
-import renderRoutes from "umi/lib/renderRoutes";
-import history from "@tmp/history";
-import RendererWrapper0 from "/Users/hk/dev/myweb/frontend/src/pages/.umi/LocaleWrapper.jsx";
-import _dvaDynamic from "dva/dynamic";
+import React from 'react';
+import { Router as DefaultRouter, Route, Switch } from 'react-router-dom';
+import dynamic from 'umi/dynamic';
+import renderRoutes from 'umi/lib/renderRoutes';
+import history from '@tmp/history';
+import RendererWrapper0 from '/Users/hk/dev/myweb/frontend/src/pages/.umi/LocaleWrapper.jsx';
+import _dvaDynamic from 'dva/dynamic';
 
-const Router = require("dva/router").routerRedux.ConnectedRouter;
+const Router = require('dva/router').routerRedux.ConnectedRouter;
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     component: __IS_BROWSER
       ? _dvaDynamic({
-          component: () => import("../../layouts/BasicLayout"),
-          LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-            .default
+          component: () => import('../../layouts/BasicLayout'),
+          LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+            .default,
         })
-      : require("../../layouts/BasicLayout").default,
+      : require('../../layouts/BasicLayout').default,
     routes: [
       {
-        path: "/",
-        redirect: "/welcome",
-        exact: true
+        path: '/',
+        redirect: '/welcome',
+        exact: true,
       },
       {
-        path: "/welcome",
-        name: "welcome",
-        icon: "home",
+        path: '/welcome',
+        name: 'welcome',
+        icon: 'home',
         component: __IS_BROWSER
           ? _dvaDynamic({
-              component: () => import("../Welcome/Welcome"),
-              LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                .default
+              component: () => import('../Welcome/Welcome'),
+              LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                .default,
             })
-          : require("../Welcome/Welcome").default,
-        exact: true
+          : require('../Welcome/Welcome').default,
+        exact: true,
       },
       {
-        path: "/ml",
-        name: "ml",
-        icon: "team",
+        path: '/ml',
+        name: 'ml',
+        icon: 'team',
         routes: [
           {
-            path: "/ml/tagging",
-            name: "tagging",
+            path: '/ml/tagging',
+            name: 'tagging',
             component: __IS_BROWSER
               ? _dvaDynamic({
-                  component: () => import("../MachineLearning/Tagging"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
+                  component: () => import('../MachineLearning/Tagging'),
+                  LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                    .default,
                 })
-              : require("../MachineLearning/Tagging").default,
-            exact: true
+              : require('../MachineLearning/Tagging').default,
+            exact: true,
           },
           {
             component: () =>
               React.createElement(
-                require("/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js")
+                require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
                   .default,
-                { pagesPath: "src/pages", hasRoutesInConfig: true }
-              )
-          }
-        ]
+                { pagesPath: 'src/pages', hasRoutesInConfig: true },
+              ),
+          },
+        ],
       },
       {
-        path: "/introduction-to-algorithms",
-        name: "introduction-to-algorithms",
-        icon: "team",
+        path: '/introduction-to-algorithms',
+        name: 'introduction-to-algorithms',
+        icon: 'team',
         routes: [
           {
-            path: "/introduction-to-algorithms/part-1",
-            name: "introduction-to-algorithms-part-1",
-            component: __IS_BROWSER
-              ? _dvaDynamic({
-                  component: () => import("../Welcome/Welcome"),
-                  LoadingComponent: require("/Users/hk/dev/myweb/frontend/src/components/PageLoading/index")
-                    .default
-                })
-              : require("../Welcome/Welcome").default,
-            exact: true
+            path: '/introduction-to-algorithms/part-1',
+            name: 'introduction-to-algorithms-part-1',
+            routes: [
+              {
+                path: '/introduction-to-algorithms/part-1/chapter-1',
+                name: 'introduction-to-algorithms-part-1-chapter-1',
+                component: __IS_BROWSER
+                  ? _dvaDynamic({
+                      component: () => import('../Welcome/Welcome'),
+                      LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                        .default,
+                    })
+                  : require('../Welcome/Welcome').default,
+                exact: true,
+              },
+              {
+                path: '/introduction-to-algorithms/part-1/chapter-2',
+                name: 'introduction-to-algorithms-part-1-chapter-2',
+                component: __IS_BROWSER
+                  ? _dvaDynamic({
+                      component: () => import('../Welcome/Welcome'),
+                      LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                        .default,
+                    })
+                  : require('../Welcome/Welcome').default,
+                exact: true,
+              },
+              {
+                component: () =>
+                  React.createElement(
+                    require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                      .default,
+                    { pagesPath: 'src/pages', hasRoutesInConfig: true },
+                  ),
+              },
+            ],
+          },
+          {
+            path: '/introduction-to-algorithms/part-2',
+            name: 'introduction-to-algorithms-part-2',
+            routes: [
+              {
+                path: '/introduction-to-algorithms/part-2/chapter-1',
+                name: 'introduction-to-algorithms-part-2-chapter-1',
+                component: __IS_BROWSER
+                  ? _dvaDynamic({
+                      component: () => import('../Welcome/Welcome'),
+                      LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                        .default,
+                    })
+                  : require('../Welcome/Welcome').default,
+                exact: true,
+              },
+              {
+                path: '/introduction-to-algorithms/part-2/chapter-2',
+                name: 'introduction-to-algorithms-part-2-chapter-2',
+                component: __IS_BROWSER
+                  ? _dvaDynamic({
+                      component: () => import('../Welcome/Welcome'),
+                      LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                        .default,
+                    })
+                  : require('../Welcome/Welcome').default,
+                exact: true,
+              },
+              {
+                component: () =>
+                  React.createElement(
+                    require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                      .default,
+                    { pagesPath: 'src/pages', hasRoutesInConfig: true },
+                  ),
+              },
+            ],
           },
           {
             component: () =>
               React.createElement(
-                require("/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js")
+                require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
                   .default,
-                { pagesPath: "src/pages", hasRoutesInConfig: true }
-              )
-          }
-        ]
+                { pagesPath: 'src/pages', hasRoutesInConfig: true },
+              ),
+          },
+        ],
       },
       {
         component: () =>
           React.createElement(
-            require("/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js")
+            require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
               .default,
-            { pagesPath: "src/pages", hasRoutesInConfig: true }
-          )
-      }
-    ]
+            { pagesPath: 'src/pages', hasRoutesInConfig: true },
+          ),
+      },
+    ],
   },
   {
     component: () =>
       React.createElement(
-        require("/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js")
+        require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
           .default,
-        { pagesPath: "src/pages", hasRoutesInConfig: true }
-      )
-  }
+        { pagesPath: 'src/pages', hasRoutesInConfig: true },
+      ),
+  },
 ];
 window.g_routes = routes;
-const plugins = require("umi/_runtimePlugin");
-plugins.applyForEach("patchRoutes", { initialValue: routes });
+const plugins = require('umi/_runtimePlugin');
+plugins.applyForEach('patchRoutes', { initialValue: routes });
 
 export { routes };
 
@@ -124,12 +188,12 @@ export default class RouterWrapper extends React.Component {
 
     // route change handler
     function routeChangeHandler(location, action) {
-      plugins.applyForEach("onRouteChange", {
+      plugins.applyForEach('onRouteChange', {
         initialValue: {
           routes,
           location,
-          action
-        }
+          action,
+        },
       });
     }
     this.unListen = history.listen(routeChangeHandler);
@@ -138,7 +202,7 @@ export default class RouterWrapper extends React.Component {
     const isDva =
       history.listen
         .toString()
-        .indexOf("callback(history.location, history.action)") > -1;
+        .indexOf('callback(history.location, history.action)') > -1;
     if (!isDva) {
       routeChangeHandler(history.location);
     }
