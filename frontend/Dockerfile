@@ -5,7 +5,7 @@ WORKDIR /data/project
 # https://registry.npmjs.org
 ADD ./package.json ./
 # 运行 npm install 会报错, 暂时就先服务器上 npm install , 然后 ADD ./ ./ 的方式, 直接把 node_modules 文件夹复制到docker 镜像中.
-# RUN npm config set registry https://registry.npm.taobao.org && npm install --update-binary && npm cache clean -f && npm -g install gulp@3.9.1  && npm install
+RUN npm config set registry https://registry.npm.taobao.org && npm install --update-binary && npm cache clean -f && npm -g install gulp@3.9.1  && npm install
 COPY ./resource/nginx.conf /etc/nginx/
 COPY ./resource/default.conf /etc/nginx/conf.d/
 
