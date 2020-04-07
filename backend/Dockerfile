@@ -18,9 +18,7 @@ RUN source ~/.bashrc \
 
 COPY ./resource/default.conf /etc/nginx/conf.d/default.conf
 COPY ./resource/nginx.conf /etc/nginx/nginx.conf
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
 
-# 由于前后端分离, 所以后台只需要部署在服务器内网, 所以不再需要 ssl 证书, 故将其注释.
-# COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
-# COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
-
-CMD ["/project/start.sh"]
+# CMD ["/project/start.sh"]
