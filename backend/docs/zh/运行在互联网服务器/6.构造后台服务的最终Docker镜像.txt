@@ -1,0 +1,76 @@
+第六部分 - 构造后台服务的最终Docker镜像
+
+
+这部分, 会根据已构造好的 centos8_conda_npm_nginx:v1 基础镜像, 和 SSL 证书, 先为后端分别打造一个可以运行的镜像.
+
+1 以 kevin 账号登陆 阿里云服务器.
+
+2 cd /home/kevin/dev/myweb/backend
+
+3 如果一切正常, 那么在 /home/kevin/dev/myweb/backend 目录下, 可以看到后端所需的 Dockerfile 文件.
+(可以访问 https://github.com/kehuo/myweb/blob/master/backend/Dockerfile)
+
+4 确保后台的 Dockerfile 中包含以下 2 行:
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
+
+5 因为 nginx 需要监听 443, 所以, 确保 resource/default.conf 有以下部分:
+(https://github.com/kehuo/myweb/blob/master/backend/resource/default.conf)
+第 3 / 4 / 7 / 8 / 10 / 11 行, nginx 对 ssl 的一切配置
+listen       443 ssl;
+server_name  localhost;
+
+ssl_certificate /etc/nginx/cert/kevinhuo_cool.pem;
+ssl_certificate_key /etc/nginx/cert/kevinhuo_cool.key;
+
+ssl_session_timeout 10m;
+ssl_prefer_server_ciphers on;
+
+6 至此, 以下4个文件都已满足需求:
+backend/Dockerfile
+backend/resource/default.conf
+/home/kevin/dev/myweb/backend/ssl_files/kevinhuo_cool.pem
+/home/kevin/dev/myweb/backend/ssl_files/kevinhuo_cool.key
+
+7 运行以下命令, 开始构造后台服务的镜像:
+(请确保在运行以下命令时, 你在 /users/kevin/dev/myweb/backend 路径下)
+docker build -t web_backend:v1 .
+
+(注意: 这里很有可能出现很多无法预测的问题, 请根据报错内容, 自行解决. 若实在有疑问, 可以用以下方式联系我帮忙解决:
+<1> hkhuoke@hotmail.com
+<2> https://kevinhuo.cool 网站留言, 并附上报错内容 (网站暂时无法上传图片, 只支持文字.)
+<3> https://github.com/kehuo/myweb.git 项目下留言
+)
+
+8 如果你到了这一步并且没报错, 说明镜像已经打好了, 可以运行该命令查看:
+docker images
+
+(如果结果中有 web_backend:v1, 则说明成功了.)
+
+9 运行以下命令, 启动该网站镜像中的 nginx + gunicorn + flask:
+docker run -it -d -p 5000:443 --name web_backend web_backend:v1 bash ./start.sh
+
+(
+以上命令做几件事：
+A. 将服务器的 5000 端口, 映射到docker容器内的 443 端口. (-p 的冒号左边是服务器端口, 冒号右边是docker容器内的端口)
+B. 运行的容器名称用 --name 指定, 我让他叫做 web_backend
+C. 最后的 bash ./start.sh, 是给这个容器指定要运行的脚本文件, 在 start.sh 中, 会启动 nginx 和 gunicorn 服务
+)
+
+10 运行之后, 如果没有报错, 则可以运行 docker ps 查看这个容器的状态. 若Status显示 "Up xxx seconds", 则说明已经启动成功, 并在运行中.
+
+11 此时, 打开浏览器访问 https://kevinhuo.cool/api/v1/welcome/get_welcome_data, 则可以成功访问到:
+{"code": "SUCCESS", "data": {"title": "Welcome to HUO Ke Website"}}
+
+而且, 如果打开浏览器开发者模式, 查看 "network", 可以看到 response header 中, server 字段是 "nginx 1.14.1", 说明:
+A. 当https请求 服务器 5000 端口时, 这个请求被映射到了 docker 容器的 443 端口.
+B. nginx 会将容器内 443 端口的请求转发到容器内的 5000 端口.
+C. 由于容器内还有个 Gunicorn 服务, 在容器内 5000 端口上运行 Flask 后台服务, 所以, nginx 转发来的 5000 端口, 会被 gunicorn 接受.
+D. Gunicorn 作为 WSGI 服务器, 会将 5000 端口的请求, 转发给 flask, flask 会真正的处理该请求, 在后台处理请求 并生成响应.
+E. flask将响应返回给 容器内5000端口的 Gunicorn WSGI.
+F. 容器内 5000 端口的 WSGI 将响应返回给 容器内 443 端口的 nginx.
+G. 容器内 443 端口的 nginx 将响应映射回 服务器 的 5000 端口.
+H. 客户端的接受最终的一个json格式的响应, 从network的 response header 中看到响应的服务器是 nginx, 而不是 Gunicorn 或者 flask.
+
+#################
+后台部署 END, 下一篇介绍前端服务的docker化部署.

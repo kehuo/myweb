@@ -1,0 +1,71 @@
+第七部分 - 构造前端服务的最终Docker镜像 (最后一个部分)
+
+
+这部分, 会根据已构造好的 centos8_conda_npm_nginx:v1 基础镜像, 和 SSL 证书, 再为前端分别打造一个可以运行的镜像.
+
+1 以 kevin 账号登陆 阿里云服务器.
+
+2 cd /home/kevin/dev/myweb/frontend
+
+3 如果一切正常, 那么在 /home/kevin/dev/myweb/backend 目录下, 可以看到前端所需的 Dockerfile 文件.
+(可以访问 https://github.com/kehuo/myweb/blob/master/frontend/Dockerfile)
+
+4 确保前端的 Dockerfile 中包含以下 2 行:
+COPY ./ssl_files/kevinhuo_cool.pem /etc/nginx/cert/kevinhuo_cool.pem
+COPY ./ssl_files/kevinhuo_cool.key /etc/nginx/cert/kevinhuo_cool.key
+
+5 resource/default.conf 文件确保和以下配置相同:
+(https://github.com/kehuo/myweb/blob/master/frontend/resource/default.conf)
+
+6 至此, 以下4个文件都已满足需求:
+frontend/Dockerfile
+frontend/resource/default.conf
+/home/kevin/dev/myweb/frontend/ssl_files/kevinhuo_cool.pem
+/home/kevin/dev/myweb/frontend/ssl_files/kevinhuo_cool.key
+
+7 运行以下命令, 开始构造前端服务的镜像:
+(请确保在运行以下命令时, 你在 /users/kevin/dev/myweb/frontend 路径下)
+docker build -t web_frontend:v1 .
+
+(注意: 这里很有可能出现很多无法预测的问题, 请根据报错内容, 自行解决. 若实在有疑问, 可以用以下方式联系我帮忙解决:
+<1> hkhuoke@hotmail.com
+<2> https://kevinhuo.cool 网站留言, 并附上报错内容 (网站暂时无法上传图片, 只支持文字.)
+<3> https://github.com/kehuo/myweb.git 项目下留言
+)
+
+8 如果你到了这一步并且没报错, 说明镜像已经打好了, 可以运行该命令查看:
+docker images
+
+(如果结果中有 web_frontend;v1, 则说明成功了.)
+
+9 按顺序运行以下几个命令, 用来启动该镜像中的前端服务:
+<1> 在服务器运行:
+docker run -it -d -p 80:80 -p 443:443 --name web_backend web_backend:v1
+<2> 在服务器运行以下, 用来进入运行中的 docker 容器:
+docker exec -it web_backend /bin/bash
+<3> 在前端服务的docker容器中, 运行以下, 用来启动nginx服务:
+/usr/sbin/nginx
+<4> 启动完毕, 退出 docker 容器即可.
+exit
+
+(
+以上几个命令大概做几件事：
+A. 将服务器的 80/443 端口, 分别映射到docker容器内的 80/443 端口. (-p 的冒号左边是服务器端口, 冒号右边是docker容器内的端口)
+B. 运行的容器名称用 --name 指定, 我让他叫做 web_frontend
+C. 之后, 手动启动nginx服务, 然后退出docker容器.
+)
+
+10 运行之后, 如果没有报错, 则可以运行 docker ps 查看这个容器的状态. 若Status显示 "Up xxx seconds", 则说明已经启动成功, 并在运行中.
+
+11 此时, 打开浏览器访问 https://kevinhuo.cool, 则可以成功访问到网站.
+
+#################
+前端部署结束.
+
+至此, 所有步骤 END. 有任何问题请联系:
+<1> hkhuoke@hotmail.com
+<2> https://kevinhuo.cool 网站留言
+
+感谢阅读!
+
+HUO Ke

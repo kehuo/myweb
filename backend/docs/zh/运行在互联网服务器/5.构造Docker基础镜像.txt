@@ -1,4 +1,6 @@
-第五部分 -- 构造一个安装了 Nginx 和 miniconda3 的基础镜像
+第五部分 -- 构造一个安装了 Nginx + miniconda3 + npm 的基础镜像
+
+安装这3个软件, 保证前端后端都可以用它作为基础镜像. 方便省事.
 
 1 还是假设 kevin 登陆了 阿里云服务器, 并且网站的源码已经拉到了 /home/kevin/dev/myweb 下.
 
@@ -7,10 +9,14 @@
 3 docker 安装完成后, 有2个办法构造基础镜像.
 (注意: 从这里往下, 如果有任何权限问题, 2个方案, 一是用 kevin 账号 sudo 运行, 二是用 root 账号, 自己看情况选择.)
 方法一 (推荐的方法) 运行以下命令, 直接拉取我打包好的 基础镜像.
-docker pull kehuo/centos8_conda:nginx
 
-方法二 (从头开始构造)
-<1> 拉一个 Dockerhub 官方的 centos 8 基础镜像
+## 打包好的基础镜像:
+docker pull kehuo/centos8_conda_npm_nginx:v1
+
+方法二 (如果网络太差, docker pull 总是超时失败, 那么可以从头开始构造一个基础镜像)
+PS: 方法二中打造的基础镜像会保证前后端都可以用.
+
+<1> 拉一个 Dockerhub 官方的 centos 8 基础镜像 (不大, 就100多MB)
 docker pull centos:latest
 
 <2> 后台模式运行该镜像 (运行的容器名为 i_will_build_by_myself)
@@ -35,13 +41,16 @@ bash Miniconda3-latest-Linux-x86_64.sh
 <8> 创建一个 python 3.7.5 的虚拟环境, 名称是 myenv
 conda create --name myenv python=3.7.5
 
-<9> 所有软件安装完毕, 退出当前容器
+<9> 所有后端需要的软件都已安装完毕, 最后还需要安装一个前端需要的软件 -- npm. 只需要安装 nodejs, 就会有npm 命令供你使用了.
+yum install -y nodejs
+
+<10> 至此, 所有需要的3个软件都已经安装完成, 退出当前容器.
 exit
 
-<10> 运行以下命令, 将刚才的 i_will_build_by_myself 容器, 持久化成一个 docker 镜像:
-docker commit i_will_build_by_myself kehuo/centos8_conda:nginx
-
-(该命令会把 i_will_build_by_myself 容器持久化成 一个叫 kehuo/centos8_conda:nginx 的docker 镜像, 可以运行 docker images 查看)
+<11> 运行以下命令, 将刚才的 i_will_build_by_myself 容器, 持久化成一个 docker 镜像:
+docker commit i_will_build_by_myself kehuo/centos8_conda_npm_nginx:v1
+(该命令会把 i_will_build_by_myself 容器持久化成 一个叫 kehuo/centos8_conda_npm_nginx:v1 的docker 镜像)
 
 ###################
-至此, 基础镜像的构造就结束. 下部分介绍如何用 Dockerfile 和这个基础镜像, 构造出可以直接运行 nginx + Flask + Gunicorn 的网站镜像.
+至此, 基础镜像的构造就结束. 你可以运行 docker images 查看你刚才已经打包好的基础镜像.
+下部分介绍如何用 Dockerfile 和这个基础镜像, 构造出可以直接运行 nginx + Flask + Gunicorn 的网站镜像.

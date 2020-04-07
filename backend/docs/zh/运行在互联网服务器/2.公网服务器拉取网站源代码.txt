@@ -7,6 +7,12 @@
 5 git clone git@github.com:kehuo/myweb.git
 6 cd myweb
 7 到此, 网站源码已经被克隆到了服务器的 /home/kevin/dev 目录下.
+8 可以看到, 项目源码的本地路径是 /home/kevin/dev/myweb, 而且下面包含2个文件夹, 一个叫 backend, 一个叫frontend.
+
+frontend 是基于 react 的前端部分;
+backend 是基于 flask 的后段部分.
+
+后面我会分别介绍前端 和 后端 服务的部署.
 
 #####################
-下一部分 -- 设置服务器安全组规则
+下一部分 -- 在部署2个服务之前, 需要先设置服务器安全组规则, 开通必要的服务器端口.

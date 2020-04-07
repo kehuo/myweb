@@ -1,4 +1,4 @@
-该网站部署使用 Aliyun ECS + Docker + Nginx + Gunicorn + Flask + Centos 8 + Miniconda 3 + Python 3.7.5 + Flask
+该网站部署使用 Aliyun ECS + Docker + Nginx + Gunicorn + Flask + Centos 8 + Miniconda 3 + Python 3.7.5 + React + npm
 
 其中:
 云主机: 阿里云ECS / Centos 8
@@ -6,12 +6,18 @@ WEB 服务器: Nginx
 WSGI 服务器: Gunicorn
 App 服务器: Flask
 
-部署方式:
+后台部署方式:
 Docker: 使用 centos8 基础镜像, 再自己安装nginx. 最后只需要1个容器, 将 Nginx, Gunicorn 和 Flask服务全部运行在这1个容器中即可.
 Gunicorn: 这个WSGI服务器比 uWSGI 的优势在于, 不需要安装其他工具, 比如 Supervisor. 所以我选择了这个, 一切为了更方便.
 Flask: 自己最熟悉, 且使用最熟练的框架, 所以不再考虑其他框架如 Django 等.
+
+前端部署方式:
+Docker
+React (umi build 打包成 dist 文件)
+
 
 其他:
 python -- 3.7.5. 但是原则上只要可以正常使用requirements.txt 中所有包的版本, 都可以. 3.7.5是个人习惯.
 miniconda3 -- 其他可选方案还有pyenv等等. 也属于个人偏好, 而且个人感觉在构建Docker镜像, 以及自定义创建虚拟环境时, conda较好用.
 Flask -- 本站不考虑使用其他方案, 只用Flask.
+npm
