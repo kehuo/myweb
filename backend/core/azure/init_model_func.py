@@ -3,5 +3,5 @@
 # @Date: 2020/4/6
 
 
-def azure_init_func():
+def azure_init_func(app, global_var):
     pass

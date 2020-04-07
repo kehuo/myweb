@@ -3,5 +3,5 @@
 # @Date: 2020/4/6
 
 
-def introduction_to_algorithms_init_func():
+def introduction_to_algorithms_init_func(app, global_var):
     pass

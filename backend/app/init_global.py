@@ -4,6 +4,7 @@
 
 
 import sys
+from app.init_db import init_db_func
 from model_init_config import global_init_func_dict
 
 global_var = dict()
@@ -48,6 +49,9 @@ def init_global_func(app):
 
     # 2
     init_func_list = list()
+
+    # 3 放入 init_db 函数
+    # init_func_list.append(init_db_func)
 
     # 2.1
     for model in global_var["models"]:
