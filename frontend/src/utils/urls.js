@@ -1,9 +1,44 @@
 import { stringify } from "qs";
-
+// OpApi 定义在 public/js/apiUrl.js 中, window.OpApi = "http://localhost:5000/api/v1"
 const { OpApi, DemoApi } = global;
-// operationBase 对应的值, 就是后台flask auth 模块
+
+// xxxBase 对应的值, 就是后台flask xxx 模块
 const operationBase = "exam_standard";
+
+const welcomeBase = "welcome";
+const mlBase = "ml";
+const introductionToAlgorithmsBase = "introduction_to_algorithms";
+const azureBase = "azure";
 import { buildUrlWithTs } from "./utils";
+
+//########################## -- HUO Ke website urls START -- ##############################
+
+// -------------------- 需要注意的点 START ------------------------
+// 注意, 对于所有的get请求, 调用buildUrlWithTs时, 会提供 params 参数. 示例:
+//return buildUrlWithTs(baseUrl, params);
+
+// 而且, 如果想请求后台id=1的user, 比如 /users/1, 也不需要提供 params, 而是现在 baseUrl的最后, 跟上id参数即可.
+// 示例格式如下:
+//let baseUrl = `${OpApi}/${operationBase}/physical-segment/${id}`;
+//  return buildUrlWithTs(baseUrl, {});
+
+// 但是, 对于所有post / put / delete 请求, 不需要提供 params 参数, 只需要用 {} 代替 params即可. 示例:
+//return buildUrlWithTs(baseUrl, {});
+// --------------------- 需要注意的点 END ---------------------------
+
+// 获取首页的一些数据, 比如之前用户的评论, 算法导论的目录, 等等.
+export function getWelcomeDataUrl(params) {
+  let baseUrl = `${OpApi}/${welcomeBase}/get_welcome_data`;
+  return buildUrlWithTs(baseUrl, params);
+}
+
+// 添加评论 POST
+// export function createCommentUrl() {
+//   let baseUrl = `${OpApi}/${operationBase}/disease-exam`;
+//   return buildUrlWithTs(baseUrl, {});
+// }
+
+//########################## -- HUO Ke website urls END -- ##############################
 
 // disease package URLs
 export function getPackageListUrl(params) {

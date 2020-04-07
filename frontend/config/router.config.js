@@ -38,7 +38,7 @@ export default [
           {
             path: "/ml/tagging",
             name: "tagging",
-            component: "./MachineLearning/Tagging"
+            component: "./MachineLearning/Tagging/Tagging"
           }
         ]
       },
@@ -72,7 +72,6 @@ export default [
 
           // 第二部分
           {
-            
             path: "/introduction-to-algorithms/part-2",
             name: "introduction-to-algorithms-part-2",
             routes: [
