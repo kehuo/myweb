@@ -51,7 +51,7 @@ def init_global_func(app):
     init_func_list = list()
 
     # 3 放入 init_db 函数
-    # init_func_list.append(init_db_func)
+    init_func_list.append(init_db_func)
 
     # 2.1
     for model in global_var["models"]:
@@ -69,3 +69,4 @@ def init_global_func(app):
         except Exception as e:
             print("init_func_list 运行失败, 错误信息:\n%s" % str(e))
             sys.exit(0)
+    print(global_var["db"])

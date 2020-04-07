@@ -4,6 +4,8 @@
 
 import traceback
 from flask_sqlalchemy import SQLAlchemy
+import pymysql
+pymysql.install_as_MySQLdb()
 
 
 def init_db_func(app, global_var):

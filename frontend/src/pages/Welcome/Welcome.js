@@ -172,7 +172,7 @@ export default class Welcome extends React.Component {
             <Card className={styles.numberCard}>
               <Row className={styles.numberCardTitle}>Azure Demo</Row>
               <Row className={styles.numberCardChildTitle}>
-                OAuth2 Auhtorization Code
+                OAuth2 Authorization Code
               </Row>
               <Row className={styles.numberCardChildTitle}>
                 OAuth2 Access Token
