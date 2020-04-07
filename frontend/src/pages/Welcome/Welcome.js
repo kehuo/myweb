@@ -165,7 +165,8 @@ export default class Welcome extends React.Component {
     } = this.props.welcome;
     return (
       <Card bordered={false} style={{ marginTop: 10, marginBottom: 10 }}>
-        <Row gutter={24} style={{ width: "100%", margin: 0, padding: 0 }}>
+        {/* gutter是3个方块之间的距离. futter英文翻译:沟槽 */}
+        <Row gutter={20} style={{ width: "100%", margin: 0, padding: 0 }}>
           <Col span={8}>
             <Card className={styles.numberCard}>
               <Row className={styles.numberCardTitle}>Azure Demo</Row>
