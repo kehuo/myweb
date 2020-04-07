@@ -163,6 +163,7 @@ export default class Welcome extends React.Component {
       //numberDepartment,
       //numberOperator
     } = this.props.welcome;
+    console.log("welcome.js , this.props.welcome:" + this.props.welcome.title);
     return (
       <Card bordered={false} style={{ marginTop: 10, marginBottom: 10 }}>
         {/* gutter是3个方块之间的距离. futter英文翻译:沟槽 */}

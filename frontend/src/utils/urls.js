@@ -29,6 +29,7 @@ import { buildUrlWithTs } from "./utils";
 // 获取首页的一些数据, 比如之前用户的评论, 算法导论的目录, 等等.
 export function getWelcomeDataUrl(params) {
   let baseUrl = `${OpApi}/${welcomeBase}/get_welcome_data`;
+  console.log("url.js, baseUrl=" + baseUrl);
   return buildUrlWithTs(baseUrl, params);
 }
 
