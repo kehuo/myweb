@@ -6,7 +6,8 @@ window.modulesSupport = [
   "welcome",
   "introduction-to-algorithms",
   "ml",
-  "azure"
+  "azure",
+  "comment"
 ];
 
 window.hideL2Path = {

@@ -9,6 +9,8 @@ const welcomeBase = "welcome";
 const mlBase = "ml";
 const introductionToAlgorithmsBase = "introduction_to_algorithms";
 const azureBase = "azure";
+const commentBase = "comment";
+
 import { buildUrlWithTs } from "./utils";
 
 //########################## -- HUO Ke website urls START -- ##############################
@@ -29,6 +31,13 @@ import { buildUrlWithTs } from "./utils";
 // 获取首页的一些数据, 比如之前用户的评论, 算法导论的目录, 等等.
 export function getWelcomeDataUrl(params) {
   let baseUrl = `${OpApi}/${welcomeBase}/get_welcome_data`;
+  console.log("url.js, baseUrl=" + baseUrl);
+  return buildUrlWithTs(baseUrl, params);
+}
+
+// 获取数据库中所有评论列表, 用来展示在页面中
+export function getCommentListUrl(params) {
+  let baseUrl = `${OpApi}/${commentBase}/comment_list`;
   console.log("url.js, baseUrl=" + baseUrl);
   return buildUrlWithTs(baseUrl, params);
 }

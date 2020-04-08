@@ -24,6 +24,7 @@ export function _onCreate() {
 app.model({ namespace: 'bodyPart', ...(require('/Users/hk/dev/myweb/frontend/src/models/bodyPart.js').default) });
 app.model({ namespace: 'cnRareDisease', ...(require('/Users/hk/dev/myweb/frontend/src/models/cnRareDisease.js').default) });
 app.model({ namespace: 'cnRareDiseaseMapping', ...(require('/Users/hk/dev/myweb/frontend/src/models/cnRareDiseaseMapping.js').default) });
+app.model({ namespace: 'comment', ...(require('/Users/hk/dev/myweb/frontend/src/models/comment.js').default) });
 app.model({ namespace: 'dashboard', ...(require('/Users/hk/dev/myweb/frontend/src/models/dashboard.js').default) });
 app.model({ namespace: 'dataSource', ...(require('/Users/hk/dev/myweb/frontend/src/models/dataSource.js').default) });
 app.model({ namespace: 'demoStructure', ...(require('/Users/hk/dev/myweb/frontend/src/models/demoStructure.js').default) });

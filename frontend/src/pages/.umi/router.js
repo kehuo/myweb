@@ -156,6 +156,19 @@ const routes = [
         ],
       },
       {
+        path: '/comment',
+        name: 'comment',
+        icon: 'home',
+        component: __IS_BROWSER
+          ? _dvaDynamic({
+              component: () => import('../Comment/Comment'),
+              LoadingComponent: require('/Users/hk/dev/myweb/frontend/src/components/PageLoading/index')
+                .default,
+            })
+          : require('../Comment/Comment').default,
+        exact: true,
+      },
+      {
         component: () =>
           React.createElement(
             require('/Users/hk/dev/myweb/frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')

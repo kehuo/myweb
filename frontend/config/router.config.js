@@ -91,7 +91,15 @@ export default [
             ]
           }
         ]
-      }
+      },
+
+      // 用户评论页面
+      {
+        path: "/comment",
+        name: "comment",
+        icon: "home",
+        component: "./Comment/Comment"
+      },
     ]
   }
 ];
