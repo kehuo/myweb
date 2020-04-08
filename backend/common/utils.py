@@ -40,6 +40,13 @@ def load_json_file(path):
     return data
 
 
+def getValueWithDefault(aMap, key, defaultVal=None):
+    v = aMap.get(key, defaultVal)
+    if v is None:
+        v = defaultVal
+    return v
+
+
 def strip_value(value, strip):
     if value is None:
         return value
