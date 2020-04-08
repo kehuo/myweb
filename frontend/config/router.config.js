@@ -10,6 +10,21 @@
 // 这样, 你就可以在菜单栏中看到所有的路由了.
 
 export default [
+  // user
+  {
+    path: "/user",
+    component: "../layouts/UserLayout",
+    routes: [
+      { path: "/user", redirect: "/user/login" },
+      //userInfo: 页面右上角的图标, 点一下个人信息后, 就是userInfo界面
+      { path: "/user/userInfo", component: "./setting/UserInfo" },
+      { path: "/user/login", component: "./setting/Login" }
+      //{ path: '/user/register', component: './User/Register' },
+      //{ path: '/user/register-result', component: './User/RegisterResult' },
+    ]
+  },
+
+  // app
   {
     path: "/",
     component: "../layouts/BasicLayout",
@@ -98,8 +113,22 @@ export default [
         path: "/comment",
         name: "comment",
         icon: "home",
-        component: "./Comment/Comment"
-      },
+        //component: "./Comment/Comment"
+        routes: [
+          {
+            path: "/comment/list",
+            name: "comment-list",
+            component: "./Comment/CommentList"
+            //hideInMenu: true,
+          },
+          {
+            path: "/comment/one",
+            name: "comment-one",
+            component: "./Comment/CommentPopup",
+            hideInMenu: true
+          }
+        ]
+      }
     ]
   }
 ];

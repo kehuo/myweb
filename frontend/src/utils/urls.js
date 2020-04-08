@@ -10,6 +10,7 @@ const mlBase = "ml";
 const introductionToAlgorithmsBase = "introduction_to_algorithms";
 const azureBase = "azure";
 const commentBase = "comment";
+const authBase = "auth";
 
 import { buildUrlWithTs } from "./utils";
 
@@ -37,7 +38,7 @@ export function getWelcomeDataUrl(params) {
 
 // 获取数据库中所有评论列表, 用来展示在页面中
 export function getCommentListUrl(params) {
-  let baseUrl = `${OpApi}/${commentBase}/comment_list`;
+  let baseUrl = `${OpApi}/${commentBase}/comment`;
   console.log("url.js, baseUrl=" + baseUrl);
   return buildUrlWithTs(baseUrl, params);
 }
@@ -47,6 +48,16 @@ export function getCommentListUrl(params) {
 //   let baseUrl = `${OpApi}/${operationBase}/disease-exam`;
 //   return buildUrlWithTs(baseUrl, {});
 // }
+
+export function signInUrl() {
+  let baseUrl = `${OpApi}/${authBase}/login`;
+  return buildUrlWithTs(baseUrl, {});
+}
+
+export function getCurrentUserUrl() {
+  let baseUrl = `${OpApi}/${authBase}/currentUser`;
+  return buildUrlWithTs(baseUrl, {});
+}
 
 //########################## -- HUO Ke website urls END -- ##############################
 
@@ -253,11 +264,11 @@ export function getUserOneUrl(id) {
   return buildUrlWithTs(baseUrl, {});
 }
 
-export function getCurrentUserUrl() {
-  // return `${OpApi}/${operationBase}/currentUser`;
-  let baseUrl = `${OpApi}/${operationBase}/currentUser`;
-  return buildUrlWithTs(baseUrl, {});
-}
+// export function getCurrentUserUrl() {
+//   // return `${OpApi}/${operationBase}/currentUser`;
+//   let baseUrl = `${OpApi}/${operationBase}/currentUser`;
+//   return buildUrlWithTs(baseUrl, {});
+// }
 
 export function getDepartmentUrl(params) {
   // return `${OpApi}/${operationBase}/real-department?${stringify(params)}`;
@@ -277,11 +288,10 @@ export function getImpDepartmentsUrl() {
   return buildUrlWithTs(baseUrl, {});
 }
 
-export function signInUrl() {
-  // return `${OpApi}/${operationBase}/login`;
-  let baseUrl = `${OpApi}/${operationBase}/login`;
-  return buildUrlWithTs(baseUrl, {});
-}
+// export function signInUrl() {
+//   let baseUrl = `${OpApi}/${operationBase}/login`;
+//   return buildUrlWithTs(baseUrl, {});
+// }
 
 export function signOutUrl() {
   let baseUrl = `${OpApi}/${operationBase}/logout`;

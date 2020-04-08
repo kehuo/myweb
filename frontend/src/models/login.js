@@ -28,26 +28,30 @@ export default {
         let current = {
           status: true,
           id: rsUser.id,
-          orgCode: rsUser.orgCode,
-          currentAuthority: rsUser.roleName,
+          //orgCode: rsUser.orgCode,
+          //currentAuthority: rsUser.roleName,
           userName: rsUser.name,
-          fullName: rsUser.fullName,
-          email: rsUser.email,
+          realName: rsUser.realname,
+          //fullName: rsUser.fullName,
+          //email: rsUser.email,
           disabled: rsUser.disabled,
-          roleId: rsUser.roleId,
-          orgName: rsUser.orgName,
-          roleName: rsUser.roleName
+          roleId: rsUser.role_id
+          //roleId: rsUser.roleId,
+          //orgName: rsUser.orgName,
+          //roleName: rsUser.roleName
         };
 
         let response = {
           status: true,
           id: rsUser.id,
-          currentAuthority: rsUser.roleName,
+          currentAuthority: rsUser.role_id,
+          //currentAuthority: rsUser.roleName,
           userName: rsUser.name,
-          fullName: rsUser.fullName,
-          orgCode: rsUser.orgCode,
-          email: rsUser.email,
-          orgName: rsUser.orgName
+          realName: rsUser.realname,
+          //fullName: rsUser.fullName,
+          //orgCode: rsUser.orgCode,
+          email: rsUser.email
+          //orgName: rsUser.orgName
         };
 
         yield put({
@@ -60,9 +64,9 @@ export default {
         });
         reloadAuthorized();
         let nextPage = "/welcome";
-        if (rsUser.roleName == "dataengineer") {
-          nextPage = "/tagging-normal/tagging-list";
-        }
+        // if (rsUser.roleName == "dataengineer") {
+        //   nextPage = "/tagging-normal/tagging-list";
+        // }
         yield put(routerRedux.push(nextPage));
       }
     },

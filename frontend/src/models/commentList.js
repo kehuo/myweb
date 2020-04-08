@@ -11,7 +11,7 @@ import { message } from "antd";
 
 export default {
   //namespace 必须在整个前端项目唯一
-  namespace: "comment",
+  namespace: "commentList",
 
   state: {
     data: [],
@@ -30,7 +30,7 @@ export default {
         type: "saveList",
         payload: response.data
       });
-    },
+    }
 
     // *fetch({ payload, callback }, { call, put }) {
     //   const response = yield call(getCommentList, payload);
@@ -44,7 +44,7 @@ export default {
     //   });
     // }
 
-  // 这里 effect 结束
+    // 这里 effect 结束
   },
 
   // payload = flask 后端传来的json中的 data 部分.

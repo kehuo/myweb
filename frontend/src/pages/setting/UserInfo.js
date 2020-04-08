@@ -87,13 +87,13 @@ export default class UserInfo extends Component {
               </FormItem>
 
               <FormItem
-                label="机构编码"
+                label="邮箱"
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 19 }}
               >
                 {getFieldDecorator("orgCode", {
                   rules: [{ required: false, message: "请输入机构编码" }],
-                  initialValue: this.state.currentUser.orgCode
+                  initialValue: this.state.currentUser.email
                 })(<Input disabled />)}
               </FormItem>
 
@@ -104,7 +104,7 @@ export default class UserInfo extends Component {
               >
                 {getFieldDecorator("roleName", {
                   rules: [{ required: false, message: "请输入角色名" }],
-                  initialValue: this.state.currentUser.roleName
+                  initialValue: this.state.currentUser.roleId
                 })(<Input disabled />)}
               </FormItem>
             </Form>
