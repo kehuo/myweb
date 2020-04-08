@@ -1,4 +1,4 @@
-# @File: test_logic.py
+# @File: comment_list_ops.py
 # @Author: Kevin Huo
 # @Date: 2020/4/7
 
@@ -6,7 +6,7 @@
 from datetime import datetime, timedelta
 
 
-def get_comment_list(db, args):
+def get_comment_list(args, global_var):
     """
     参数:
     db - flask db 对象

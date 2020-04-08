@@ -5,8 +5,11 @@
 import json
 from datetime import datetime
 from decimal import Decimal
+import uuid
 
 from flask import json, Response
+
+from app.init_global import global_var
 
 
 def app_url(version, model, name):
@@ -80,3 +83,13 @@ def build_rows_result(rows, items, process_none=True, json_items=[], strip=False
                 x[name] = strip_value(row[i], strip=strip)
         rst.append(x)
     return rst
+
+
+def create_uuid(raw_str):
+    """
+    raw_str 可能是 username, 可能是 时间戳, 等等.
+    https://blog.csdn.net/yl416306434/article/details/80569688
+
+    使用 uuid5, 散列方式是 SHA1, 而不是MD5
+    """
+    return str(uuid.uuid5(namespace=uuid.NAMESPACE_DNS, name=raw_str))

@@ -26,6 +26,7 @@ def init_global_func(app):
     global_var['description'] = app.config['SERVICE_DESC']
     global_var['service'] = app.config['SERVICE_NAME']
     global_var['models'] = app.config['MODELS'].split(',')
+    # global_var["secret_key"] = app.config["SECRET_KEY"]
 
     # Azure AD common
     global_var["client_id"] = app.config["CLIENT_ID"]

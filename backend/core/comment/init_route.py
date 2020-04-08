@@ -3,7 +3,7 @@
 # @Date: 2020/4/6
 
 
-from core.comment.resources import CommentList
+from core.comment.resources import CommentList, CommentOne
 from common.utils import app_url
 
 
@@ -16,3 +16,6 @@ def comment_route(api, version, model):
     初始化出的 url 示例 -- /api/v1/ml/tagging
     """
     api.add_resource(CommentList, app_url(version, model, '/comment_list'))
+
+    # create new comment
+    api.add_resource(CommentOne, app_url(version, model, '/comment'))

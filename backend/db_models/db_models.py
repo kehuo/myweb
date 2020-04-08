@@ -11,9 +11,9 @@ Base = declarative_base()
 
 
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    user_id = Column(Integer, nullable=Fals, comment="每个用户的唯一id")
+    user_id = Column(Integer, nullable=False, comment="每个用户的唯一id, uuid5生成")
     role_id = Column(Integer, nullable=False)
     name = Column(String(64), nullable=False)
     password = Column(String(64), nullable=False)
@@ -29,13 +29,12 @@ class User(Base):
 
 class Comment(Base):
     """网站评论"""
-    __tablename__ = 'comment'
+    __tablename__ = "comment"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    comment_id = Column(Integer, nullable=False, comment="每条评论的唯一id")
+    comment_id = Column(Integer, nullable=False, comment="每条评论的唯一id, uuid5生成")
     content = Column(String(128), nullable=False, comment="评论具体内容")
-    email = Column(String(64), nullable=True, default=0)
 
-    created_at = Column(DateTime, nullable=False, default=datetime.now, comment="该评论的创建者")
-    created_by = Column(Integer, nullable=False, default=0)
+    created_at = Column(DateTime, nullable=False, default=datetime.now)
+    created_by = Column(Integer, nullable=False, default=0, comment="该评论的创建者")
     updated_at = Column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
     updated_by = Column(Integer, nullable=False, default=0)
