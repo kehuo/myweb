@@ -4,8 +4,7 @@
 
 from flask_restful import Resource, reqparse
 
-from app.init_global import global_var
-from common.utils import encoding_resp_utf8
+from common.utils.http import encoding_resp_utf8
 from core.ml.logics.test_logic import test_func
 
 # todo 定义 Flask_Restful Resource

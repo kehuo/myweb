@@ -4,7 +4,6 @@
 
 import json
 from datetime import datetime
-from decimal import Decimal
 import uuid
 
 from flask import json, Response
@@ -50,46 +49,14 @@ def getValueWithDefault(aMap, key, defaultVal=None):
     return v
 
 
-def strip_value(value, strip):
-    if value is None:
-        return value
-    if isinstance(value, str):
-        if strip:
-            value = value.strip()
-    elif isinstance(value, Decimal):
-        value = float(value)
-    return value
-
-
-def build_rows_result(rows, items, process_none=True, json_items=[], strip=False):
-    rst = []
-    item_len = len(items)
-    for row in rows:
-        x = {}
-        for i in range(0, item_len):
-            name = items[i]
-            if isinstance(row[i], datetime):
-                x[name] = datetime.strftime(row[i], '%Y-%m-%d %H:%M:%S')
-            elif name in json_items:
-                try:
-                    content = json.loads(row[i]) if row[i] is not None and row[i] != '' else ''
-                except Exception as e:
-                    content = row[i]
-                x[name] = content
-            elif process_none:
-                value = row[i] if row[i] is not None else ''
-                x[name] = strip_value(value, strip=strip)
-            else:
-                x[name] = strip_value(row[i], strip=strip)
-        rst.append(x)
-    return rst
-
-
 def create_uuid(raw_str):
     """
-    raw_str 可能是 username, 可能是 时间戳, 等等.
+    raw_str 可能是 username + 当前时间戳, 等等.
     https://blog.csdn.net/yl416306434/article/details/80569688
 
     使用 uuid5, 散列方式是 SHA1, 而不是MD5
     """
+    now = datetime.now().strftime("%Y-%m-%d %H-%M-%S %f")
+    raw_str = raw_str + now
+    print(raw_str)
     return str(uuid.uuid5(namespace=uuid.NAMESPACE_DNS, name=raw_str))

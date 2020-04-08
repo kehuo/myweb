@@ -4,7 +4,7 @@
 
 
 from core.welcome.resources import Welcome
-from common.utils import app_url
+from common.utils.http import app_url
 
 
 def welcome_route(api, version, model):

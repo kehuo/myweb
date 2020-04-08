@@ -4,7 +4,7 @@
 
 
 from core.comment.resources import CommentList, CommentOne
-from common.utils import app_url
+from common.utils.http import app_url
 
 
 def comment_route(api, version, model):

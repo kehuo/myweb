@@ -2,7 +2,7 @@
 # @Author: Kevin Huo
 # @LastUpdate: 4/3/2020 1:46 PM
 
-from common.utils import build_app_url
+from common.utils.http import build_app_url
 
 from views.ml.core_view_funcs.nlp_tagging import nlp_tagging_func
 

@@ -2,7 +2,7 @@
 # @Author: Kevin Huo
 # @LastUpdate: 4/3/2020 1:46 PM
 
-from common.utils import build_app_url
+from common.utils.http import build_app_url
 
 from views.azure.core_view_funcs.generate_authZ_code_req import generate_authZ_code_req_func
 from views.azure.core_view_funcs.azure_ad_redirect_uri import azure_ad_redirect_uri_func

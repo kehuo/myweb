@@ -4,10 +4,11 @@
 
 from flask_restful import Resource, reqparse
 
+from core.auth.logics.utils import check_permission
 from app.init_global import global_var
 from core.comment.logics.comment_list_ops import get_comment_list
 from core.comment.logics.comment_one_ops import create_comment
-from common.utils import encoding_resp_utf8
+from common.utils.http import encoding_resp_utf8
 
 
 class CommentList(Resource):
@@ -31,7 +32,7 @@ class CommentList(Resource):
 
 
 class CommentOne(Resource):
-    # @check_permission([1, 2, 3])
+    @check_permission([0])
     def post(self, **auth):
         parser = reqparse.RequestParser()
         parser.add_argument("data", type=dict, required=False, location="json")

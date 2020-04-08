@@ -3,7 +3,7 @@
 # @LastUpdate: 4/3/2020 10:21 AM
 
 
-from common.utils import load_json_file
+from common.utils.http import load_json_file
 
 
 def introduction_to_algorithms_init_func(app, global_var):

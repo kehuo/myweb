@@ -5,7 +5,7 @@
 from flask_restful import Resource, reqparse
 
 from core.welcome.logics.test_logic import test_func
-from common.utils import encoding_resp_utf8
+from common.utils.http import encoding_resp_utf8
 
 
 class Welcome(Resource):

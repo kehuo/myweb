@@ -2,7 +2,7 @@
 # @Author: Kevin Huo
 # @LastUpdate: 4/3/2020 1:46 PM
 
-from common.utils import build_app_url
+from common.utils.http import build_app_url
 
 from views.introduction_to_algorithms.core_view_funcs.chapters import introduction_to_algorithms_func
 

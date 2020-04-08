@@ -3,7 +3,7 @@
 # @Date: 2020/4/6
 
 from core.ml.resources import Tagging
-from common.utils import app_url
+from common.utils.http import app_url
 
 
 def ml_route(api, version, model):

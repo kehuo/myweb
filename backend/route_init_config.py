@@ -16,15 +16,19 @@
 global_views_route_init_func_dict = {}
 
 # todo 前后端分离后, 只需要初始化 api 的 route
-from core.ml.init_route import ml_route
+from core.auth.init_route import auth_route
 from core.welcome.init_route import welcome_route
+from core.azure.init_route import azure_route
+from core.introduction_to_algorithms.init_route import introduction_to_algorithms_route
+from core.ml.init_route import ml_route
 from core.comment.init_route import comment_route
 
 
 global_api_route_init_func_dict = {
+    "auth": auth_route,
     "welcome": welcome_route,
     "ml": ml_route,
-    # "azure": None,
-    # "introduction_to_algorithms": None,
+    "azure": azure_route,
+    "introduction_to_algorithms": introduction_to_algorithms_route,
     "comment": comment_route
 }
