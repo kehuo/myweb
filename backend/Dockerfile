@@ -1,5 +1,7 @@
 FROM kehuo/centos8_conda:nginx as builder
 
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 ENV PYTHONIOENCODING utf-8
 ENV LANG en_US.UTF-8
 
