@@ -32,22 +32,23 @@ import { buildUrlWithTs } from "./utils";
 // 获取首页的一些数据, 比如之前用户的评论, 算法导论的目录, 等等.
 export function getWelcomeDataUrl(params) {
   let baseUrl = `${OpApi}/${welcomeBase}/get_welcome_data`;
-  console.log("url.js, baseUrl=" + baseUrl);
+  //console.log("url.js, baseUrl=" + baseUrl);
   return buildUrlWithTs(baseUrl, params);
 }
 
 // 获取数据库中所有评论列表, 用来展示在页面中
 export function getCommentListUrl(params) {
   let baseUrl = `${OpApi}/${commentBase}/comment`;
-  console.log("url.js, baseUrl=" + baseUrl);
+  //console.log("url.js, baseUrl=" + baseUrl);
   return buildUrlWithTs(baseUrl, params);
 }
 
-// 添加评论 POST
-// export function createCommentUrl() {
-//   let baseUrl = `${OpApi}/${operationBase}/disease-exam`;
-//   return buildUrlWithTs(baseUrl, {});
-// }
+// 添加1条评论 POST
+// 因为post请求, 不需要 query string, 所以没有传入 params
+export function createCommentUrl() {
+  let baseUrl = `${OpApi}/${commentBase}/comment`;
+  return buildUrlWithTs(baseUrl, {});
+}
 
 export function signInUrl() {
   let baseUrl = `${OpApi}/${authBase}/login`;

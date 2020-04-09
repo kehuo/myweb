@@ -15,11 +15,23 @@ import {
 import CommentPopup from "./CommentPopup";
 
 import styles from "./Comment.less";
+import commentList from "../../models/commentList";
 let underscore = require("underscore");
 
 @connect(({ commentList }) => ({
   commentList
 }))
+
+// 1 CommmentList.js constructor
+// this = {"props": {"history": {"length": 14, "action": "POP",
+//                               "location": {"pathname": "/comment/list", "search": "", "hash": "", "query": {},
+//                                            "key": "qbkgh2"}},
+//                   "location": {"pathname": "/comment/list", "search": "", "hash": "", "query": {}, "key": "qbkgh2"},
+//                   "match": {"path": "/comment/list", "url": "/comment/list", "isExact": true, "params": {}},
+//                   "computedMatch": {"path": "/comment/list", "url": "/comment/list", "isExact": true, "params": {}},
+//                   "route": {"path": "/comment/list", "name": "comment-list", "exact": true}, "children": null,
+//                   "commentList": {"data": [], "total": 0}}, "refs": {}, "updater": {},
+//         "state": {"page": 1, "pageSize": 10, "showPopup": false, "hotOne": {}}}
 export default class CommentList extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +42,9 @@ export default class CommentList extends React.Component {
       showPopup: false,
       hotOne: {}
     };
+    console.log(
+      "CommentList.js, constructor函数, this= " + JSON.stringify(this)
+    );
   }
 
   buildListQueryParams() {
@@ -67,7 +82,17 @@ export default class CommentList extends React.Component {
     });
   }
 
+  // 当点了 “编辑” 按钮时, 只是打开了 "编辑评论" 的小窗口, 并不是真正修改.
+  // 所以这个叫 editComment, 而不是 realEditComment
   editComment(record) {
+    console.log(
+      "CommentList.js, editComment函数, this.state= " +
+        JSON.stringify(this.state)
+    );
+    console.log(
+      "CommentList.js, editComment函数, this.props= " +
+        JSON.stringify(this.props)
+    );
     this.setState({
       showPopup: true,
       hotOne: record
@@ -151,12 +176,40 @@ export default class CommentList extends React.Component {
     );
   }
 
+  // 这个组件就是 "新建评论" 按钮.
+  // 在 buildBar 中:
+  // this.state = {"page":1,"pageSize":10,"showPopup":false,"hotOne":{}}
+  // this.props.commentList = {
+  //   "commentList": {"data": [{"comment_id": "679718ff13c5541eb20a98acd022d934", "content": "hello, tmj is here 1!",
+  //                             "created_at": "2020-04-08 20:55:17", "creator": "tmj", "id": 1},
+  //                            {"comment_id": "1617f741688355bc8a032093b3abf50f", "content": "hello, hk is here 1!",
+  //                             "created_at": "2020-04-08 21:24:40", "creator": "hk", "id": 2},
+  //                            {"comment_id": "5114c14a73575729b8230e72e06511da", "content": "hello, hk is here new!",
+  //                             "created_at": "2020-04-08 21:37:58", "creator": "hk", "id": 3}], "total": 3}}
+
   buildOpBar() {
+    console.log(
+      "CommentList.js, buildOpBar函数, this.state= " +
+        JSON.stringify(this.state)
+    );
+    console.log(
+      "CommentList.js, buildOpBar函数, this.props= " +
+        JSON.stringify(this.props)
+    );
     return (
       <Row style={{ marginTop: 10, marginBottom: 10 }}>
         <Col span={4} offset={1}>
           <Button type="primary" onClick={this.onShowNewPopup.bind(this, null)}>
             新建评论
+          </Button>
+        </Col>
+
+        <Col span={4} offset={1}>
+          <Button
+            type="primary"
+            onClick={this.onRefreshCommentList.bind(this, null)}
+          >
+            刷新页面
           </Button>
         </Col>
       </Row>
@@ -169,7 +222,31 @@ export default class CommentList extends React.Component {
     this.setState(curState);
   }
 
+  // 按下 “新建评论” 的按钮后, 会触发这个函数 (和 buildOpBar 的this一样)
+  // this.state= {"page":1,"pageSize":10,"showPopup":false,"hotOne":{}}
+  // this.props = {
+  //   "commentList": {"data": [
+  //       {"comment_id": "679718ff13c5541eb20a98acd022d934", "content": "hello, tmj is here 1!",
+  //        "created_at": "2020-04-08 20:55:17", "creator": "tmj", "id": 1},
+  //       {"comment_id": "1617f741688355bc8a032093b3abf50f", "content": "hello, hk is here 1!",
+  //        "created_at": "2020-04-08 21:24:40", "creator": "hk", "id": 2},
+  //       {"comment_id": "5114c14a73575729b8230e72e06511da", "content": "hello, hk is here new!",
+  //        "created_at": "2020-04-08 21:37:58", "creator": "hk", "id": 3}], "total": 3}}
   onShowNewPopup() {
+    // 这里能popup的原理是: 调用了 this.setState, 将 showPopup 属性变成了true.
+    // 同时, 在 <CommentPopup/> 组件中, 我们将 showPopup 值, 绑定到了 visible 上.
+    // 所以, 当 showPopup 在当前函数中被手动改成 true 之后, this.props.visible 就变化了.
+    // 所以, <CommentPopup/> 组件的 this.props 就检测到了变化.
+    // 所以, 在 CommentPopup.js 中, react的内置函数 componentWillReceiveProps 函数就检测到了 this.props发生了变化.
+    // 而且, componentWillReceiveProps 内置函数的触发原理就是 -- 当this.props变化时, 就会触发, 所以会Popup
+    console.log(
+      "CommentList.js, onShowNewPopup函数开始, this.state= " +
+        JSON.stringify(this.state)
+    );
+    console.log(
+      "CommentList.js, onShowNewPopup函数开始, this.props= " +
+        JSON.stringify(this.props)
+    );
     let x = {
       id: 0,
       name: ""
@@ -178,8 +255,36 @@ export default class CommentList extends React.Component {
       showPopup: true,
       hotOne: x
     });
+    console.log(
+      "CommentList.js, onShowNewPopup函数结束, this.state= " +
+        JSON.stringify(this.state)
+    );
+    console.log(
+      "CommentList.js, onShowNewPopup函数结束, this.props= " +
+        JSON.stringify(this.props)
+    );
   }
 
+  // 在onSubmit函数中, 如果 reocrd.comment_id == "", 那么是新建评论的操作
+  realCreateComment(record) {
+    const { dispatch } = this.props;
+    console.log(
+      "CommentList.js, realCreateComment 函数开始, this.props= " +
+        JSON.stringify(this.props)
+    );
+    //console.log("CommentList.js, realCreateComment 函数开始, dispatch= " + JSON.stringify(dispatch))
+
+    dispatch({
+      type: "commentList/create",
+      payload: {
+        updateParams: record,
+        queryParams: this.buildListQueryParams()
+      }
+    });
+  }
+
+  // 当onSubmit函数被调用时, 会将record传给这个函数.
+  // 这个函数会回真正的和 models/commentList 交互, 发送请求给后台.
   realEditComment(record) {
     const { dispatch } = this.props;
     dispatch({
@@ -191,11 +296,55 @@ export default class CommentList extends React.Component {
     });
   }
 
+  // 点击 “刷新页面”, 会请求 "models/fetch", 重新刷新页面
+  // 其实不需要record, 但是为了保持格式和其他函数一致, 给了也无所谓
+  onRefreshCommentList(record) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: "commentList/fetch",
+      payload: {
+        updateParams: record,
+        queryParams: this.buildListQueryParams()
+      }
+    });
+  }
+
+  // 当点开"新建评论"的按钮时, 并不会调用这个函数
+  // 只有输入评论内容, 并且点 "确定" 后, 才会调用这个函数.
+  // 所以如果向将输入的内容发送到后台, 就需要在这个函数将请求发出去.
   onSubmit(isUpdate, record) {
+    // 当点 "确认"时, 会从 CommentPopup.js 的 onSubmit函数 回到当前CommentList.js的onSubmit函数.
+    // 同时, 会携带在 CommentPopup.js 中输入的content内容, 存储在record.content中, 返回到这个函数中.
+
+    // 所以, 根据 record.comment_id 值, 判断调用 "realCreateComment" 还是 "realEditComment".
+    // <1> 如果 record.comment_id == "", 说明是新建评论, 那么调用 realCreateComment
+    // <2> 如果 record.comment_id == "asdasdada", 说明在编辑已有的评论, 那么调用 realEditComment
+    // 当输入 “aaaa” 并且点“确认”后, record.content = "aaaa"
+    console.log(
+      "CommentList.js, onSubmit函数, 参数record= " + JSON.stringify(record)
+    );
+    console.log(
+      "CommentList.js, onSubmit函数, 参数isUpdate= " + JSON.stringify(isUpdate)
+    );
     let callback = null;
-    if (isUpdate) {
+    // 有 comment_id, 说明在编辑已有的评论
+    if (isUpdate || record.comment_id) {
       callback = this.realEditComment.bind(this, record);
     }
+
+    // comment_id == "", 说明是新建评论
+    if (isUpdate || !record.comment_id) {
+      //if (rec == "") {
+      console.log(
+        "CommentList.js, onSubmit函数, 正在开始call models/create 去建评论"
+      );
+      callback = this.realCreateComment.bind(this, record);
+      console.log(
+        "CommentList.js, onSubmit函数, models/create 完成, callback= " +
+          JSON.stringify(callback)
+      );
+    }
+
     this.setState(
       {
         showPopup: false,
@@ -246,6 +395,7 @@ export default class CommentList extends React.Component {
       >
         {this.buildOpBar()}
         <Table columns={columns} dataSource={data} pagination={pageOpts} />
+        {/* 以下就是 pages/CommentPopup.js, 下面的on_Submit 会将数据传递给Popup的组件. */}
         <CommentPopup
           visible={showPopup}
           item={hotOne}

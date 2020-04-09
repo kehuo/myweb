@@ -129,6 +129,21 @@ export default [
           }
         ]
       }
+
+      // 管理员界面
+      // {
+      //   path: "/admin",
+      //   name: "admin",
+      //   icon: "home",
+      //   //component: "./Comment/Comment"
+      //   routes: [
+      //     {
+      //       path: "/admin/role-list",
+      //       name: "role-list",
+      //       component: "./Admin/RoleList"
+      //     }
+      //   ]
+      // },
     ]
   }
 ];
