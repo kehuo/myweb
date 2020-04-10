@@ -62,6 +62,7 @@ export default class CommentList extends React.Component {
       type: "commentList/init",
       payload: this.buildListQueryParams()
     });
+    console.log("didMount结束, this.props= " + JSON.stringify(this.props));
   }
 
   onListPageChange(page, pageSize) {
@@ -188,6 +189,7 @@ export default class CommentList extends React.Component {
   //                             "created_at": "2020-04-08 21:37:58", "creator": "hk", "id": 3}], "total": 3}}
 
   buildOpBar() {
+    // 刚进入 buildOpBar 时, this.props.commentList 还是空
     console.log(
       "CommentList.js, buildOpBar函数, this.state= " +
         JSON.stringify(this.state)
@@ -367,6 +369,12 @@ export default class CommentList extends React.Component {
   //   }
 
   render() {
+    // 刚进入 render 的时候, this.props.commentList 其实还是空的
+    // 我们继续追踪, 看看到底哪里开始, 将 models init 函数获取的值, 给到了 this.props
+    console.log(
+      "CommentList.js 进入render函数, this.props.commentList= " +
+        JSON.stringify(this.props.commentList)
+    );
     const { data, total } = this.props.commentList;
     const { page, pageSize, showPopup, hotOne } = this.state;
     const columns = [

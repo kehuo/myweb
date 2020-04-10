@@ -13,7 +13,7 @@ class Welcome(Resource):
     获取数据库中所有 检查报告初始文本 的列表 (对应前端 exam-standard/show-exam-report-list 页面)
     """
 
-    # @check_permission([1, 2, 3, 4])
+    # @check_permission(["admin", "vip", "enduser", "guest"])
     def get(self, **auth):
         parser = reqparse.RequestParser()
         # parser.add_argument('page', type=int, required=False, location='args')

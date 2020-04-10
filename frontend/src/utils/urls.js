@@ -56,7 +56,19 @@ export function signInUrl() {
 }
 
 export function getCurrentUserUrl() {
-  let baseUrl = `${OpApi}/${authBase}/currentUser`;
+  let baseUrl = `${OpApi}/${authBase}/current_user`;
+  return buildUrlWithTs(baseUrl, {});
+}
+
+// 请求算法导论 某1部分(part) / 章节(chapter) / 小节(section)的内容
+export function getAlgorithmsSectionPageUrl(params) {
+  let baseUrl = `${OpApi}/${introductionToAlgorithmsBase}/page`;
+  return buildUrlWithTs(baseUrl, params);
+}
+
+// 普通用户注册 新账户
+export function userRegisterUrl() {
+  let baseUrl = `${OpApi}/${authBase}/register`;
   return buildUrlWithTs(baseUrl, {});
 }
 

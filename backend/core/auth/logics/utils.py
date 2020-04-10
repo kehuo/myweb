@@ -6,7 +6,7 @@
 import hashlib
 from flask_jwt_extended import (create_access_token, create_refresh_token, get_jwt_identity, verify_jwt_in_request)
 from functools import wraps
-from db_models.db_models import User
+from db_models.db_models import User, Role
 from app.init_global import global_var
 
 
@@ -17,9 +17,11 @@ def encrypt_password(password):
     return my_md5_digest
 
 
-def check_permission(user_roles):
+def check_permission(supported_role_names):
     """
     这个函数的作用 -- 判断current_user 是否在当前被访问的函数 所支持的 role 中.
+
+    supported_role_names = ["admin", "vip", "enduser", "guest"]
 
     示例:
     当请求 createUser 函数时, 如果 createUser 定义了 @check_permission(["global_admin"]), 那么
@@ -42,10 +44,15 @@ def check_permission(user_roles):
                 auth["logined"] = True
             else:
                 return {"errorCode": "BAUTH_TOKEN_MISSING", "errorMessage": "请重新登录"}, 401
-            if user.role_id in user_roles:
+            curr_user_role_name = db.session.query(Role).filter(Role.id == user.role_id).first().name
+            if curr_user_role_name in supported_role_names:
                 auth["permission"] = True
                 auth["role_id"] = user.role_id
                 auth["userId"] = user.id
+            # if user.role_id in user_roles:
+            #     auth["permission"] = True
+            #     auth["role_id"] = user.role_id
+            #     auth["userId"] = user.id
             else:
                 return {"code": "FAILURE", "message": "user has no privileges"}, 403
             return function(*args, **auth)

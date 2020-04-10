@@ -8,4 +8,4 @@ from common.utils.http import app_url
 
 
 def introduction_to_algorithms_route(api, version, model):
-    api.add_resource(IntroductionToAlgorithms, app_url(version, model, '/pages'))
+    api.add_resource(IntroductionToAlgorithms, app_url(version, model, '/page'))

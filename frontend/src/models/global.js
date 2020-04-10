@@ -12,6 +12,8 @@ export default {
 
   effects: {
     *fetchNotices({ payload }, { call, put }) {
+      console.log("进入models/global.js fetchNotices函数");
+      console.log("参数payload= " + JSON.stringify(payload));
       const response = yield call(getNotificationList, payload);
       yield put({
         type: "saveNoticeCount",

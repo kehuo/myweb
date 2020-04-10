@@ -18,9 +18,9 @@ export default [
       { path: "/user", redirect: "/user/login" },
       //userInfo: 页面右上角的图标, 点一下个人信息后, 就是userInfo界面
       { path: "/user/userInfo", component: "./setting/UserInfo" },
-      { path: "/user/login", component: "./setting/Login" }
-      //{ path: '/user/register', component: './User/Register' },
-      //{ path: '/user/register-result', component: './User/RegisterResult' },
+      { path: "/user/login", component: "./setting/Login" },
+      { path: "/user/register", component: "./User/Register" },
+      { path: "/user/register-result", component: "./User/RegisterResult" }
     ]
   },
 
@@ -64,23 +64,42 @@ export default [
         name: "introduction-to-algorithms",
         icon: "team",
         routes: [
-          // 第一部分
+          // 第一部分 part 1
           {
             path: "/introduction-to-algorithms/part-1",
             name: "introduction-to-algorithms-part-1",
             routes: [
-              // 第1章
+              // 第1章 chapter 1
               {
                 path: "/introduction-to-algorithms/part-1/chapter-1",
                 name: "introduction-to-algorithms-part-1-chapter-1",
-                component: "./Welcome/Welcome"
+                routes: [
+                  // 第1小节 section 1
+                  {
+                    path:
+                      "/introduction-to-algorithms/part-1/chapter-1/section-1",
+                    name:
+                      "introduction-to-algorithms-part-1-chapter-1-section-1",
+                    component: "./Welcome/Welcome"
+                  }
+                ]
               },
 
-              // 第2章
+              // 第2章 chapter 2
               {
                 path: "/introduction-to-algorithms/part-1/chapter-2",
                 name: "introduction-to-algorithms-part-1-chapter-2",
-                component: "./Welcome/Welcome"
+                routes: [
+                  // 第1小节 section 1
+                  {
+                    path:
+                      "/introduction-to-algorithms/part-1/chapter-2/section-1",
+                    name:
+                      "introduction-to-algorithms-part-1-chapter-2-section-1",
+                    component:
+                      "./IntroductionToAlgorithms/Part1/Chapter2/Section1/Section1"
+                  }
+                ]
               }
             ]
           },
@@ -90,17 +109,57 @@ export default [
             path: "/introduction-to-algorithms/part-2",
             name: "introduction-to-algorithms-part-2",
             routes: [
-              // 第1章
+              // 第6章 -- chapter 6
               {
                 path: "/introduction-to-algorithms/part-2/chapter-6",
                 name: "introduction-to-algorithms-part-2-chapter-6",
-                component: "./Welcome/Welcome"
+                routes: [
+                  // 第1小节 section 1 - 堆排序
+                  {
+                    path:
+                      "/introduction-to-algorithms/part-2/chapter-6/section-1",
+                    name:
+                      "introduction-to-algorithms-part-2-chapter-6-section-1",
+                    component: "./Welcome/Welcome"
+                  }
+                ]
               },
 
               // 第2章
               {
                 path: "/introduction-to-algorithms/part-2/chapter-7",
                 name: "introduction-to-algorithms-part-2-chapter-7",
+                component: "./Welcome/Welcome"
+              }
+            ]
+          },
+
+          // 第四部分 - 高级设计和分析技术
+          {
+            path: "/introduction-to-algorithms/part-4",
+            name: "introduction-to-algorithms-part-4",
+            routes: [
+              // 第15章 -- chapter 15 - 动态规划
+              {
+                path: "/introduction-to-algorithms/part-4/chapter-15",
+                name: "introduction-to-algorithms-part-4-chapter-15",
+                routes: [
+                  // 第1小节 section 1 - 钢条切割问题
+                  {
+                    path:
+                      "/introduction-to-algorithms/part-4/chapter-15/section-1",
+                    name:
+                      "introduction-to-algorithms-part-4-chapter-15-section-1",
+                    component:
+                      "./IntroductionToAlgorithms/Part4/Chapter15/Section1/Section1"
+                  }
+                ]
+              },
+
+              // 第17章 -- 贪心算法
+              {
+                path: "/introduction-to-algorithms/part-4/chapter-16",
+                name: "introduction-to-algorithms-part-4-chapter-16",
                 component: "./Welcome/Welcome"
               }
             ]

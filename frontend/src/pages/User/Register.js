@@ -48,16 +48,31 @@ class Register extends Component {
     prefix: "86"
   };
 
+  // this.props.register = {"status":{"code":"SUCCESS","data":{"id":15,"role_name":"enduser","user_id":"4c5517ed9b6f518f882027adbbee35c4","username":"gg"}}
+  // this.props.submitting = true
   componentDidUpdate() {
     const { form, register } = this.props;
-    const account = form.getFieldValue("mail");
-    if (register.status === "ok") {
-      router.push({
-        pathname: "/user/register-result",
-        state: {
-          account
-        }
-      });
+    //const account = form.getFieldValue("mail");
+
+    // 这个 account 的作用, 是在 register-result 界面, 显示 "你的帐号 xxx 已经注册成功"
+    // 如果你想显示 xxx 是邮箱, 那么就 form.getFieldValue("email");
+    // 如果你想显示 xxx 是用户名, 那么 form.getFieldValue("name");
+    // account = "huoke"
+    const account = form.getFieldValue("name");
+
+    //console.log("pages/Register.js componentDidUpdate 函数, this.props= "+ JSON.stringify(this.props))
+    // 从 models.register.js 的reducer中, 已经将后台返回的 code 返回给this.props了
+
+    //if (register.status === "ok") {
+    if (register.status) {
+      if (register.status.code === "SUCCESS") {
+        router.push({
+          pathname: "/user/register-result",
+          state: {
+            account
+          }
+        });
+      }
     }
   }
 
@@ -89,12 +104,23 @@ class Register extends Component {
     return "poor";
   };
 
+  // 点击 "submit" 按钮后, 将会调用 models/register.js 中的 submit 函数.
+  // this.state = {"count":0,"confirmDirty":false,"visible":true,"help":"","prefix":"86"}
   handleSubmit = e => {
     e.preventDefault();
     const { form, dispatch } = this.props;
     form.validateFields({ force: true }, (err, values) => {
+      //console.log("err: " + JSON.stringify(err))
+      //console.log("value: " + JSON.stringify(value))
       if (!err) {
         const { prefix } = this.state;
+        // 很奇怪
+        // form = {}
+        // this.props.form = {}
+        // this.state 也没有req body 的数据, 那数据如何传递到 models/register.js 的submit函数的？
+        // 经过 console.log(value), 发现是 value 传递的, 但是value变量是如何拿到reqp body的呢?
+        // 有待研究
+
         dispatch({
           type: "register/submit",
           payload: {
@@ -182,9 +208,45 @@ class Register extends Component {
         <h3>
           <FormattedMessage id="app.register.register" />
         </h3>
+
+        {/* 输入邮箱的地方 */}
+        {/* 注意: */}
+        {/* getFieldDecorator 里的值, 是post请求发出的req body 里的关键字. 比如:
+        getFieldDecorator("useraccount", 那么post请求的req body 里就会有
+        {"useraccount": xxx} */}
+
+        {/* 所以, 由于后台必须填的post req body 是 name 和 password 2个字段, 所以只要这2个即可.
+        当然, email 可填， 也可空 */}
         <Form onSubmit={this.handleSubmit}>
+          {/* 输入用户名 */}
           <FormItem>
-            {getFieldDecorator("mail", {
+            {getFieldDecorator("name", {
+              rules: [
+                {
+                  required: true,
+                  message: formatMessage({ id: "form.useraccount.required" })
+                }
+                // {
+                //   type: "useraccount",
+                //   message: formatMessage({
+                //     id: "validation.email.wrong-format"
+                //   })
+                // }
+              ]
+            })(
+              <Input
+                size="large"
+                placeholder={formatMessage({
+                  id: "form.useraccount.placeholder"
+                })}
+              />
+            )}
+          </FormItem>
+
+          {/* 后台支持的字段是 email, 不是mail, 改过来: */}
+          <FormItem>
+            {/* {getFieldDecorator("mail", { */}
+            {getFieldDecorator("email", {
               rules: [
                 {
                   required: true,
@@ -204,6 +266,9 @@ class Register extends Component {
               />
             )}
           </FormItem>
+
+          {/* 输入密码 */}
+          {/* 后台支持的 req body 字段是 password, 所以 getFieldDecorator("password" */}
           <FormItem help={help}>
             <Popover
               content={
@@ -236,6 +301,8 @@ class Register extends Component {
               )}
             </Popover>
           </FormItem>
+
+          {/* 第二次输入密码, 进行确认的地方 */}
           <FormItem>
             {getFieldDecorator("confirm", {
               rules: [
@@ -259,7 +326,9 @@ class Register extends Component {
               />
             )}
           </FormItem>
-          <FormItem>
+
+          {/* 手机号, 暂时不需要 */}
+          {/* <FormItem>
             <InputGroup compact>
               <Select
                 size="large"
@@ -295,8 +364,10 @@ class Register extends Component {
                 />
               )}
             </InputGroup>
-          </FormItem>
-          <FormItem>
+          </FormItem> */}
+
+          {/* 手机验证码, 暂时不需要 */}
+          {/* <FormItem>
             <Row gutter={8}>
               <Col span={16}>
                 {getFieldDecorator("captcha", {
@@ -332,7 +403,9 @@ class Register extends Component {
                 </Button>
               </Col>
             </Row>
-          </FormItem>
+          </FormItem> */}
+
+          {/* "注册" 按钮 */}
           <FormItem>
             <Button
               size="large"
@@ -343,8 +416,10 @@ class Register extends Component {
             >
               <FormattedMessage id="app.register.register" />
             </Button>
+
+            {/* 这个Link 是使用已有账户登陆 */}
             <Link className={styles.login} to="/User/Login">
-              <FormattedMessage id="app.register.sing-in" />
+              <FormattedMessage id="app.register.sign-in" />
             </Link>
           </FormItem>
         </Form>

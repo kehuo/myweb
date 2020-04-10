@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "dva";
-// import { formatMessage, FormattedMessage } from 'umi/locale';
+import { formatMessage, FormattedMessage } from "umi/locale";
 import Link from "umi/link";
 import { Checkbox, Alert, Icon } from "antd";
 import Login from "@/components/Login";
@@ -45,8 +45,13 @@ export default class LoginPage extends Component {
     });
   }
 
+  // this.props.login = {"status":false,"currentUser":{},"currentAuthority":"guest"}
   render() {
     const { login, submitting, getting } = this.props;
+    console.log(
+      "pages/setting/Login.js render函数, this.props= " +
+        JSON.stringify(this.props)
+    );
     const { type } = this.state;
     return (
       <div className={styles.main}>
@@ -60,6 +65,9 @@ export default class LoginPage extends Component {
             onPressEnter={this.handleSubmitFake.bind(this)}
           />
           <Submit loading={submitting}>登录</Submit>
+          <Link to="/user/register">
+            <FormattedMessage id="app.login.signup" />
+          </Link>
         </Login>
       </div>
     );

@@ -28,6 +28,9 @@ class User(Base):
 
 
 class Role(Base):
+    """
+    1-admin / 2-vip / 3-enduser / 4-guest
+    """
     __tablename__ = "role"
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(64), nullable=False)

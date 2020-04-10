@@ -9,6 +9,7 @@ from sqlalchemy import or_
 from db_models.db_models import Comment, User
 from common.utils.http import getValueWithDefault, create_uuid
 from common.utils.db import build_rows_result, build_one_result
+from common.utils.other import hit_daily_comment_creation_threshold
 
 
 def get_comment_list(args, global_var):
@@ -86,7 +87,7 @@ def get_one_comment(args, global_var, comment_id):
 
 def create_comment(args, global_var):
     """
-    创建一条新评论
+    创建一条新评论 (每天只能允许创建最多 1000 条评论)
     -------------
 
     raw_str 就用 data["content"]
@@ -94,6 +95,15 @@ def create_comment(args, global_var):
     另外, 由于生成的 comment_id 格式中有中划线, 很奇怪, 所以建议删掉:
     uuid = "-".join(uuid)
     """
+    can_create = hit_daily_comment_creation_threshold(global_var)
+
+    if not can_create:
+        res = {
+            "code": "FAILURE",
+            "message": "Hit max daily comment creation threshold, please try to comment tomorrow."
+        }
+        return res
+
     data = args["data"]
     db = global_var["db"]
 
@@ -102,14 +112,13 @@ def create_comment(args, global_var):
 
     current_user_name = get_jwt_identity()
     try:
-        # 根据 current_user_name 找到 user_id
-        user_query = db.session.query(User.user_id).filter(User.name == current_user_name).first()
-        current_user_id = user_query.user_id
-        print("userid:%s" % current_user_id)
+        # 根据 current_user_name 找到 user_id (该信息从前端传过来)
+        # user_query = db.session.query(User.user_id).filter(User.name == current_user_name).first()
+        # current_user_id = user_query.user_id
         record = Comment(
             comment_id=comment_id,
             content=data["content"],
-            creator_user_id=current_user_id
+            creator_user_id=getValueWithDefault(data, "creator_user_id", "GUEST_USER")
         )
         db.session.add(record)
         db.session.commit()
@@ -118,6 +127,7 @@ def create_comment(args, global_var):
             "data": {"id": record.id,
                      "creator": current_user_name}
         }
+        global_var["today_already_created_comment_count"][1] += 1
     except Exception as e:
         res = {
             "code": "FAILURE",

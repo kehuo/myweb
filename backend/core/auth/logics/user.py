@@ -13,7 +13,7 @@ def createUser(args, global_var):
     db = global_var["db"]
     data = args['data']
 
-    user_id = create_uuid(raw_str=data["userName"])
+    user_id = create_uuid(raw_str=data["name"])
     user_id = "".join(user_id.split("-"))
     try:
         record = User(
@@ -24,7 +24,9 @@ def createUser(args, global_var):
             disabled=0,
             email=getValueWithDefault(data, 'email', ''),
             password=encrypt_password(data['password']),
-            role_id=data['role_id']
+            # role_id=data['role_id']
+            # 3 = 普通用户
+            role_id=getValueWithDefault(data, "role_id", 3)
         )
         db.session.add(record)
         db.session.commit()

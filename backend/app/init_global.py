@@ -48,6 +48,20 @@ def init_global_func(app):
     # Introduction to Algorithms catalog json path (windows 和 linux 不一样)
     global_var["algorithm_catalog_json_path"] = app.config["ALGORITHM_CATALOG_JSON_PATH"]
 
+    # Comment daily creation max threshold
+    global_var["daily_comment_creation_max_threshold"] = app.config["DAILY_COMMENT_CREATION_MAX_THRESHOLD"]
+
+    # 初始化一个空数组, 用来维护 "每天已经创建的评论数量", 在每天第一条评论创建时, 就检查这个数组 (3终情况)
+    # <1> 如果为空 -- 将数组第一项写成当天日期 datetime.now, 第二项 =1, 表示今天创建的数量+1
+    # <2> 如果不为空:
+    #     A. 如果数组第一项 = 当天的日期, 那么直接检查第二项是否大于 daily_comment_creation_max_threshold
+    #          A-1. 如果已经大于等于1000 -- 返回error -- 已经达到每日最大限制
+    #          A-2. 如果小于1000 -- 可以继续创建 - 将数组第二项 +=1, 表示今天创建的评论又加了1
+    #     B. 如果数组第一项 不等于 当天日期, 那么说明已经是第二天的新评论了, 那么将该数组清空, 并且:
+    #         # 将数组第一项更新成今天的 datetime.now
+    #         # 再将数组第2项 写成 1, 代表今天的第一条新评论
+    global_var["today_already_created_comment_count"] = []
+
     # 2
     init_func_list = list()
 

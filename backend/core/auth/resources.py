@@ -13,6 +13,7 @@ from app.init_global import global_var
 import core.auth.logics.login as LoginUtils
 from core.auth.logics.get_current_user import getCurrentUser
 import core.auth.logics.user as UserUtils
+from core.auth.logics.register import register_user_account
 
 
 class LogIn(Resource):
@@ -32,6 +33,23 @@ class LogIn(Resource):
         resp.headers['x-bb-set-bauthtoken'] = access_token
         resp.headers['Access-Control-Expose-Headers'] = 'x-bb-set-bauthtoken'
         return resp
+
+
+class Register(Resource):
+    """
+    普通用户注册
+    这个 注册 和 admin的创建用户不同.
+
+    因为管理员可以创建管理员, 而普通用户注册不可以.
+    另外, 管理员创建用户需要check_permission, 而普通用户注册时不需要
+    """
+    def post(self, **auth):
+        parser = reqparse.RequestParser()
+        parser.add_argument('data', type=dict, required=True, location='json')
+        args = parser.parse_args()
+
+        rst = register_user_account(args, global_var)
+        return encoding_resp_utf8(rst)
 
 
 class LogOut(Resource):
@@ -68,19 +86,8 @@ class CurrentUser(Resource):
 
 
 class Users(Resource):
-    """创建用户"""
-    # @check_permission([1])
-    # def get(self, **auth):
-    #     parser = reqparse.RequestParser()
-    #     parser.add_argument('page', type=int, required=False, location='args')
-    #     parser.add_argument('pageSize', type=int, required=False, location='args')
-    #     parser.add_argument('disabled', type=int, required=False, location='args')
-    #     args = parser.parse_args()
-    #
-    #     rst = Utils.getUserList(global_var['db'], args)
-    #     return encoding_resp_utf8(rst)
-
-    @check_permission([0])
+    """管理员 创建新用户"""
+    @check_permission(["admin"])
     def post(self, **auth):
         parser = reqparse.RequestParser()
         parser.add_argument('data', type=dict, required=True, location='json')
@@ -88,24 +95,3 @@ class Users(Resource):
 
         rst = UserUtils.createUser(args, global_var)
         return encoding_resp_utf8(rst)
-
-
-# class UserOne(Resource):
-#     # @check_permission([1])
-#     def get(self, user_id, **auth):
-#         rst = UserUtils.getUserOne(global_var['db'], user_id)
-#         return encoding_resp_utf8(rst)
-#
-#     @check_permission([1])
-#     def put(self, user_id,**auth):
-#         parser = reqparse.RequestParser()
-#         parser.add_argument('data', type=dict, required=True, location='json')
-#         args = parser.parse_args()
-#
-#         rst = UserUtils.updateUser(global_var['db'], args, user_id)
-#         return encoding_resp_utf8(rst)
-#
-#     @check_permission([1])
-#     def delete(self, user_id, **auth):
-#         rst = UserUtils.deleteUserOne(global_var['db'], user_id)
-#         return encoding_resp_utf8(rst)

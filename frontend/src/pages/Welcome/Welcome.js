@@ -132,8 +132,8 @@ export default class Welcome extends React.Component {
   // <1> const {welcomeData} = this.props.welcome, 从 this.props 中读取相关数据.
   // <2> 在 <Row></Row>之间, 用 {welcomeData} 的方式, 调用这个数据.
   buildTitle() {
-    console.log("this.props:");
-    console.log(this.props.welcome);
+    //console.log("this.props:");
+    //console.log(this.props.welcome);
     const { welcomeData } = this.props.welcome;
     return (
       <Row
@@ -163,7 +163,7 @@ export default class Welcome extends React.Component {
       //numberDepartment,
       //numberOperator
     } = this.props.welcome;
-    console.log("welcome.js , this.props.welcome:" + this.props.welcome.title);
+    //console.log("welcome.js , this.props.welcome:" + this.props.welcome.title);
     return (
       <Card bordered={false} style={{ marginTop: 10, marginBottom: 10 }}>
         {/* gutter是3个方块之间的距离. futter英文翻译:沟槽 */}

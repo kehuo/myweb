@@ -29,6 +29,11 @@ export default {
   "form.optional": "（选填）",
   "form.submit": "提交",
   "form.save": "保存",
+
+  //表单中 提示用户名
+  "form.useraccount.placeholder": "用户名",
+  "form.useraccount.required": "用户名不能为空",
+
   "form.email.placeholder": "邮箱",
   "form.password.placeholder": "至少6位密码，区分大小写",
   "form.confirm-password.placeholder": "确认密码",
@@ -75,6 +80,7 @@ export default {
   "component.noticeIcon.empty": "暂无数据",
 
   // -------- op data -------- start
+  menu: "根页面",
   "menu.home": "Home Page",
   "menu.welcome": "首页",
 
@@ -82,23 +88,44 @@ export default {
   "menu.ml.tagging": "标注模型",
 
   "menu.introduction-to-algorithms": "算法导论",
+  // 算法导论 - 第一部分
   "menu.introduction-to-algorithms.introduction-to-algorithms-part-1":
     "第一部分 基础知识",
   "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-1":
     "第1章 算法在计算中的作用",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-1.introduction-to-algorithms-part-1-chapter-1-section-1":
+    "1.1 算法",
+
   "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-2":
     "第2章 算法基础",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-2.introduction-to-algorithms-part-1-chapter-2-section-1":
+    "2.1 插入排序",
 
+  // 算法导论 - 第二部分
   "menu.introduction-to-algorithms.introduction-to-algorithms-part-2":
     "第二部分 排序和顺序统计量",
   "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-6":
     "第6章 堆排序",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-6.introduction-to-algorithms-part-2-chapter-6-section-1":
+    "6.1 堆",
+
   "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-7":
     "第7章 快速排序",
 
+  // 算法导论 - 第四部分
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4":
+    "第四部分 高级设计和分析技术",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4.introduction-to-algorithms-part-4-chapter-15":
+    "第15章 动态规划",
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4.introduction-to-algorithms-part-4-chapter-15.introduction-to-algorithms-part-4-chapter-15-section-1":
+    "15.1 钢条切割",
+
+  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4.introduction-to-algorithms-part-4-chapter-16":
+    "第16章 贪心算法",
+
   // 评论页面
-  "menu.comment": "用户评论",
-  "menu.comment.comment-list": "所有评论",
+  "menu.comment": "留言板",
+  "menu.comment.comment-list": "来留言吧",
 
   // -------- op data -------- end
   "app.login.tab-login-credentials": "账户密码登录",
@@ -110,10 +137,15 @@ export default {
   "app.login.login": "登录",
   "app.register.register": "注册",
   "app.register.get-verification-code": "获取验证码",
-  "app.register.sing-in": "使用已有账户登录",
-  "app.register-result.msg": "你的账户：{email} 注册成功",
+  "app.register.sign-in": "使用已有账户登录",
+
+  // 因为邮箱可以为空, 所以先显示 name 最保险
+  "app.register-result.msg": "你的账户：{name} 注册成功",
+  // "app.register-result.msg": "你的账户：{email} 注册成功",
   "app.register-result.activation-email":
     "激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。",
+
+  "app.register-result.back-sign-in-page": "返回登陆界面",
   "app.register-result.back-home": "返回首页",
   "app.register-result.view-mailbox": "查看邮箱",
   "app.home.introduce": "介绍",

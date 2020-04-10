@@ -16,8 +16,7 @@ class CommentList(Resource):
 
     评论可能很多, 所以使用 page 和 pageSize 用来前端分页.
     """
-
-    # @check_permission([1, 2, 3, 4])
+    # @check_permission(["enduser"])
     def get(self, **auth):
         parser = reqparse.RequestParser()
         parser.add_argument('page', type=int, required=False, location='args')
@@ -29,9 +28,15 @@ class CommentList(Resource):
 
         return encoding_resp_utf8(res)
 
-    @check_permission([0, 1])
+    @check_permission(["admin", "vip", "enduser", "guest"])
     def post(self, **auth):
-        """创建一条评论"""
+        """
+        创建一条评论
+        ----------
+        <1> 3是默认普通用户的role_id, 默认有评论的权限
+        <2> 每天又评论数量限制, 被定义在 global_var["daily_comment_creation_max_threshold"] 中.
+        <3> 是否超过每日限制, 可以根据 global_var["today_already_created_comment_count"] 来判断
+        """
         parser = reqparse.RequestParser()
         parser.add_argument("data", type=dict, required=False, location="json")
         args = parser.parse_args()
@@ -42,7 +47,10 @@ class CommentList(Resource):
 
 
 class CommentOne(Resource):
-    # @check_permission([0])
+    """
+    查看一条评论
+    """
+    @check_permission(["admin", "vip", "enduser"])
     def get(self, comment_id, **auth):
         parser = reqparse.RequestParser()
         parser.add_argument("data", type=dict, required=False, location="json")

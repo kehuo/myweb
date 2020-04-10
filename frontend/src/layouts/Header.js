@@ -10,6 +10,13 @@ import styles from "./Header.less";
 import Authorized from "@/utils/Authorized";
 import { routerRedux } from "dva/router";
 
+// this.props.currentUser = {"status":true,
+//                           "id":1,
+//                           "userName":"hk",
+//                           "fullName":"kevin",
+//                           "email":"hkhuoke@hotmail.com",
+//                           "disabled":0,
+//                           "roleId":0}
 const { Header } = Layout;
 // class HeaderView extends PureComponent {
 class HeaderView extends React.Component {
@@ -26,6 +33,8 @@ class HeaderView extends React.Component {
     return null;
   }
 
+  // 加载BasicLayout 的Header时, BasicLayout 会把自己从后台请求到的 this.props.currentUser
+  // 传递给当前的 Header.js 组件.
   componentDidMount() {
     const { currentUser } = this.props;
     document.addEventListener("scroll", this.handScroll, { passive: true });
@@ -61,7 +70,13 @@ class HeaderView extends React.Component {
     });
   };
 
+  // 右上角的小人头
   handleMenuClick = ({ key }) => {
+    console.log(
+      "当前src/layouts/Header.js. 进入右上角的小人头: " +
+        JSON.stringify(this.props.currentUser)
+    );
+    console.log("参数key= " + JSON.stringify(key));
     const { dispatch } = this.props;
     if (key === "userCenter") {
       router.push("/account/center");
@@ -71,11 +86,19 @@ class HeaderView extends React.Component {
       router.push("/exception/trigger");
       return;
     }
+    // 查看用户信息
     if (key === "userinfo") {
       // router.push('/account/settings/base');
       router.push("/user/userInfo");
       return;
     }
+    // 增加注册的按钮
+    if (key === "userinfo") {
+      // router.push('/account/settings/base');
+      router.push("/user/userInfo");
+      return;
+    }
+    // 登出
     if (key === "logout") {
       const { currentUser } = this.props;
       dispatch({
@@ -142,6 +165,7 @@ class HeaderView extends React.Component {
     this.ticking = false;
   };
 
+  // 右上角的小铃铛
   gotoNotification() {
     let webPath = "/notification";
     this.props.dispatch(routerRedux.push(webPath));

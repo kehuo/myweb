@@ -66,6 +66,7 @@ class UserLayout extends React.PureComponent {
                   //src={logo}
                   src={fire_logo}
                 />
+                Back To Home Page
                 {/*<span className={styles.title}>Ant Design</span>*/}
               </Link>
             </div>

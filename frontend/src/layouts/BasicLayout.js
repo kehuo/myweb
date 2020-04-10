@@ -128,6 +128,7 @@ class BasicLayout extends React.PureComponent {
     menuData: this.getMenuData()
   };
 
+  // BasicLayout 页面会在加载时, 请求后台的 get_current_user api.
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -175,6 +176,12 @@ class BasicLayout extends React.PureComponent {
     };
   }
 
+  // this.props.route = config/router.config.js 中所有的路由, 是一个数组
+  // this.props.route = [
+  // {"path": "/", "redirect": "/welcome", ....},
+  // {"path": "/ml", "name": "ml", "routes": [...]},
+  // ...
+  //]
   getMenuData() {
     const {
       route: { routes }
@@ -268,6 +275,10 @@ class BasicLayout extends React.PureComponent {
   }
 
   render() {
+    console.log(
+      "BasicLayout.js, render函数, this.state= " + JSON.stringify(this.state)
+    );
+    //console.log("BasicLayout.js, render函数, this.props.routes= " + JSON.stringify(this.props.route));
     const {
       navTheme,
       layout: PropsLayout,

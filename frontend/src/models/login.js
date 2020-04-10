@@ -79,7 +79,12 @@ export default {
       }
     },
 
+    // 当点击页面右上角的小人头, 并且选择 "logout" 后, src/layouts/Header.js 中, 会请求
+    // 当前 models/login.js 文件中的 logout 函数
+    // 参数payload = {"userName":"xxx"}
     *logout({ payload }, { call, put, select }) {
+      console.log("当前在models/login.js 的 logout 函数中");
+      console.log("参数 payload= " + JSON.stringify(payload));
       if (payload !== null) {
         let rst = yield call(signOut, payload);
       }
