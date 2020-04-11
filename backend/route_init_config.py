@@ -23,6 +23,8 @@ from core.introduction_to_algorithms.init_route import introduction_to_algorithm
 from core.ml.init_route import ml_route
 from core.comment.init_route import comment_route
 
+from core.test.init_route import test_route
+
 
 global_api_route_init_func_dict = {
     "auth": auth_route,
@@ -30,5 +32,7 @@ global_api_route_init_func_dict = {
     "ml": ml_route,
     "azure": azure_route,
     "introduction_to_algorithms": introduction_to_algorithms_route,
-    "comment": comment_route
+    "comment": comment_route,
+
+    "test": test_route
 }

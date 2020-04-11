@@ -12,6 +12,9 @@ const azureBase = "azure";
 const commentBase = "comment";
 const authBase = "auth";
 
+// 暂时用来测试 markdown
+const testBase = "test";
+
 import { buildUrlWithTs } from "./utils";
 
 //########################## -- HUO Ke website urls START -- ##############################
@@ -69,6 +72,13 @@ export function getAlgorithmsSectionPageUrl(params) {
 // 普通用户注册 新账户
 export function userRegisterUrl() {
   let baseUrl = `${OpApi}/${authBase}/register`;
+  return buildUrlWithTs(baseUrl, {});
+}
+
+// 后台 markdown 测试 api
+export function getMarkdownPageUrl() {
+  // /api/v1/test/markdown
+  let baseUrl = `${OpApi}/${testBase}/markdown`;
   return buildUrlWithTs(baseUrl, {});
 }
 

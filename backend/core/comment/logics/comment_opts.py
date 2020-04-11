@@ -90,10 +90,9 @@ def create_comment(args, global_var):
     创建一条新评论 (每天只能允许创建最多 1000 条评论)
     -------------
 
-    raw_str 就用 data["content"]
-
-    另外, 由于生成的 comment_id 格式中有中划线, 很奇怪, 所以建议删掉:
-    uuid = "-".join(uuid)
+    关于 uuid:
+    1. raw_str 就用 data["content"]
+    2. 由于生成的 comment_id 格式中有中划线, 很奇怪, 所以建议删掉: uuid = "-".join(uuid)
     """
     can_create = hit_daily_comment_creation_threshold(global_var)
 
@@ -110,15 +109,15 @@ def create_comment(args, global_var):
     comment_id = create_uuid(raw_str=data["content"])
     comment_id = "".join(comment_id.split("-"))
 
-    current_user_name = get_jwt_identity()
     try:
-        # 根据 current_user_name 找到 user_id (该信息从前端传过来)
-        # user_query = db.session.query(User.user_id).filter(User.name == current_user_name).first()
-        # current_user_id = user_query.user_id
+        current_user_name = get_jwt_identity()
+        # 根据 current_user_name 找到 user_id
+        user_query = db.session.query(User.user_id).filter(User.name == current_user_name).first()
+        current_user_id = user_query.user_id
         record = Comment(
             comment_id=comment_id,
             content=data["content"],
-            creator_user_id=getValueWithDefault(data, "creator_user_id", "GUEST_USER")
+            creator_user_id=getValueWithDefault(data, "creator_user_id", current_user_id)
         )
         db.session.add(record)
         db.session.commit()
@@ -133,6 +132,5 @@ def create_comment(args, global_var):
             "code": "FAILURE",
             "message": traceback.format_exc()
         }
-        print(traceback.format_exc())
     return res
 

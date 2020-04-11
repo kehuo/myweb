@@ -89,43 +89,38 @@ export default {
 
   "menu.introduction-to-algorithms": "算法导论",
   // 算法导论 - 第一部分
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1":
-    "第一部分 基础知识",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-1":
+  "menu.introduction-to-algorithms.part-1": "第一部分 基础知识",
+  "menu.introduction-to-algorithms.part-1.chapter-1":
     "第1章 算法在计算中的作用",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-1.introduction-to-algorithms-part-1-chapter-1-section-1":
-    "1.1 算法",
+  "menu.introduction-to-algorithms.part-1.chapter-1.section-1": "1.1 算法",
 
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-2":
-    "第2章 算法基础",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-1.introduction-to-algorithms-part-1-chapter-2.introduction-to-algorithms-part-1-chapter-2-section-1":
-    "2.1 插入排序",
+  "menu.introduction-to-algorithms.part-1.chapter-2": "第2章 算法基础",
+  "menu.introduction-to-algorithms.part-1.chapter-2.section-1": "2.1 插入排序",
 
   // 算法导论 - 第二部分
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2":
-    "第二部分 排序和顺序统计量",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-6":
-    "第6章 堆排序",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-6.introduction-to-algorithms-part-2-chapter-6-section-1":
-    "6.1 堆",
+  "menu.introduction-to-algorithms.part-2": "第二部分 排序和顺序统计量",
+  "menu.introduction-to-algorithms.part-2.chapter-6": "第6章 堆排序",
+  "menu.introduction-to-algorithms.part-2.chapter-6.section-1": "6.1 堆",
 
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-2.introduction-to-algorithms-part-2-chapter-7":
-    "第7章 快速排序",
+  "menu.introduction-to-algorithms.part-2.chapter-7": "第7章 快速排序",
 
   // 算法导论 - 第四部分
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4":
-    "第四部分 高级设计和分析技术",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4.introduction-to-algorithms-part-4-chapter-15":
-    "第15章 动态规划",
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4.introduction-to-algorithms-part-4-chapter-15.introduction-to-algorithms-part-4-chapter-15-section-1":
-    "15.1 钢条切割",
+  "menu.introduction-to-algorithms.part-4": "第四部分 高级设计和分析技术",
+  "menu.introduction-to-algorithms.part-4.chapter-15": "第15章 动态规划",
+  "menu.introduction-to-algorithms.part-4.chapter-15.ection-1": "15.1 钢条切割",
 
-  "menu.introduction-to-algorithms.introduction-to-algorithms-part-4.introduction-to-algorithms-part-4-chapter-16":
-    "第16章 贪心算法",
+  "menu.introduction-to-algorithms.part-4.chapter-16": "第16章 贪心算法",
 
   // 评论页面
   "menu.comment": "留言板",
-  "menu.comment.comment-list": "来留言吧",
+  "menu.comment.list": "来留言吧",
+  "menu.comment.one": "评论编辑页面",
+
+  // 测试页面
+  "menu.test": "测试页面",
+  "menu.test.test-markdown": "测试md",
+
+  "menu.introduction-to-algorithms.page": "算法导论",
 
   // -------- op data -------- end
   "app.login.tab-login-credentials": "账户密码登录",

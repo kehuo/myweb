@@ -109,12 +109,9 @@ export default class CommentPopup extends React.Component {
 
   // this.props= {"visible":true,"item":{"id":0,"name":""}}
   onSubmit(isUpdate) {
-    console.log(
-      "Popup.js, onSubmit函数, this.state= " + JSON.stringify(this.state)
-    );
-    console.log(
-      "Popup.js, onSubmit函数, this.props= " + JSON.stringify(this.props)
-    );
+    // console.log("Popup.js, onSubmit函数, this.state= " + JSON.stringify(this.state));
+    // console.log("Popup.js, onSubmit函数, this.props= " + JSON.stringify(this.props));
+    console.log("popup.js onSubmit函数, isUpdate= " + isUpdate);
     const { id, comment_id, creator, content, created_at } = this.state;
     if (!this.props.onSubmit) {
       return;

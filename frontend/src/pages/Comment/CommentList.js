@@ -36,23 +36,36 @@ export default class CommentList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       page: 1,
       pageSize: 10,
 
       showPopup: false,
       hotOne: {}
     };
-    console.log(
-      "CommentList.js, constructor函数, this= " + JSON.stringify(this)
-    );
   }
 
   buildListQueryParams() {
-    const { page, pageSize } = this.state;
+    //const { page, pageSize } = this.state;
+
+    // sortCol 和 sortOrder 是翻页时候用的
+    const { page, pageSize, id, sortCol, sortOrder } = this.state;
+
     let params = {
       page: page,
       pageSize: pageSize
     };
+
+    if (id) {
+      params.id = id;
+      if (sortCol) {
+        params.sortCol = sortCol;
+      }
+      if (sortOrder) {
+        params.sortOrder = sortOrder;
+      }
+    }
+
     return params;
   }
 
@@ -270,12 +283,6 @@ export default class CommentList extends React.Component {
   // 在onSubmit函数中, 如果 reocrd.comment_id == "", 那么是新建评论的操作
   realCreateComment(record) {
     const { dispatch } = this.props;
-    console.log(
-      "CommentList.js, realCreateComment 函数开始, this.props= " +
-        JSON.stringify(this.props)
-    );
-    //console.log("CommentList.js, realCreateComment 函数开始, dispatch= " + JSON.stringify(dispatch))
-
     dispatch({
       type: "commentList/create",
       payload: {
@@ -311,40 +318,22 @@ export default class CommentList extends React.Component {
     });
   }
 
-  // 当点开"新建评论"的按钮时, 并不会调用这个函数
-  // 只有输入评论内容, 并且点 "确定" 后, 才会调用这个函数.
-  // 所以如果向将输入的内容发送到后台, 就需要在这个函数将请求发出去.
+  // 在弹框中输入内容并确认后, 请求会在这里被发送到后台 (通过 realEditComment / realEditComment 函数)
   onSubmit(isUpdate, record) {
     // 当点 "确认"时, 会从 CommentPopup.js 的 onSubmit函数 回到当前CommentList.js的onSubmit函数.
     // 同时, 会携带在 CommentPopup.js 中输入的content内容, 存储在record.content中, 返回到这个函数中.
-
-    // 所以, 根据 record.comment_id 值, 判断调用 "realCreateComment" 还是 "realEditComment".
-    // <1> 如果 record.comment_id == "", 说明是新建评论, 那么调用 realCreateComment
-    // <2> 如果 record.comment_id == "asdasdada", 说明在编辑已有的评论, 那么调用 realEditComment
-    // 当输入 “aaaa” 并且点“确认”后, record.content = "aaaa"
-    console.log(
-      "CommentList.js, onSubmit函数, 参数record= " + JSON.stringify(record)
-    );
-    console.log(
-      "CommentList.js, onSubmit函数, 参数isUpdate= " + JSON.stringify(isUpdate)
-    );
     let callback = null;
-    // 有 comment_id, 说明在编辑已有的评论
-    if (isUpdate || record.comment_id) {
-      callback = this.realEditComment.bind(this, record);
-    }
-
-    // comment_id == "", 说明是新建评论
-    if (isUpdate || !record.comment_id) {
-      //if (rec == "") {
-      console.log(
-        "CommentList.js, onSubmit函数, 正在开始call models/create 去建评论"
-      );
-      callback = this.realCreateComment.bind(this, record);
-      console.log(
-        "CommentList.js, onSubmit函数, models/create 完成, callback= " +
-          JSON.stringify(callback)
-      );
+    if (isUpdate) {
+      // 编辑已有评论
+      if (record.comment_id) {
+        // callback = this.realEditComment.bind(this, record);
+        this.realEditComment.bind(this, record);
+      }
+      // 新建评论
+      if (!record.comment_id) {
+        // callback = this.realCreateComment.bind(this, record);
+        this.realCreateComment.bind(this, record);
+      }
     }
 
     this.setState(
@@ -356,25 +345,19 @@ export default class CommentList extends React.Component {
     );
   }
 
-  //   onSearchDepartment(orgCode) {
-  //     const { dispatch } = this.props;
-  //     dispatch({
-  //       type: "userBB/queryDepartments",
-  //       payload: {
-  //         orgCode: orgCode,
-  //         page: 1,
-  //         pageSize: 200
-  //       }
-  //     });
-  //   }
+  handleTableChange(pagination, filters, sorter) {
+    this.setState(
+      {
+        sortCol: sorter.columnKey,
+        sortOrder: sorter.order
+      },
+      this.fetchListData.bind(this)
+    );
+  }
 
   render() {
     // 刚进入 render 的时候, this.props.commentList 其实还是空的
     // 我们继续追踪, 看看到底哪里开始, 将 models init 函数获取的值, 给到了 this.props
-    console.log(
-      "CommentList.js 进入render函数, this.props.commentList= " +
-        JSON.stringify(this.props.commentList)
-    );
     const { data, total } = this.props.commentList;
     const { page, pageSize, showPopup, hotOne } = this.state;
     const columns = [
@@ -384,6 +367,7 @@ export default class CommentList extends React.Component {
       { dataIndex: "created_at", title: "评论时间" }
       //{ dataIndex: "id", title: "操作", render: this.opRender.bind(this) }
     ];
+    // 页面有下脚的 换页按钮
     let pageOpts = {
       current: page,
       pageSize: pageSize,
@@ -402,16 +386,17 @@ export default class CommentList extends React.Component {
         }}
       >
         {this.buildOpBar()}
-        <Table columns={columns} dataSource={data} pagination={pageOpts} />
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={pageOpts}
+          onChange={::this.handleTableChange}
+        />
         {/* 以下就是 pages/CommentPopup.js, 下面的on_Submit 会将数据传递给Popup的组件. */}
         <CommentPopup
           visible={showPopup}
           item={hotOne}
           onSubmit={this.onSubmit.bind(this)}
-          //onSearchDepartment={this.onSearchDepartment.bind(this)}
-          //roleOptions={roleOptions}
-          //orgOptions={orgOptions}
-          //departmentOptions={departmentOptions}
         />
       </div>
     );

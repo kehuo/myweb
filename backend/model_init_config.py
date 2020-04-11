@@ -16,6 +16,8 @@ from core.introduction_to_algorithms.init_model_func import introduction_to_algo
 from core.azure.init_model_func import azure_init_func
 from core.ml.init_model_func import ml_init_func
 from core.comment.init_model_func import comment_init_func
+from core.test.init_model_func import test_init_func
+
 
 global_init_func_dict = {
     "auth": [auth_init_func],
@@ -23,6 +25,8 @@ global_init_func_dict = {
     "introduction_to_algorithms": [introduction_to_algorithms_init_func],
     "azure": [azure_init_func],
     "ml": [ml_init_func],
-    "comment": [comment_init_func]
+    "comment": [comment_init_func],
+
+    "test": [test_init_func]
 }
 

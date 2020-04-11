@@ -275,9 +275,9 @@ class BasicLayout extends React.PureComponent {
   }
 
   render() {
-    console.log(
-      "BasicLayout.js, render函数, this.state= " + JSON.stringify(this.state)
-    );
+    // console.log(
+    //   "BasicLayout.js, render函数, this.state= " + JSON.stringify(this.state)
+    // );
     //console.log("BasicLayout.js, render函数, this.props.routes= " + JSON.stringify(this.props.route));
     const {
       navTheme,
