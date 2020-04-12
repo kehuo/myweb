@@ -42,6 +42,15 @@ def load_json_file(path):
     return data
 
 
+def load_md_file(path):
+    """读取并加载算法导论的 .md 文件,
+    最终返回的是 string 数据. 因为前端支持的格式是 str 类型"""
+    with open(path, "r", encoding="utf-8") as f:
+        md_data = f.readlines()
+    md_str = "".join(md_data)
+    return md_str
+
+
 def getValueWithDefault(aMap, key, defaultVal=None):
     v = aMap.get(key, defaultVal)
     if v is None:

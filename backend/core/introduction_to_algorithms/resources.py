@@ -4,15 +4,33 @@
 
 from flask_restful import Resource, reqparse
 
-from core.introduction_to_algorithms.logics.pages import get_page
+from core.introduction_to_algorithms.logics.pages import get_md_page
+from core.introduction_to_algorithms.logics.catalog import get_catalog_json
+
 from common.utils.http import encoding_resp_utf8
 from core.auth.logics.utils import check_permission
+
+
+class IntroductionToAlgorithmsCatalog(Resource):
+    # @check_permission(["enduser"])
+    def get(self, **auth):
+        """
+        请求算法导论的目录
+        示例格式:
+        http://localhost:5000/api/v1/introduction_to_algorithms/catalog
+        """
+        parser = reqparse.RequestParser()
+        args = parser.parse_args()
+
+        # db = global_var["db"]
+        res = get_catalog_json(args)
+
+        return encoding_resp_utf8(res)
 
 
 class IntroductionToAlgorithms(Resource):
     # @check_permission(["enduser"])
     def get(self, **auth):
-        print("算法导论进入")
         """
         part - 1-7部分
         chapter - 1-35 章
@@ -28,6 +46,6 @@ class IntroductionToAlgorithms(Resource):
         args = parser.parse_args()
 
         # db = global_var["db"]
-        res = get_page(args)
+        res = get_md_page(args)
 
         return encoding_resp_utf8(res)

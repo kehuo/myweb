@@ -183,6 +183,8 @@ export default class BaseMenu extends PureComponent {
         openKeys
       };
     }
+
+    //  menuData= [{"path":"/","redirect":"/welcome","exact":true,"locale":"menu"},{"path":"/welcome","name":"welcome","icon":"home","exact":true,"locale":"menu.welcome"},{"path":"/ml","name":"ml","icon":"team","locale":"menu.ml","children":[{"path":"/ml/tagging","name":"tagging","exact":true,"locale":"menu.ml.tagging"}]},{"path":"/introduction-to-algorithms","name":"introduction-to-algorithms","icon":"home","locale":"menu.introduction-to-algorithms","children":[{"path":"/introduction-to-algorithms/page","name":"page","exact":true,"locale":"menu.introduction-to-algorithms.page"}]},{"path":"/comment","name":"comment","icon":"home","locale":"menu.comment","children":[{"path":"/comment/list","name":"list","exact":true,"locale":"menu.comment.list"},{"path":"/comment/one","name":"one","hideInMenu":true,"exact":true,"locale":"menu.comment.one"}]}]
     const { handleOpenChange, style, menuData } = this.props;
     return (
       <Menu

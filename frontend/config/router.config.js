@@ -58,114 +58,7 @@ export default [
         ]
       },
 
-      // 算法导论 (旧)
-      // {
-      //   path: "/introduction-to-algorithms",
-      //   name: "introduction-to-algorithms",
-      //   icon: "team",
-      //   routes: [
-      //     // 第一部分 part 1
-      //     {
-      //       path: "/introduction-to-algorithms/part-1",
-      //       name: "part-1",
-      //       routes: [
-      //         // 第1章 chapter 1
-      //         {
-      //           path: "/introduction-to-algorithms/part-1/chapter-1",
-      //           name: "chapter-1",
-      //           routes: [
-      //             // 第1小节 section 1
-      //             {
-      //               path: "/introduction-to-algorithms/part-1/chapter-1/section-1",
-      //               name: "section-1",
-      //               component: "./Welcome/Welcome"
-      //             }
-      //           ]
-      //         },
-
-      //         // 第2章 chapter 2
-      //         {
-      //           path: "/introduction-to-algorithms/part-1/chapter-2",
-      //           name: "chapter-2",
-      //           routes: [
-      //             // 第1小节 section 1
-      //             {
-      //               path:
-      //                 "/introduction-to-algorithms/part-1/chapter-2/section-1",
-      //               name:
-      //                 "section-1",
-      //               component:
-      //                 "./IntroductionToAlgorithms/Part1/Chapter2/Section1/Section1"
-      //             }
-      //           ]
-      //         }
-      //       ]
-      //     },
-
-      //     // 第二部分
-      //     {
-      //       path: "/introduction-to-algorithms/part-2",
-      //       name: "part-2",
-      //       routes: [
-      //         // 第6章 -- chapter 6
-      //         {
-      //           path: "/introduction-to-algorithms/part-2/chapter-6",
-      //           name: "chapter-6",
-      //           routes: [
-      //             // 第1小节 section 1 - 堆排序
-      //             {
-      //               path:
-      //                 "/introduction-to-algorithms/part-2/chapter-6/section-1",
-      //               name:
-      //                 "section-1",
-      //               component: "./Welcome/Welcome"
-      //             }
-      //           ]
-      //         },
-
-      //         // 第7章
-      //         {
-      //           path: "/introduction-to-algorithms/part-2/chapter-7",
-      //           name: "chapter-7",
-      //           component: "./Welcome/Welcome"
-      //         }
-      //       ]
-      //     },
-
-      //     // 第四部分 - 高级设计和分析技术
-      //     {
-      //       path: "/introduction-to-algorithms/part-4",
-      //       name: "part-4",
-      //       routes: [
-      //         // 第15章 -- chapter 15 - 动态规划
-      //         {
-      //           path: "/introduction-to-algorithms/part-4/chapter-15",
-      //           name: "chapter-15",
-      //           routes: [
-      //             // 第1小节 section 1 - 钢条切割问题
-      //             {
-      //               path:
-      //                 "/introduction-to-algorithms/part-4/chapter-15/section-1",
-      //               name:
-      //                 "section-1",
-      //               component:
-      //                 "./IntroductionToAlgorithms/Part4/Chapter15/Section1/Section1"
-      //             }
-      //           ]
-      //         },
-
-      //         // 第17章 -- 贪心算法
-      //         {
-      //           path: "/introduction-to-algorithms/part-4/chapter-16",
-      //           name: "chapter-16",
-      //           component: "./Welcome/Welcome"
-      //         }
-      //       ]
-      //     }
-      //   ]
-      // },
-
-      // 算法导论 (新) -- 不知道为什么, 不出现在route中, 之后再排查.
+      // 算法导论 (新)
       {
         path: "/introduction-to-algorithms",
         name: "introduction-to-algorithms",
@@ -174,24 +67,10 @@ export default [
           {
             path: "/introduction-to-algorithms/page",
             name: "page",
-            component: "./IntroductionToAlgorithms/New"
+            component: "./IntroductionToAlgorithms/Page"
           }
         ]
       },
-
-      // // 测试 markdown page
-      // {
-      //   path: "/test",
-      //   name: "test",
-      //   icon: "home",
-      //   routes: [
-      //     {
-      //       path: "/test/markdown",
-      //       name: "test-markdown",
-      //       component: "./Test/MarkdownPage"
-      //     }
-      //   ]
-      // },
 
       // 用户评论页面
       {
@@ -214,21 +93,6 @@ export default [
           }
         ]
       }
-
-      // 管理员界面
-      // {
-      //   path: "/admin",
-      //   name: "admin",
-      //   icon: "home",
-      //   //component: "./Comment/Comment"
-      //   routes: [
-      //     {
-      //       path: "/admin/role-list",
-      //       name: "role-list",
-      //       component: "./Admin/RoleList"
-      //     }
-      //   ]
-      // },
     ]
   }
 ];

@@ -63,8 +63,14 @@ export function getCurrentUserUrl() {
   return buildUrlWithTs(baseUrl, {});
 }
 
-// 请求算法导论 某1部分(part) / 章节(chapter) / 小节(section)的内容
-export function getAlgorithmsSectionPageUrl(params) {
+// GET 请求算法导论 目录 catalog.json 数据 (pages/IntroductionToAlgorithms/Page.js)
+export function getAlgorithmsCatalogUrl(params) {
+  let baseUrl = `${OpApi}/${introductionToAlgorithmsBase}/catalog`;
+  return buildUrlWithTs(baseUrl, params);
+}
+
+// 请求算法导论 某1部分(part) / 章节(chapter) / 小节(section)的内容 (新版本, md文件易维护.)
+export function getAlgorithmsMdPageUrl(params) {
   let baseUrl = `${OpApi}/${introductionToAlgorithmsBase}/page`;
   return buildUrlWithTs(baseUrl, params);
 }
@@ -72,13 +78,6 @@ export function getAlgorithmsSectionPageUrl(params) {
 // 普通用户注册 新账户
 export function userRegisterUrl() {
   let baseUrl = `${OpApi}/${authBase}/register`;
-  return buildUrlWithTs(baseUrl, {});
-}
-
-// 后台 markdown 测试 api
-export function getMarkdownPageUrl() {
-  // /api/v1/test/markdown
-  let baseUrl = `${OpApi}/${testBase}/markdown`;
   return buildUrlWithTs(baseUrl, {});
 }
 
