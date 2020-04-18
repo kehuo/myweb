@@ -31,7 +31,10 @@
 > LEFT(i) = 2 * i
 > RIGHT(i) = (2 * i) + 1
 
-### (图片 Building.... Coming Soon)
+
+[插图1]: http://localhost:8000/static/do_not_stop.jpg
+![插图1] 
+
 
 二叉堆可以分为2种形式, 最大堆 和 最小堆.
 > 最大堆性质: 除了根结点以外, 所有其他节点都满足:

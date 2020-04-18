@@ -23,9 +23,9 @@ export default {
   effects: {
     *init({ payload, callback }, { call, put }) {
       // init函数的参数 payload, 是 src/pages/Comment.js 中传过来的.
-      // console.log(
-      //   "models/commentList, init 函数中, payload= " + JSON.stringify(payload)
-      // );
+      console.log(
+        "models/commentList, init 函数中, payload= " + JSON.stringify(payload)
+      );
       const response = yield call(getCommentList, payload);
       if (!response.code || response.code != "SUCCESS") {
         message.error("init所有评论列表失败!");
