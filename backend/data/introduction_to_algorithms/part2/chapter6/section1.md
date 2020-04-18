@@ -32,7 +32,7 @@
 > RIGHT(i) = (2 * i) + 1
 
 
-[插图1]: http://localhost:8000/static/do_not_stop.jpg
+[插图1]: https://kevinhuo.cool/imgs/welcome/do_not_stop.jpg
 ![插图1] 
 
 

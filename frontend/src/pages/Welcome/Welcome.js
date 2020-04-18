@@ -7,8 +7,6 @@ let underscore = require("underscore");
 import numeral from "numeral";
 import { getTimeDistance } from "@/utils/utils";
 
-import do_not_stop_pic from "../../../public/imgs/welcome/do_not_stop.jpg";
-
 import styles from "./Welcome.less";
 
 //***重要: 这里的2个 welcome, 都是 namespace, 和 models/welcome.js 的文件名无关.
@@ -400,7 +398,6 @@ export default class Welcome extends React.Component {
           padding: 20
         }}
       >
-        <img src={do_not_stop_pic} />
         {this.buildTitle()}
         {this.buildNumbers()}
         {/* {this.buildOperationStatistics()} */}
