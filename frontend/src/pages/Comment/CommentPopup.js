@@ -40,13 +40,13 @@ export default class CommentPopup extends React.Component {
   constructor(props) {
     // STEP 1
     super(props);
-    console.log(
-      "Popup.js constructor函数, initData之前 this= " + JSON.stringify(this)
-    );
+    // console.log(
+    //   "Popup.js constructor函数, initData之前 this= " + JSON.stringify(this)
+    // );
     this.state = this.initData(props.item);
-    console.log(
-      "Popup.js constructor函数, initData之后 this= " + JSON.stringify(this)
-    );
+    // console.log(
+    //   "Popup.js constructor函数, initData之后 this= " + JSON.stringify(this)
+    // );
   }
 
   // 第一次加载 CommentList.js page时, items = {} 空字典.
@@ -58,7 +58,7 @@ export default class CommentPopup extends React.Component {
   //          "id":1
   //         }
   initData(item) {
-    console.log("popup.js, initData函数,  参数item=" + JSON.stringify(item));
+    //console.log("popup.js, initData函数,  参数item=" + JSON.stringify(item));
     let newState = {
       id: 0,
       comment_id: "",
@@ -111,7 +111,6 @@ export default class CommentPopup extends React.Component {
   onSubmit(isUpdate) {
     // console.log("Popup.js, onSubmit函数, this.state= " + JSON.stringify(this.state));
     // console.log("Popup.js, onSubmit函数, this.props= " + JSON.stringify(this.props));
-    console.log("popup.js onSubmit函数, isUpdate= " + isUpdate);
     const { id, comment_id, creator, content, created_at } = this.state;
     if (!this.props.onSubmit) {
       return;
@@ -164,12 +163,12 @@ export default class CommentPopup extends React.Component {
 
   // 第一次加载 this.props = {"visible":false,"item":{}}
   render() {
-    console.log(
-      "进入popup的render函数, this.state=" + JSON.stringify(this.state)
-    );
-    console.log(
-      "进入popup的render函数, this.props=" + JSON.stringify(this.props)
-    );
+    // console.log(
+    //   "进入popup的render函数, this.state=" + JSON.stringify(this.state)
+    // );
+    // console.log(
+    //   "进入popup的render函数, this.props=" + JSON.stringify(this.props)
+    // );
     const { id, comment_id, creator, content, created_at } = this.state;
     const { visible, item } = this.props;
     //const { visible, roleOptions, orgOptions, departmentOptions } = this.props;

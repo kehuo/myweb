@@ -87,6 +87,12 @@ export default {
   "menu.ml": "机器学习",
   "menu.ml.tagging": "标注模型",
 
+  // Azure demo
+  "menu.azure": "Azure",
+  "menu.azure.authorization-code": "Authorization Code",
+  "menu.azure.aad-redirect-uri": "Azure OAuth 重定向页面",
+  "menu.azure.access-token": "Access Token",
+
   "menu.introduction-to-algorithms": "算法导论",
   // 算法导论 - 第一部分
   "menu.introduction-to-algorithms.part-1": "第一部分 基础知识",

@@ -81,6 +81,12 @@ export function userRegisterUrl() {
   return buildUrlWithTs(baseUrl, {});
 }
 
+// Azure 请求 authorization code 页面 (这个后台api不需要任何参数)
+export function getAzureAuthorizationCodeDefaultParamsUrl(params) {
+  let baseUrl = `${OpApi}/${azureBase}/authorization_code_request_default_params`;
+  return buildUrlWithTs(baseUrl, {});
+}
+
 //########################## -- HUO Ke website urls END -- ##############################
 
 // disease package URLs

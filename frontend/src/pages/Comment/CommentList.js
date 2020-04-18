@@ -15,7 +15,6 @@ import {
 import CommentPopup from "./CommentPopup";
 
 import styles from "./Comment.less";
-import commentList from "../../models/commentList";
 let underscore = require("underscore");
 
 @connect(({ commentList }) => ({
@@ -75,7 +74,7 @@ export default class CommentList extends React.Component {
       type: "commentList/init",
       payload: this.buildListQueryParams()
     });
-    console.log("didMount结束, this.props= " + JSON.stringify(this.props));
+    //console.log("didMount结束, this.props= " + JSON.stringify(this.props));
   }
 
   onListPageChange(page, pageSize) {
@@ -99,14 +98,14 @@ export default class CommentList extends React.Component {
   // 当点了 “编辑” 按钮时, 只是打开了 "编辑评论" 的小窗口, 并不是真正修改.
   // 所以这个叫 editComment, 而不是 realEditComment
   editComment(record) {
-    console.log(
-      "CommentList.js, editComment函数, this.state= " +
-        JSON.stringify(this.state)
-    );
-    console.log(
-      "CommentList.js, editComment函数, this.props= " +
-        JSON.stringify(this.props)
-    );
+    // console.log(
+    //   "CommentList.js, editComment函数, this.state= " +
+    //     JSON.stringify(this.state)
+    // );
+    // console.log(
+    //   "CommentList.js, editComment函数, this.props= " +
+    //     JSON.stringify(this.props)
+    // );
     this.setState({
       showPopup: true,
       hotOne: record
@@ -203,14 +202,14 @@ export default class CommentList extends React.Component {
 
   buildOpBar() {
     // 刚进入 buildOpBar 时, this.props.commentList 还是空
-    console.log(
-      "CommentList.js, buildOpBar函数, this.state= " +
-        JSON.stringify(this.state)
-    );
-    console.log(
-      "CommentList.js, buildOpBar函数, this.props= " +
-        JSON.stringify(this.props)
-    );
+    // console.log(
+    //   "CommentList.js, buildOpBar函数, this.state= " +
+    //     JSON.stringify(this.state)
+    // );
+    // console.log(
+    //   "CommentList.js, buildOpBar函数, this.props= " +
+    //     JSON.stringify(this.props)
+    // );
     return (
       <Row style={{ marginTop: 10, marginBottom: 10 }}>
         <Col span={4} offset={1}>
@@ -254,14 +253,14 @@ export default class CommentList extends React.Component {
     // 所以, <CommentPopup/> 组件的 this.props 就检测到了变化.
     // 所以, 在 CommentPopup.js 中, react的内置函数 componentWillReceiveProps 函数就检测到了 this.props发生了变化.
     // 而且, componentWillReceiveProps 内置函数的触发原理就是 -- 当this.props变化时, 就会触发, 所以会Popup
-    console.log(
-      "CommentList.js, onShowNewPopup函数开始, this.state= " +
-        JSON.stringify(this.state)
-    );
-    console.log(
-      "CommentList.js, onShowNewPopup函数开始, this.props= " +
-        JSON.stringify(this.props)
-    );
+    // console.log(
+    //   "CommentList.js, onShowNewPopup函数开始, this.state= " +
+    //     JSON.stringify(this.state)
+    // );
+    // console.log(
+    //   "CommentList.js, onShowNewPopup函数开始, this.props= " +
+    //     JSON.stringify(this.props)
+    // );
     let x = {
       id: 0,
       name: ""
@@ -270,18 +269,19 @@ export default class CommentList extends React.Component {
       showPopup: true,
       hotOne: x
     });
-    console.log(
-      "CommentList.js, onShowNewPopup函数结束, this.state= " +
-        JSON.stringify(this.state)
-    );
-    console.log(
-      "CommentList.js, onShowNewPopup函数结束, this.props= " +
-        JSON.stringify(this.props)
-    );
+    // console.log(
+    //   "CommentList.js, onShowNewPopup函数结束, this.state= " +
+    //     JSON.stringify(this.state)
+    // );
+    // console.log(
+    //   "CommentList.js, onShowNewPopup函数结束, this.props= " +
+    //     JSON.stringify(this.props)
+    // );
   }
 
   // 在onSubmit函数中, 如果 reocrd.comment_id == "", 那么是新建评论的操作
   realCreateComment(record) {
+    //console.log("进入pages/realCreateComment函数")
     const { dispatch } = this.props;
     dispatch({
       type: "commentList/create",
@@ -323,16 +323,18 @@ export default class CommentList extends React.Component {
     // 当点 "确认"时, 会从 CommentPopup.js 的 onSubmit函数 回到当前CommentList.js的onSubmit函数.
     // 同时, 会携带在 CommentPopup.js 中输入的content内容, 存储在record.content中, 返回到这个函数中.
     let callback = null;
+    //console.log("进入pages/onSubmit函数")
     if (isUpdate) {
       // 编辑已有评论
       if (record.comment_id) {
-        // callback = this.realEditComment.bind(this, record);
-        this.realEditComment.bind(this, record);
+        this.realEditComment(record);
+        // this.realEditComment.bind(this, record);
       }
       // 新建评论
       if (!record.comment_id) {
-        // callback = this.realCreateComment.bind(this, record);
-        this.realCreateComment.bind(this, record);
+        //console.log("准备进入realCreateCommen函数")
+        this.realCreateComment(record);
+        //this.realCreateComment.bind(this, record);
       }
     }
 

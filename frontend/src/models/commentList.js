@@ -23,18 +23,18 @@ export default {
   effects: {
     *init({ payload, callback }, { call, put }) {
       // init函数的参数 payload, 是 src/pages/Comment.js 中传过来的.
-      console.log(
-        "models/commentList, init 函数中, payload= " + JSON.stringify(payload)
-      );
+      // console.log(
+      //   "models/commentList, init 函数中, payload= " + JSON.stringify(payload)
+      // );
       const response = yield call(getCommentList, payload);
       if (!response.code || response.code != "SUCCESS") {
         message.error("init所有评论列表失败!");
         return;
       }
-      console.log(
-        "models/commentList, init 函数请求后台完成, response= " +
-          JSON.stringify(response)
-      );
+      // console.log(
+      //   "models/commentList, init 函数请求后台完成, response= " +
+      //     JSON.stringify(response)
+      // );
       // 假如CommentList.js call 了 init 函数, 那么init函数会将 saveList 存储的数据返回给 CommentList.js 的 this.props.
       yield put({
         type: "saveList",
@@ -44,11 +44,11 @@ export default {
 
     // CommentPopup.js 在重新加载所有评论时， 会调用 fetch 函数
     *fetch({ payload, callback }, { call, put }) {
-      console.log(
-        "models/commentList, fetch 函数中, payload= " + JSON.stringify(payload)
-      );
+      // console.log(
+      //   "models/commentList, fetch 函数中, payload= " + JSON.stringify(payload)
+      // );
       const response = yield call(getCommentList, payload);
-      console.log("commentList.js fetch响应: " + response.code);
+      // console.log("commentList.js fetch响应: " + response.code);
       if (!response.code || response.code != "SUCCESS") {
         message.error("fetch评论列表失败!");
         return;
@@ -106,10 +106,10 @@ export default {
     // 存储 "获取所有评论列表" 的数据
     saveList(state, action) {
       let payload = action.payload;
-      console.log(
-        "models/init 函数, saveList 存储的数据 payload= " +
-          JSON.stringify(payload)
-      );
+      // console.log(
+      //   "models/init 函数, saveList 存储的数据 payload= " +
+      //     JSON.stringify(payload)
+      // );
       // 这里return是给 CommentList.js 的this.props, 即:
       // this.props = {"data": 这return的data, "total": 这return的total}
       return {
