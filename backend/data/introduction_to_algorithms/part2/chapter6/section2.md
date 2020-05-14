@@ -1,4 +1,4 @@
-# 维护堆的性质
+# 6.2 维护堆的性质
 [My Github Link](https://github.com/kehuo/algorithm_py3)
 
 MAX-HEAPIFY 是用于维护最大堆性质的重要过程。 他的输入是一个数组 A 和一个下标 i。在调用 MAX-HEAPIFY 的时
@@ -23,9 +23,8 @@ MAX-HEAPIFY 通过让 A\[i\] 的值在最大堆中"逐级下降", 从而使得�
     
 [插图1]: https://kevinhuo.cool/imgs/introduction_to_algorithms/part2/chapter6/section2/1.jpeg
 
-![插图1]
 
-从上图看出 MAX-HEAPIFY 的执行过程. 在程序的每一步中, 从 A\[i\]、 A\[LEFT(i)\] 和
+从上图 (图片即将到来...) 看出 MAX-HEAPIFY 的执行过程. 在程序的每一步中, 从 A\[i\]、 A\[LEFT(i)\] 和
 A\[RIGHT(i)\] 中选出最大的项, 并将其下标存储在 largest 中. 
 > 如果A\[i\]最大, 那么以 i 为根结点的子树已经是最大堆了, 程序结束.
 

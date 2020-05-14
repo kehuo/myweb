@@ -1,4 +1,4 @@
-# 优先队列
+# 6.5优先队列
 [My Github Link](https://github.com/kehuo/algorithm_py3)
 
 堆排序是一个优秀的算法，但是在实际应用中，后面章节中将要讲到的 "快速排序"，排序性能一般要优于堆
@@ -45,10 +45,8 @@
     
 [截图1]: https://kevinhuo.cool/imgs/introduction_to_algorithms/part2/chapter6/section5/1.jpg
 
-![截图1]
 
-
-上面的截图展示的 HEAP-INCREASE-KEY 的操作过程 (文中所说的关键字, 就是图中圆圈里的值, 比如15).
+上面的截图 (图片在building...) 展示的 HEAP-INCREASE-KEY 的操作过程 (文中所说的关键字, 就是图中圆圈里的值, 比如15).
 
 下面的伪代码能够实现 INSERT 操作。他的输入是要被插入到最大堆 A 中的新元素的关键字。 
 MAX-HEAP-INSERT 首先通过增加一个关键字，为 负无穷 的叶子结点来扩展最大堆。然后调用
