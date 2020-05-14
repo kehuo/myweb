@@ -43,3 +43,7 @@ RUN rm -rf /data/project
 
 # 4 退出 docker 即可
 # exit
+
+# 5 backend:
+# rm-2zeoob63lr5bl9tg6125010.mysql.rds.aliyuncs.com
+# docker run -it -d -p 5000:443 --name web_backend web_backend:v1 bash ./start.sh
