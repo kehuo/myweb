@@ -45,7 +45,4 @@ init_global_func(app)
 # 5.2 views funcs route (前后端没有分离之前, 暂时用过视图函数的路由, 但是现在不再需要, 所以2个都设置False, 不再初始化)
 from app.init_route import RouteInitializer
 route_initializer = RouteInitializer(app=app, api=api, api_version=api_version)
-route_initializer.run(init_default_api=True,
-                      init_model_api=True,
-                      init_default_views=False,
-                      init_model_views=False)
+route_initializer.run()
