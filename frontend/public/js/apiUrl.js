@@ -3,12 +3,9 @@ window.OpApi = "https://kevinhuo.cool:5000/api/v1";
 
 // if you want to create new route, first of all, need to add parent route name to the below array.
 window.modulesSupport = [
-  //"admin",
   "welcome",
   "introduction-to-algorithms",
-  "ml",
-  "azure",
-  "comment"
+  "ml"
 ];
 
 window.hideL2Path = {

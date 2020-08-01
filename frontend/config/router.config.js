@@ -58,37 +58,6 @@ export default [
         ]
       },
 
-      // Azure
-      {
-        path: "/azure",
-        name: "azure",
-        icon: "team",
-        routes: [
-          // azure oauth 请求 authroization code 的页面
-          {
-            path: "/azure/authorization-code",
-            name: "authorization-code",
-            // component: "./MachineLearning/Tagging/Tagging"
-            component: "./Azure/AuthorizationCode/AuthorizationCode"
-          },
-
-          // azure ad 验证的重定向返回uri
-          // 可以在这个页面选择 返回authroization code页面, 或者继续请求access token
-          {
-            path: "/azure/aad-redirect-uri",
-            name: "aad-redirect-uri",
-            component: "./Azure/AADRedirectUri/AADRedirectUri"
-          },
-
-          // azure oauth 请求 authroization code 的页面
-          {
-            path: "/azure/access-token",
-            name: "access-token",
-            component: "./MachineLearning/Tagging/Tagging"
-          }
-        ]
-      },
-
       // 算法导论 (新)
       {
         path: "/introduction-to-algorithms",

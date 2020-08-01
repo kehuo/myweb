@@ -28,23 +28,6 @@ def init_global_func(app):
     global_var['models'] = app.config['MODELS'].split(',')
     # global_var["secret_key"] = app.config["SECRET_KEY"]
 
-    # Azure AD common
-    global_var["client_id"] = app.config["CLIENT_ID"]
-    global_var["scope"] = app.config["SCOPE"]
-    global_var["redirect_uri"] = app.config["REDIRECT_URI"]
-
-    # Azure AD authZ code
-    global_var["azure_ad_authorize_endpoint"] = app.config["AZURE_AD_AUTHORIZE_ENDPOINT"]
-    global_var["response_type"] = app.config["RESPONSE_TYPE"]
-    global_var["response_mode"] = app.config["RESPONSE_MODE"]
-    global_var["state"] = app.config["STATE"]
-
-    # Azure AD access token
-    global_var["azure_ad_token_endpoint"] = app.config["AZURE_AD_TOKEN_ENDPOINT"]
-    global_var["grant_type"] = app.config["GRANT_TYPE"]
-    global_var["client_secret"] = app.config["CLIENT_SECRET"]
-    global_var["access_token_post_request_content_type"] = app.config["ACCESS_TOKEN_POST_REQUEST_CONTENT_TYPE"]
-
     # Introduction to Algorithms catalog json path (windows 和 linux 不一样)
     global_var["algorithm_catalog_json_path"] = app.config["ALGORITHM_CATALOG_JSON_PATH"]
 
@@ -84,4 +67,3 @@ def init_global_func(app):
         except Exception as e:
             print("init_func_list 运行失败, 错误信息:\n%s" % str(e))
             sys.exit(0)
-    print(global_var["db"])
